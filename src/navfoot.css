@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .navBarPage{
+  background-color: #461e54; 
+  -webkit-text-stroke-width: 0.2px;
+  -webkit-text-stroke-color: rgb(102, 0, 128);
+  }
+  
+  .titlePage{
+  font-family: "Goblin One", serif;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  cursor: pointer;
+  }
+  
+  .title-home{
+    font-family: "Goblin One", serif;
+  font-size: 4rem;
+  margin-top: 6rem;
+  margin-right: 0.5rem;
+  
+    text-shadow:  4px 3px rgba(0, 0, 0, 0.5); /* Sombra: desplazamiento en x, desplazamiento en y, desenfoque, color */
+  }
+  
+  .description-title{
+  font-size: 1.5rem;
+  background-color: green;
+  color: whitesmoke;
+  }
+  
+  .bx-tennis-ball, .bx-football{
+  font-size: 3.5rem;
+  }
+  
+  a:link, a:visited, a:active {
+  text-decoration:none;
+  }
+  
+  /*NavBar-Animation*/
+
+
+  h2 {
+    position: relative;
+    font-size: 2rem;
+    font-family: sans-serif;
+    -webkit-text-stroke: 0.1vw #383d52;
+    text-transform: uppercase;
+    }
+    
+    .bxs-user{
+    border: solid 1px;
+    border-radius: 0.5rem;
+    font-size: 2rem;
+    margin-top: 1rem;
+    color: whitesmoke;
+    }
+    
+    .bxs-user:hover{
+    color: #b535a8;
+    }
+    
+    .bxs-cart{
+    font-size: 2rem;
+    margin-top: 1rem;
+    color: #ffffff;
+    }
+    
+    
+    .animation::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    color: #b535a8;
+    
+    -webkit-text-stroke: 0vw #383d52;
+    border-right: 2px solid #b535a8;
+    overflow: hidden;
+
+    /* transition:animate 6s linear infinite; */
+    animation: animate 6s linear infinite;
+    }
+    
+    @keyframes animate {
+    0% {
+      width: 0;
+    }
+    70% {
+      width: 100%;
+    }
+    }
+    
+    
+    .navbar-nav .nav-link {
+      color: #b535a8;
+      padding: 0.5rem 0rem;
+      border-color: transparent;
+      margin-left: 1.5rem;
+      transition: none;
+    }
+    
+    .navbar .navbar-toggler:focus {
+      box-shadow: none;
+    }
+    
+    .navbar-nav .nav-link.active,
+    .border-green {
+      border-bottom: 3px solid #b535a8;
+    }
+    
+    .navbar-nav .nav-link:hover {
+      border-bottom: 3px solid #b535a8;
+    }
+    
+
+    
+    
+    
+    
+    /*Footer*/
+    
+    .titleFooter{
+    font-family: "Goblin One", system-ui;
+    -webkit-text-stroke-width: 0.2px;
+    -webkit-text-stroke-color: rgba(41, 9, 85, 0.396);
+    }
+    
+    .site-footer {
+    padding-top: 72px;
+    background-color: #461e54;
+    padding-bottom: 1px;
+    }
+    
+    @media (max-width: 768px) {
+    .site-footer {
+      padding-top: 48px;
+    }
+    }
+    .footer-copyright {
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 24px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    font-weight: normal;
+    }
+    .footer-copyright > a {
+    transition: color 0.25s;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    }
+    
+    
+    .widget-title {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #9da9b9;
+    color: #9da9b9;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    }
+    
+    .link-footer{
+    color: whitesmoke;
+    
+    margin-bottom: 1rem;
+    }
+    
+    .link-footer:hover{
+    color: #0c38e7;
+    }
+    
+    
+    
