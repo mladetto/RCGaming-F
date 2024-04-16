@@ -1,0 +1,44 @@
+.titleFooter{
+    font-family: "Goblin One", system-ui;
+    -webkit-text-stroke-width: 0.2px;
+    -webkit-text-stroke-color: rgba(41, 9, 85, 0.396);
+    }
+    
+    .site-footer {
+    padding-top: 72px;
+    background-color: #3b074e;
+    padding-bottom: 1px;
+    }
+    
+   
+    .footer-copyright {
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 24px;
+    color: rgba(255, 255, 255, 0.805);
+    font-size: 14px;
+    font-weight: normal;
+    }
+    .footer-copyright > a {
+    transition: color 0.25s;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    }
+    
+    
+    .widget-title {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #9da9b9;
+    color: #9da9b9;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    }
+    
+    .link-footer{
+    color: whitesmoke;
+    
+    margin-bottom: 1rem;
+    }
+    
