@@ -11,6 +11,8 @@ const Login = () => {
   const handleClose = () => setShow(false);
  //const handleShow = () => setShow(true);
 
+ const API=import.meta.env.VITE_API
+
  const LoginSchema=Yup.object().shape({
   email: Yup.string().required("El email es requerido").min(8).max(125),
   password: Yup.string().required("La contraseña es requerida").min(8).max(20)
@@ -26,8 +28,20 @@ const Formik= useFormik({
     validationSchema: LoginSchema,
     validateOnBlur:true,
     validateOnChange:true,
-    onSubmit:(values)=>{
+    onSubmit: async(values)=>{
         //console.log("Values-->", values);
+        try {
+          const response= await axios.post(`${API}/users/login`, values);
+          if (response.status===200) {
+            Formik.resetForm();
+            handleClose();
+          }else{
+            alert("Ocurrio un error al ingresar")
+          }
+        } catch (error) {
+          alert(`{error.response.data.message}`)
+                console.error(error);
+        }
     }
 })
 
