@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import FormCrearProducto from "../../Components/crud-productos/FormCrearProducto";
+import FormCrearProducto from "../productos/FormCrearProducto";
 
 const Administración = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Administración = () => {
           }}
         ></Button>
       </div>
-      <FormCrearProducto></FormCrearProducto>
+      <FormCrearProducto />
     </div>
   );
 };

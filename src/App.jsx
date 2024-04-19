@@ -2,7 +2,7 @@ import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './Components/pages/Home'
 import Administración from './Components/pages/Admin';
-import FormCrearProducto from "./Components/crud-productos/FormCrearProducto";
+import FormCrearProducto from "./Components/productos/FormCrearProducto";
 
 
 function App() {
