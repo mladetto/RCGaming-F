@@ -1,0 +1,24 @@
+{
+  "productos": [
+    {
+      "id": "a535",
+      "título": "placa de video",
+      "descripción": "asdaasdasd",
+      "precio": "2563",
+      "categoría": "placaVideo",
+      "cantidadProductoParaAgregar": "2",
+      "stock": "23",
+      "fechaUltimoControlStock": "2024-02-25"
+    },
+    {
+      "id": "4e3e",
+      "título": "12312",
+      "descripción": "123123",
+      "precio": "235",
+      "categoría": "notebook",
+      "cantidadProductoParaAgregar": "252",
+      "stock": "23",
+      "fechaUltimoControlStock": "2024-12-20"
+    }
+  ]
+}

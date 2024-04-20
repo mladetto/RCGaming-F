@@ -1,3 +1,4 @@
+
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
@@ -5,74 +6,68 @@ import Swal from "sweetalert2";
 import clsx from "clsx";
 import { Button, Form } from "react-bootstrap";
 
-// Producto:
-// -categoriaId
-// -título
-// -precio
-// -stock
-// -imagen
-// -descripcion
-// -caracteristica
-// -fecha de control de stock
-// -destacado
 
-  const FormCrearProducto = () => {
+const FormCrearProducto = () => {
 
   const navigate = useNavigate();
   const API = import.meta.env.VITE_API;
+  console.log("entro para validar");
 
   const esquemaProducto = Yup.object().shape({
     título: Yup.string()
-      .min(4,"El titulo del producto tiene que tener 4 caracteres como mínimo")
-      .max(40,"El titulo del producto puede tener 30 caracteres como máximo")
+      .min(4, "El título del producto tiene que tener 4 caracteres como mínimo")
+      .max(40, "El título del producto puede tener 30 caracteres como máximo")
       .required("El título del producto es requerido"),
     descripción: Yup.string()
       .min(4,"La descripción del producto tiene que tener 4 caracteres como mínimo")
-      .max(300,"El titulo del producto puede tener 300 caracteres como máximo")
+      .max(300,"La descripción del producto puede tener 300 caracteres como máximo")
       .required("La descripción del producto es requerida"),
     precio: Yup.number()
-      .min(2, "El precio del producto tiene que tener como mínimo 2 dígito")
-      .max(7, "El precio del producto tiene que tener como máximo 7 dígito")
+      .min(10, "El valor mínimo de un producto es de $100")
+      .max(10000000, "El valor máximo de un producto es de $10000000")
       .required("El precio del producto es requerido"),
     categoría: Yup.string()
       .required("La categoría es requerida"),
     cantidadProductoParaAgregar: Yup.number()
-      .min(1, "La cantidad de producto tiene que tener como mínimo 1 dígito")
-      .max(3, "La cantidad de producto tiene que tener como máximo 3 dígitos")
+      .min(1,"Se puede agregar como mínimo 1 producto al stock")
+      .max(1000,"Se puede agregar como máximo 1000 productos al stock")
       .required("La cantidad de producto que se desea cargar es requerida"),
     stock: Yup.number()
-      .min(1, "La cantidad de producto en stock tiene que tener como mínimo 1 dígito")
-      .max(4, "La cantidad de producto en stock tiene que tener como máximo 4 dígitos")
+      .min(0,"Puede no haber nada en el stock de productos")
+      .max(500000,"La cantidad de producto en stock es de 500000")
       .required("La cantidad de producto en stock que es requerida"),
-    fechaUltimoControlStock: Yup.date().required(
-      "La fecha del último control del stock es requerida"),
+    fechaUltimoControlStock: Yup.date()
+      .required("La fecha del último control del stock es requerida"),
   });
 
-  const valoresIniciales = {
+  const initialValues = {
     título: "",
     descripción: "",
     precio: "",
     categoría: "",
     cantidadProductoParaAgregar: "",
     stock: "",
-    fechaUltimoControlStock: "",
+    fechaUltimoControlStock: ""
   };
 
   const formik = useFormik({
+    initialValues,
     validationSchema: esquemaProducto,
-    valoresIniciales,
     validationOnBlur: true,
     validationOnChange: true,
-    onsubmit: (values) => {
+    onSubmit: (values) => {
+        console.log("los valores del formulario son:", values);
       Swal.fire({
-        título: "Estas seguro de guardar este producto?",
+        title: "Estas seguro de guardar este producto?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Guardar",
-      }).then(async (result) => {
+      }).then( async (result) => {
+
         if (result.isConfirmed) {
+
           try {
             const response = await fetch(`${API}/productos`, {
               method: "POST",
@@ -85,11 +80,11 @@ import { Button, Form } from "react-bootstrap";
             if (response.status === 201) {
               formik.resetForm();
               Swal.fire({
-                título: "Éxito",
+                title: "Éxito",
                 text: "Se creó el producto exitosamente",
                 icon: "success",
               });
-              navigate ("/Admin");
+              navigate("/Admin");
             }
           } catch (error) {
             console.error("Tenes un error de tipo", error);
@@ -100,25 +95,20 @@ import { Button, Form } from "react-bootstrap";
   });
 
   return (
-    <div>
-      <div>
-        <h1>Página de Administración</h1>
-      </div>
+    <div className="mx-5">
       <Button
         variant="primary"
         onClick={() => {
-          navigate(-1);
+          navigate(-1)
         }}
       >
         Atrás
       </Button>
       <div className="text-center">
-        <h2>NUESTROS PRODUCTOS</h2>
+        <h2>Agregar un producto</h2>
       </div>
 
-      <Form 
-        onSubmit={formik.handleSubmit}
-      >
+      <Form onSubmit={formik.handleSubmit}>
         <Form.Group className="mb-3" controlId="título">
           <Form.Label>Título del producto</Form.Label>
           <Form.Control
@@ -174,19 +164,15 @@ import { Button, Form } from "react-bootstrap";
           <Form.Control
             type="text"
             placeholder="Ingrese el precio del producto"
-            minLength={2}
-            maxLength={7}
             name="precio"
             {...formik.getFieldProps("precio")}
             className={clsx(
               "form-control",
               {
-                "is-invalid":
-                  formik.touched.precio && formik.errors.precio,
+                "is-invalid": formik.touched.precio && formik.errors.precio,
               },
               {
-                "is-valid":
-                  formik.touched.precio && !formik.errors.precio,
+                "is-valid": formik.touched.precio && !formik.errors.precio,
               }
             )}
           />
@@ -201,13 +187,18 @@ import { Button, Form } from "react-bootstrap";
           <Form.Select
             aria-label="categoría"
             name="categoría"
+            type="text"
             {...formik.getFieldProps("categoría")}
             className={clsx(
               "form-control",
               {
-                "is-invalid": formik.touched.categoría && formik.errors.categoría,
+                "is-invalid":
+                  formik.touched.categoría && formik.errors.categoría,
               },
-              { "is-valid": formik.touched.categoría && !formik.errors.categoría }
+              {
+                "is-valid":
+                  formik.touched.categoría && !formik.errors.categoría,
+              }
             )}
           >
             <option value="">Seleccione una Categoría</option>
@@ -226,52 +217,74 @@ import { Button, Form } from "react-bootstrap";
           <Form.Control
             type="text"
             placeholder="Ingrese la cantidad de productos al stock"
-            minLength={1}
-            maxLength={3}
             name="cantidadProductoParaAgregar"
             {...formik.getFieldProps("cantidadProductoParaAgregar")}
             className={clsx(
               "form-control",
               {
                 "is-invalid":
-                  formik.touched.cantidadProductoParaAgregar && formik.errors.cantidadProductoParaAgregar,
+                  formik.touched.cantidadProductoParaAgregar &&
+                  formik.errors.cantidadProductoParaAgregar,
               },
               {
                 "is-valid":
-                  formik.touched.cantidadProductoParaAgregar && !formik.errors.cantidadProductoParaAgregar,
+                  formik.touched.cantidadProductoParaAgregar &&
+                  !formik.errors.cantidadProductoParaAgregar,
               }
             )}
           />
-          {formik.touched.cantidadProductoParaAgregar && formik.errors.cantidadProductoParaAgregar && (
-            <div className="mt-2 text-danger fw-bolder">
-              <span role="alert">{formik.errors.cantidadProductoParaAgregar}</span>
-            </div>
-          )}
+          {formik.touched.cantidadProductoParaAgregar &&
+            formik.errors.cantidadProductoParaAgregar && (
+              <div className="mt-2 text-danger fw-bolder">
+                <span role="alert">
+                  {formik.errors.cantidadProductoParaAgregar}
+                </span>
+              </div>
+            )}
         </Form.Group>
         <Form.Group className="mb-3" controlId="stock">
           <Form.Label>En stock</Form.Label>
           <Form.Control
             type="text"
             placeholder="La cantidad de productos disponible"
-            minLength={1}
-            maxLength={4}
             name="stock"
             {...formik.getFieldProps("stock")}
             className={clsx(
               "form-control",
               {
-                "is-invalid":
-                  formik.touched.stock && formik.errors.stock,
+                "is-invalid": formik.touched.stock && formik.errors.stock,
               },
               {
-                "is-valid":
-                  formik.touched.stock && !formik.errors.stock,
+                "is-valid": formik.touched.stock && !formik.errors.stock,
               }
             )}
           />
           {formik.touched.stock && formik.errors.stock && (
             <div className="mt-2 text-danger fw-bolder">
               <span role="alert">{formik.errors.stock}</span>
+            </div>
+          )}
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="fechaUltimoControlStock">
+          <Form.Label>Fecha de último control de stock</Form.Label>
+          <Form.Control
+            type="date"
+            placeholder="Ingrese la fecha del último control de stock"
+            name="fechaUltimoControlStock"
+            {...formik.getFieldProps("fechaUltimoControlStock")}
+            className={clsx(
+              "form-control",
+              {
+                "is-invalid": formik.touched.fechaUltimoControlStock && formik.errors.fechaUltimoControlStock,
+              },
+              {
+                "is-valid": formik.touched.fechaUltimoControlStock && !formik.errors.fechaUltimoControlStock,
+              }
+            )}
+          />
+          {formik.touched.fechaUltimoControlStock && formik.errors.fechaUltimoControlStock && (
+            <div className="mt-2 text-danger fw-bolder">
+              <span role="alert">{formik.errors.fechaUltimoControlStock}</span>
             </div>
           )}
         </Form.Group>

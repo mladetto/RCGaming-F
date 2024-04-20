@@ -1,21 +1,30 @@
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import FormCrearProducto from "../productos/FormCrearProducto";
 
 const Administración = () => {
   const navigate = useNavigate();
 
   return (
     <div>
+      <div>
+        <h1>Página de Administración</h1>
+      </div>
       <div className="container">
         <Button
           variant="success"
           onClick={() => {
             navigate("/crear-producto");
           }}
-        ></Button>
+        >Administrar productos
+        </Button>
+        {/* <Button
+          variant="danger"
+          onClick={() => {
+            navigate("");
+          }}
+        >Administrar usuarios
+        </Button> */}
       </div>
-      <FormCrearProducto />
     </div>
   );
 };
