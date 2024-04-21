@@ -1,15 +1,14 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import * as Yup from "yup";
 
 
-const Login = () => {
+const Login = ({isShow, handleclose}) => {
     const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
- //const handleShow = () => setShow(true);
 
  const API=import.meta.env.VITE_API
 
@@ -47,17 +46,12 @@ const Formik= useFormik({
 
     return (
         <>
-        //Va en el navbar
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button> */}
-
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={isShow} onHide={handleclose}>
         <Modal.Header closeButton>
           <Modal.Title>Iniciar Sesion</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-         <Form>
+         <Form >
       <Form.Group className="mb-3" controlId="Email">
         <Form.Label>Email</Form.Label>
         <Form.Control type="email" placeholder="Ingrese su email" />
@@ -67,12 +61,14 @@ const Formik= useFormik({
         <Form.Label>Contraseña</Form.Label>
         <Form.Control type="password" placeholder="Ingrese su contraseña" />
       </Form.Group>
-      <Button type='submit' variant="secondary" onClick={handleClose}>
+      <div>
+      <Button type='submit' variant="secondary" onClick={handleclose}>
             Cerrar
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleclose}>
             Ingresar
           </Button>
+          </div>
     </Form>
     </Modal.Body>
       </Modal>
