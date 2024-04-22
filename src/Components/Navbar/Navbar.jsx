@@ -1,11 +1,17 @@
 import React from 'react'
 import "../Navbar/Navbar.css"
-
+import Login from "../sections/Login"
+import { Button, Nav } from 'react-bootstrap';
+import {  useState } from 'react';
 
 const Navbar = () => {
-  
+  const [isShow, setIsShow]=useState(false);
+  const handleShow = () => setIsShow(true);
+  const handleClose = () => setIsShow(false);
+
   return (
     <>
+    <Login isShow={isShow} handleClose={handleClose} />
     <nav className="navBarPage navbar navbar-expand-lg navbar-light">
         <div className="container-fluid">
           <h4 className="titlePage text-light">RCGames</h4>
@@ -42,16 +48,17 @@ const Navbar = () => {
   
             </ul>
   
-            <ul className="navbar-nav">
+          
+             <ul className="navbar-nav">
             <li id="btnLogueo"  className="nav-item">
-              <a className="nav-link text-light" href="!#">Iniciar Sesión</a>
+              <a className="nav-link text-light"   onClick={handleShow} >Iniciar Sesión</a>
             </li>
-             
           </ul>
+
   
           <ul id="carrito" className="nav-item">
-               <a className="nav-link text-light p-0 me-4" aria-current="page" href="!#"><i
-                  className='bx bxs-cart bx-tada-hover'></i></a>
+               <a className="nav-link text-light p-0 me-4" aria-current="page" href="!#"><i 
+               className='bx bxs-cart bx-tada-hover'></i></a>
                 
           </ul>
    
