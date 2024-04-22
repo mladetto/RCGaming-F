@@ -5,6 +5,7 @@ import 'swiper/css/navigation';
 import { Container } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 
@@ -20,13 +21,12 @@ const News = () => {
 
     async function getProductsNews() {
         try {
-            const resp = await axios.get(`${API}/products/news`);
+            const resp = await axios.get(`${API}/products/news/product`);
             setNews(resp.data);
         } catch (error) {
             throw new Error("Error al obtener los productos destacados" + error.message);
         }
     }
-    console.log("productos->",news)
 
     return (
         <Container>
@@ -55,8 +55,10 @@ const News = () => {
             >
                 {news.map((product, index) => (
                     <SwiperSlide key={index} className='swiper-card shadow'>
-                        <img src={product.imageUrl} alt={product.name} />
-                        <h5>{product.name}</h5>
+                        <Link to={`/products/${product._id}`}>
+                            <img src={product.imageUrl} alt={product.name} />
+                            <h5>{product.name}</h5>
+                        </Link>
                     </SwiperSlide>
                 ))}
             </Swiper>

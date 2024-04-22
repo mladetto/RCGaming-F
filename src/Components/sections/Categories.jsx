@@ -16,7 +16,7 @@ const Categories = () => {
 
     async function getCategories() {
         try {
-            const resp = await axios.get(`${API}/products/categories`);
+            const resp = await axios.get(`${API}/products/categories/product`);
             setCategories(resp.data);
         } catch (error) {
             throw new Error("Error al obtener las categorias" + error.message);
