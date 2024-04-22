@@ -94,7 +94,7 @@ const Register = ({ show, handleClose }) => {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={formik.handleSubmit}>
-            <Form.Group className="mb-3" controlId="email">
+            <Form.Group className="mb-3" controlId="name">
               <Form.Label>Nombre completo</Form.Label>
               <Form.Control
                 type="text"
@@ -119,7 +119,8 @@ const Register = ({ show, handleClose }) => {
                   <span role="alert">{formik.errors.name}</span>
                 </div>
               )}
-
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="email">
               <Form.Label>Correo</Form.Label>
               <Form.Control
                 type="email"
@@ -146,9 +147,9 @@ const Register = ({ show, handleClose }) => {
               )}
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="password">
-              <div className="d-flex flex-column flex-md-row mb-2">
-                <div className="me-md-2 flex-grow-1">
+            <div className="d-flex flex-column flex-md-row mb-2">
+              <Form.Group className="mb-1 flex-grow-1" controlId="password">
+                <div className="me-md-2 ">
                   <Form.Label>Contraseña</Form.Label>
                   <div className="input-group ">
                     <Form.Control
@@ -186,7 +187,9 @@ const Register = ({ show, handleClose }) => {
                     </div>
                   )}
                 </div>
-                <div className="ms-md-2 flex-grow-1">
+              </Form.Group>
+              <Form.Group className="mb-1 flex-grow-1" controlId="passwordR">
+                <div className="ms-md-2 ">
                   <Form.Label>Repetir contraseña</Form.Label>
                   <div className="input-group">
                     <Form.Control
@@ -227,15 +230,15 @@ const Register = ({ show, handleClose }) => {
                       </div>
                     )}
                 </div>
-              </div>
-              <Form.Text className="text-muted ">
-                La contraseña debe tener al entre 8 y 16 caracteres, al menos un
-                dígito, al menos una minúscula, al menos una mayúscula y al
-                menos un caracter no alfanumérico.
-              </Form.Text>
-            </Form.Group>
+              </Form.Group>
+            </div>
+            <Form.Text className="text-muted ">
+              La contraseña debe tener al entre 8 y 16 caracteres, al menos un
+              dígito, al menos una minúscula, al menos una mayúscula y al menos
+              un caracter no alfanumérico.
+            </Form.Text>
 
-            <div>
+            <div className="mt-2">
               <Button
                 variant="secondary"
                 onClick={handleClose}
