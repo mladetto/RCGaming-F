@@ -1,7 +1,7 @@
 import React from 'react'
 import "../Navbar/Navbar.css"
 import Login from "../sections/Login"
-import { Button } from 'react-bootstrap';
+import { Button, Nav } from 'react-bootstrap';
 import {  useState } from 'react';
 
 const Navbar = () => {
@@ -48,12 +48,13 @@ const Navbar = () => {
   
             </ul>
   
-            <ul className="navbar-nav">
+          
+             <ul className="navbar-nav">
             <li id="btnLogueo"  className="nav-item">
-              <Button className="nav-link text-light"  onClick={handleShow}>Iniciar Sesión</Button>
+              <a className="nav-link text-light"   onClick={handleShow} >Iniciar Sesión</a>
             </li>
-             
           </ul>
+
   
           <ul id="carrito" className="nav-item">
                <a className="nav-link text-light p-0 me-4" aria-current="page" href="!#"><i 

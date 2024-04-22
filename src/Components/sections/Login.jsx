@@ -1,14 +1,16 @@
+import clsx from 'clsx';
 import { useFormik } from 'formik';
-import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import * as Yup from "yup";
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import UserContext from '../Context/UserContext';
+import { useContext } from 'react';
 
-
-const Login = ({isShow, handleclose}) => {
-    const [show, setShow] = useState(false);
-
+const Login = ({isShow, handleClose}) => {
+ const {setCurrentUser, saveAuth}= useContext(UserContext);
 
  const API=import.meta.env.VITE_API
 
@@ -28,17 +30,26 @@ const Formik= useFormik({
     validateOnBlur:true,
     validateOnChange:true,
     onSubmit: async(values)=>{
-        //console.log("Values-->", values);
         try {
           const response= await axios.post(`${API}/users/login`, values);
           if (response.status===200) {
+            saveAuth(response.data)
+            setCurrentUser(response.data)
             Formik.resetForm();
             handleClose();
-          }else{
-            alert("Ocurrio un error al ingresar")
+          }else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "Email y/o usuario incorrecto",
+            });
           }
         } catch (error) {
-          alert(`{error.response.data.message}`)
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Email y/o usuario incorrecto",
+          });
                 console.error(error);
         }
     }
@@ -46,27 +57,35 @@ const Formik= useFormik({
 
     return (
         <>
-      <Modal show={isShow} onHide={handleclose}>
+      <Modal show={isShow} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Iniciar Sesion</Modal.Title>
+          <Modal.Title>Iniciar Sesión</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-         <Form >
+         <Form onSubmit={Formik.handleSubmit} >
       <Form.Group className="mb-3" controlId="Email">
         <Form.Label>Email</Form.Label>
-        <Form.Control type="email" placeholder="Ingrese su email" />
+        <Form.Control type="email" placeholder="Ingrese su email" name="email" {...Formik.getFieldProps("email")}
+        className={clsx('Form-control',{
+          "is-invalid": Formik.touched.email && Formik.errors.email
+        })} 
+        />
       </Form.Group>
-
-      <Form.Group className="mb-3" controlId="Password">
+      <Form.Group className="mb-3" controlId="Password" >
         <Form.Label>Contraseña</Form.Label>
-        <Form.Control type="password" placeholder="Ingrese su contraseña" />
+        <Form.Control type="password" placeholder="Ingrese su contraseña" name="password"
+      {...Formik.getFieldProps("password")}
+      className ={clsx("Form-control",{
+        "is-invalid": Formik.touched.password && Formik.errors.password
+      })} 
+      />
       </Form.Group>
       <div>
-      <Button type='submit' variant="secondary" onClick={handleclose}>
-            Cerrar
-          </Button>
-          <Button variant="primary" onClick={handleclose}>
+          <Button type='submit' variant="primary" className='mx-2'>
             Ingresar
+          </Button>
+      <Button  variant="danger" className='mx-2' onClick={handleClose}>
+            Cerrar
           </Button>
           </div>
     </Form>
