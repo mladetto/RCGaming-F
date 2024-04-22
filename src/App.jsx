@@ -1,6 +1,8 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './Components/pages/Home'
+import Admin from './Components/pages/Admin';
+import FormCreateProduct from "./Components/products/FormCreateProduct";
 import Product from './Components/sections/Product'
 import Header from './Components/Header/Header'
 import Footer from './Components/Footer/Footer'
@@ -37,7 +39,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path="/Admin" element={<Admin />}></Route>
+          <Route path="/createProduct" element={<FormCreateProduct />}></Route>
+
           <Route path='/products/:id' element={<Product/>} />
+
         </Routes>
       </BrowserRouter>
       <Footer />

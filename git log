@@ -1,0 +1,32 @@
+[33mcommit b83932fc68abcaeb4bcd63a3b6be37bcebc70e5b[m[33m ([m[1;36mHEAD -> [m[1;32mAdminPage_v1[m[33m)[m
+Author: rodrigocardoso <rodrigocardoso080488@gmail.com>
+Date:   Fri Apr 19 10:46:07 2024 -0300
+
+    Se creó el formulario para la creación de productos
+
+[33mcommit b6490c7b843a241c4d3fbd7e53707bd4ae965b5b[m
+Author: rodrigocardoso <rodrigocardoso080488@gmail.com>
+Date:   Fri Apr 19 10:33:21 2024 -0300
+
+    Se créo la página de Admin y se creó la ruta para enlazar dicha página
+
+[33mcommit 945f4ef8b1e6b8f7a8fd9fb271a709a413b39afe[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m
+Merge: ab61c7d b1fd9eb
+Author: FelixLamas <62721812+FelixLamas@users.noreply.github.com>
+Date:   Sun Apr 14 19:58:45 2024 -0300
+
+    Merge pull request #1 from mladetto/home_v1
+    
+    estructura basica del home
+
+[33mcommit b1fd9eb056a72699142149d86949f449694968f8[m[33m ([m[1;31morigin/home_v1[m[33m)[m
+Author: 3steban99 <barrionuevo99@outlook.com>
+Date:   Thu Apr 11 21:05:10 2024 -0300
+
+    estructura basica del home
+
+[33mcommit ab61c7dfbe4576f4700abd6e119cf14ddc30ab92[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: mladetto <ladettin@gmail.com>
+Date:   Wed Apr 10 21:41:23 2024 -0300
+
+    se sube estructura base del proyecto Front
