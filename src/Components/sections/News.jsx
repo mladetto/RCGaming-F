@@ -3,11 +3,31 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Container } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 
 
 const News = () => {
+    const [news, setNews] = useState([])
+
+    const API = import.meta.env.VITE_API;
+
+    useEffect(() => {
+        getProductsNews();
+    }, []);
+
+    async function getProductsNews() {
+        try {
+            const resp = await axios.get(`${API}/products/news/product`);
+            setNews(resp.data);
+        } catch (error) {
+            throw new Error("Error al obtener los productos destacados" + error.message);
+        }
+    }
+
     return (
         <Container>
             <h2>outstandings</h2>
@@ -33,16 +53,14 @@ const News = () => {
                 }}
                 className='swiper-news'
             >
-                <SwiperSlide className='swiper-card'>Slide 1</SwiperSlide>
-                <SwiperSlide className='swiper-card'>Slide 2</SwiperSlide>
-                <SwiperSlide className='swiper-card'>Slide 3</SwiperSlide>
-                <SwiperSlide className='swiper-card'>Slide 3</SwiperSlide>
-                <SwiperSlide className='swiper-card'>Slide 3</SwiperSlide>
-                <SwiperSlide className='swiper-card'>Slide 3</SwiperSlide>
-                <SwiperSlide className='swiper-card'>Slide 3</SwiperSlide>
-                <SwiperSlide className='swiper-card'>Slide 3</SwiperSlide>
-                <SwiperSlide className='swiper-card'>Slide 3</SwiperSlide>
-
+                {news.map((product, index) => (
+                    <SwiperSlide key={index} className='swiper-card shadow'>
+                        <Link to={`/products/${product._id}`}>
+                            <img src={product.imageUrl} alt={product.name} />
+                            <h5>{product.name}</h5>
+                        </Link>
+                    </SwiperSlide>
+                ))}
             </Swiper>
         </Container>
     )
