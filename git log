@@ -8,7 +8,7 @@ Date:   Fri Apr 19 10:46:07 2024 -0300
 Author: rodrigocardoso <rodrigocardoso080488@gmail.com>
 Date:   Fri Apr 19 10:33:21 2024 -0300
 
-    Se créo la página de administración y se creó la ruta para enlazar dicha página
+    Se créo la página de Admin y se creó la ruta para enlazar dicha página
 
 [33mcommit 945f4ef8b1e6b8f7a8fd9fb271a709a413b39afe[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m
 Merge: ab61c7d b1fd9eb

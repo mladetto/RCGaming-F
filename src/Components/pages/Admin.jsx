@@ -1,21 +1,23 @@
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import TableProducts from "../products/TableProducts";
 
-const Administración = () => {
+const Admin = () => {
+
   const navigate = useNavigate();
 
   return (
     <div>
       <div>
-        <h1>Página de Administración</h1>
+        <h1>Administrador</h1>
       </div>
       <div className="container">
         <Button
           variant="success"
           onClick={() => {
-            navigate("/crear-producto");
+            navigate("/createProduct")
           }}
-        >Administrar productos
+        >Crear un producto
         </Button>
         {/* <Button
           variant="danger"
@@ -25,8 +27,9 @@ const Administración = () => {
         >Administrar usuarios
         </Button> */}
       </div>
+      <TableProducts />
     </div>
   );
 };
 
-export default Administración;
+export default Admin;

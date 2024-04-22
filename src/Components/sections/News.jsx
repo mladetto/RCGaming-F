@@ -10,7 +10,7 @@ import { Container } from 'react-bootstrap';
 const News = () => {
     return (
         <Container>
-            <h2>Destacados</h2>
+            <h2>outstandings</h2>
             <Swiper
                 modules={[Navigation]}
                 slidesPerView={1}
