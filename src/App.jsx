@@ -7,46 +7,51 @@ import Product from './Components/sections/Product'
 import Header from './Components/Header/Header'
 import Footer from './Components/Footer/Footer'
 import userContext from "./Components/Context/UserContext"
-import { useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
+import { CartProvider } from './Components/Context/CardContext';
+import Cart from './Components/Cart/Cart';
+
 
 
 
 function App() {
-  const [currentUser, setCurrentUser]=useState(undefined);
-  const SaveAuth=(auth)=>{
+  const [currentUser, setCurrentUser] = useState(undefined);
+  const SaveAuth = (auth) => {
     sessionStorage.setItem("auth", JSON.stringify(auth));
   };
 
-  const GetAuth=()=>{
+  const GetAuth = () => {
     return JSON.parse(sessionStorage.getItem("auth"))
   };
 
 
-  useEffect(()=>{
-    const session= GetAuth();
+  useEffect(() => {
+    const session = GetAuth();
     if (session) {
       setCurrentUser(session)
     }
-    return ()=>{
+    return () => {
       setCurrentUser(undefined);
-    } 
+    }
   }, [])
 
   return (
     <>
-    <userContext.Provider value={{currentUser, setCurrentUser, SaveAuth, GetAuth}} >
-      <Header />
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path="/Admin" element={<Admin />}></Route>
-          <Route path="/createProduct" element={<FormCreateProduct />}></Route>
+      <userContext.Provider value={{ currentUser, setCurrentUser, SaveAuth, GetAuth }} >
+        <CartProvider>
+          <Header />
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path="/Admin" element={<Admin />}></Route>
+              <Route path="/createProduct" element={<FormCreateProduct />}></Route>
+              <Route path='/products/:id' element={<Product />} />
+              <Route path='/cart' element={<Cart />} />
 
-          <Route path='/products/:id' element={<Product/>} />
-
-        </Routes>
-      </BrowserRouter>
-      <Footer />
+            </Routes>
+          </BrowserRouter>
+          <Footer />
+        </CartProvider>
       </userContext.Provider>
     </>
   )
