@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import Count from "../CountProduct/Count";
 
 
 const Product = () => {
@@ -40,7 +41,7 @@ const Product = () => {
                         <p>Stock: {productsId.stock}</p>
                     </div>
                     <div>
-                        <Button>Añadir</Button>
+                        <Count initial={1} stock={productsId.stock} />
                     </div>
                 </Col>
             </Row>
