@@ -10,7 +10,7 @@ import UserContext from '../Context/UserContext';
 import { useContext } from 'react';
 
 const Login = ({isShow, handleClose}) => {
- const {setCurrentUser, saveAuth}= useContext(UserContext);
+ const {setCurrentUser, SaveAuth}= useContext(UserContext);
 
  const API=import.meta.env.VITE_API
 
@@ -32,8 +32,9 @@ const Formik= useFormik({
     onSubmit: async(values)=>{
         try {
           const response= await axios.post(`${API}/users/login`, values);
+          console.log(response.data);
           if (response.status===200) {
-            saveAuth(response.data)
+            SaveAuth(response.data)
             setCurrentUser(response.data)
             Formik.resetForm();
             handleClose();
@@ -48,7 +49,7 @@ const Formik= useFormik({
           Swal.fire({
             icon: "error",
             title: "Error",
-            text: "Email y/o usuario incorrecto",
+            text: "Email y/o usuario incorrecto***",
           });
                 console.error(error);
         }
