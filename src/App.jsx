@@ -8,6 +8,7 @@ import Header from './Components/Header/Header'
 import Footer from './Components/Footer/Footer'
 import userContext from "./Components/Context/UserContext"
 import { useState, useEffect} from 'react'
+import Contact from './Components/pages/Contact';
 
 
 
@@ -41,9 +42,8 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path="/Admin" element={<Admin />}></Route>
           <Route path="/createProduct" element={<FormCreateProduct />}></Route>
-
           <Route path='/products/:id' element={<Product/>} />
-
+          <Route path='/Contact' element={<Contact/>} />
         </Routes>
       </BrowserRouter>
       <Footer />
