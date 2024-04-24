@@ -1,7 +1,6 @@
 import React from 'react'
 import "../Navbar/Navbar.css"
 import Login from "../sections/Login"
-import { Button, Nav } from 'react-bootstrap';
 import {  useState } from 'react';
 
 const Navbar = () => {
@@ -22,7 +21,7 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent" >
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active text-light" aria-current="page" href="!#">Home</a>
+                <a className="nav-link active text-light" aria-current="page" href="/">Home</a>
               </li>
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle text-light" href="!#" id="navbarDropdown" role="button"
@@ -43,7 +42,11 @@ const Navbar = () => {
               </li>
                 
               <li className="nav-item" id="">
-                <a className="nav-link text-light" aria-current="page" href="!#">Administracion</a>
+                <a className="nav-link text-light" aria-current="page" href="/Admin">Administracion</a>
+              </li>
+
+              <li className="nav-item" id="">
+                <a className="nav-link text-light" aria-current="page" href="/Contact">Contacto</a>
               </li>
   
             </ul>
