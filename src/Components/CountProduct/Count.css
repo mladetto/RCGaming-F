@@ -1,0 +1,26 @@
+.container.container-count{
+    max-width:max-content;
+    padding: .5rem;
+}
+
+.container-controler{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+    border: solid 1px #B535A8;
+    border-radius: 8px;
+}
+
+.btn-count{
+    font-size: 30px;
+    padding: 0 5px 0 5px;
+    border: none;
+    background-color: #B535A8 !important;
+    color: #fff !important;
+}
+
+.btn-add{
+    background-color: #B535A8 !important;
+    color: #fff !important;
+}

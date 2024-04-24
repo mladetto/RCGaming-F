@@ -1,18 +1,24 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import { Link, useParams } from "react-router-dom";
+import Count from "../CountProduct/Count";
+import { CartContext } from "../Context/CardContext";
 
 
 const Product = () => {
     const [productsId, setProductsId] = useState([])
+    const [quantityAdded, setQuantityAdded] = useState(0)
     const { id } = useParams();
+
+    const { addItem } = useContext(CartContext)
 
     const API = import.meta.env.VITE_API;
 
     useEffect(() => {
         getProductById();
     }, []);
+
 
 
     async function getProductById() {
@@ -24,7 +30,19 @@ const Product = () => {
         }
     }
 
-    console.log(productsId);
+
+    const handledOnAdd = (quantity) => {
+        setQuantityAdded(quantity)
+
+        const item = {
+            _id: productsId._id,
+            name: productsId.name,
+            price: productsId.price,
+            imageUrl: productsId.imageUrl,
+        }
+
+        addItem(item, quantity)
+    }
 
     return (
         <Container>
@@ -33,14 +51,29 @@ const Product = () => {
                     <img src={productsId.imageUrl} alt="" />
                 </Col>
                 <Col lg={6} className="border border-success">
-                    <div>
+                    <div key={productsId._id}>
                         <h3>{productsId.name}</h3>
                         <p>{productsId.description}</p>
                         <p>Precio: ${productsId.price}</p>
                         <p>Stock: {productsId.stock}</p>
+                        <div>
+                            {
+                                productsId.stock > 0 ?(
+                                    <p>Stock disponible</p>
+                                ):(
+                                    <p>No hay stock</p>
+                                )
+                            }
+                        </div>
                     </div>
                     <div>
-                        <Button>Añadir</Button>
+                        {
+                            quantityAdded > 0 ? (
+                                <Link to='/cart'>Terminar Compra</Link>
+                            ) : (
+                                <Count initial={1} stock={productsId.stock} onAdd={handledOnAdd} />
+                            )
+                        }
                     </div>
                 </Col>
             </Row>
