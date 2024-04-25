@@ -53,8 +53,8 @@ function App() {
         value={{ currentUser, setCurrentUser, SaveAuth, GetAuth, RemoveAuth }}
       >
         <CartProvider>
-          <Header />
           <BrowserRouter>
+            <Header />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/Admin" element={<Admin />}></Route>
