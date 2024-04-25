@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Home from "./Components/pages/Home";
 import Admin from "./Components/pages/Admin";
 import FormCreateProduct from "./Components/products/FormCreateProduct";
@@ -57,13 +57,50 @@ function App() {
             <Header />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/Admin" element={<Admin />}></Route>
+              <Route
+                path="/Admin"
+                element={
+                  currentUser !== undefined && currentUser.role === "admin" ? (
+                    <Admin />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
+              />
+
               <Route
                 path="/createProduct"
-                element={<FormCreateProduct />}
-              ></Route>
+                element={
+                  currentUser !== undefined && currentUser.role === "admin" ? (
+                    <FormCreateProduct />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
+              />
+
               <Route path="/products/:id" element={<Product />} />
-              <Route path="/cart" element={<Cart />} />
+              <Route
+                path="/products/:id"
+                element={
+                  currentUser !== undefined && currentUser.role === "admin" ? (
+                    <Product />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
+              />
+              <Route
+                path="/cart"
+                element={
+                  currentUser !== undefined && currentUser.role === "user" ? (
+                    <Cart />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
+              />
+
               <Route path="/Contact" element={<Contact />} />
             </Routes>
           </BrowserRouter>

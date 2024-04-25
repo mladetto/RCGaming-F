@@ -135,7 +135,7 @@ const Navbar = () => {
 
             <ul id="carrito" className="nav-item">
               {currentUser !== undefined && currentUser.role !== "admin" && (
-                <NavLink to="#" className="nav-link text-light p-0 me-4">
+                <NavLink to="/cart" className="nav-link text-light p-0 me-4">
                   <i className="bx bxs-cart bx-tada-hover"></i>
                 </NavLink>
               )}
