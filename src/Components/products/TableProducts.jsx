@@ -7,7 +7,7 @@ import ModalEditProducts from "./ModalEditProduct";
 const TableProducts = () => {
   const API = import.meta.env.VITE_API;
 
-  const [collectionProducts, setCollectionProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [editedProduct, setEditedProduct] = useState(undefined);
 
   const [show, setShow] = useState(false);
@@ -24,9 +24,8 @@ const TableProducts = () => {
 
   const getProducts = async () => {
     try {
-      const response = await axios.get(`${API}/collectionProducts`);
-      const responseJson = response.data;
-      setCollectionProducts(responseJson);
+      const response = await axios.get(`${API}/products`);
+      setProducts(response.data);
     } catch (error) {
       console.log("el error para traer los products es", error);
     }
@@ -35,7 +34,7 @@ const TableProducts = () => {
   useEffect(() => {
     getProducts();
     return () => {
-      setCollectionProducts([]);
+      setProducts([]);
     };
   }, []);
 
@@ -56,21 +55,20 @@ const TableProducts = () => {
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Título</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
                 <th>Descripción</th>
                 <th>Precio</th>
-                <th>Categoría</th>
-                <th>Agregar</th>
                 <th>Stock</th>
-                <th>Imagen</th>
-                <th>último control de stock</th>
+                <th>Url de la Imagen</th>
+                <th>Características</th>
                 <th>Destacado</th>
+                <th>último control de stock</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-                {collectionProducts.map((element) => {
-
+                {products.map((element) => {
                   return (
                     <RowTableProducts
                       product={element}
@@ -78,8 +76,8 @@ const TableProducts = () => {
                       handleShow={handleShow}
                       getProducts={getProducts}
                     ></RowTableProducts>
-                  );
-                })};
+                  )
+                })}
             </tbody>
           </Table>
         </div>

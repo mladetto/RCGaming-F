@@ -1,6 +1,7 @@
 import { Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 /* eslint-disable react/prop-types */
+import axios from "axios";
 
 const RowTableProducts = ({
   product,
@@ -17,12 +18,11 @@ const RowTableProducts = ({
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Eliminar",
-      cancelButtonText: "NO, me equivoque",
+      cancelButtonText: "NO, volver atrás",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await fetch(`${API}/collectionProducts/`+product.id, {
-            method: "DELETE",
+          await axios.delete(`${API}/products/${product.id}`, {
             headers: { "content-type": "application/json" },
           });
           getProducts();
@@ -42,21 +42,20 @@ const RowTableProducts = ({
     <>
       <tr>
         <td>{product.id}</td>
-        <td>{product.title}</td>
+        <td>{product.name}</td>
+        <td>{product.category_id}</td>
         <td>{product.description}</td>
         <td>{product.price}</td>
-        <td>{product.category}</td>
-        <td>{product.add}</td>
         <td>{product.stock}</td>
-        <td>{product.imgUrl}</td>
-        <td>{product.stockControlDate}</td>
+        <td>{product.imageUrl}</td>
+        <td>{product.characteristic}</td>
         <td>{product.outstanding}</td>
+        <td>{product.stockUpdateDate}</td>
         <td className="d-flex justify-content-around">
           <Button
             type="button"
             variant="success"
             onClick={() => {
-              console.log("modal EDICIÓN");
               handleShow(product)
             }}
           >
