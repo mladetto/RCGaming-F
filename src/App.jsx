@@ -79,7 +79,7 @@ function App() {
                 }
               />
 
-              <Route path="/products/:id" element={<Product />} />
+              <Route path="/products/:id" element={<Product currentUser={currentUser}  />} />
               <Route
                 path="/products/:id"
                 element={
@@ -94,7 +94,7 @@ function App() {
                 path="/cart"
                 element={
                   currentUser !== undefined && currentUser.role === "user" ? (
-                    <Cart />
+                    <Cart/>
                   ) : (
                     <Navigate to="/" />
                   )

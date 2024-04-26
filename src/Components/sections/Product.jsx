@@ -6,7 +6,7 @@ import Count from "../CountProduct/Count";
 import { CartContext } from "../Context/CardContext";
 
 
-const Product = () => {
+const Product = (currentUser) => {
     const [productsId, setProductsId] = useState([])
     const [quantityAdded, setQuantityAdded] = useState(0)
     const { id } = useParams();
@@ -32,17 +32,22 @@ const Product = () => {
 
 
     const handledOnAdd = (quantity) => {
-        setQuantityAdded(quantity)
+        if (currentUser!==undefined) {
+            setQuantityAdded(quantity)
+            const item = {
+                _id: productsId._id,
+                name: productsId.name,
+                price: productsId.price,
+                imageUrl: productsId.imageUrl,
+            }
 
-        const item = {
-            _id: productsId._id,
-            name: productsId.name,
-            price: productsId.price,
-            imageUrl: productsId.imageUrl,
+            addItem(item, quantity)
+        } else {
+            alert("no estas logeado")
         }
-
-        addItem(item, quantity)
     }
+
+    console.log("currentUser->>", currentUser)
 
     return (
         <Container>
@@ -58,9 +63,9 @@ const Product = () => {
                         <p>Stock: {productsId.stock}</p>
                         <div>
                             {
-                                productsId.stock > 0 ?(
+                                productsId.stock > 0 ? (
                                     <p>Stock disponible</p>
-                                ):(
+                                ) : (
                                     <p>No hay stock</p>
                                 )
                             }
