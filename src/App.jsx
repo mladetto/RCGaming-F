@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react'
 import { CartProvider } from './Components/Context/CardContext';
 import Cart from './Components/Cart/Cart';
 import Contact from './Components/pages/Contact';
-
+import AboutUs from './Components/pages/AboutUs';
 
 
 function App() {
@@ -48,6 +48,7 @@ function App() {
               <Route path='/products/:id' element={<Product />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='/Contact' element={<Contact/>} />
+              <Route path='/Aboutus' element={<AboutUs/>} />
 
             </Routes>
           </BrowserRouter>

@@ -48,9 +48,15 @@ const Navbar = () => {
               <li className="nav-item" id="">
                 <a className="nav-link text-light" aria-current="page" href="/Contact">Contacto</a>
               </li>
+
+              <li className="nav-item" id="">
+                  <a href="/Aboutus" className="nav-link  text-light">
+                    Acerca de Nosotros
+                  </a>
+              </li>
   
             </ul>
-  
+            
           
              <ul className="navbar-nav">
             <li id="btnLogueo"  className="nav-item">
