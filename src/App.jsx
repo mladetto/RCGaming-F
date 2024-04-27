@@ -14,6 +14,7 @@ import Contact from "./Components/pages/Contact";
 import axios from "axios";
 import RecoveryPassword from "./Components/pages/RecoveryPassword";
 import ResetPassword from "./Components/pages/ResetPassword";
+import Order from "./Components/pages/Order";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -68,6 +69,12 @@ function App() {
                   ) : (
                     <Navigate to="/" />
                   )
+                }
+              />
+              <Route
+                path="/Order"
+                element={
+                    <Order />
                 }
               />
 

@@ -3,13 +3,14 @@ import clsx from "clsx";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
   const navigate = useNavigate();
+  const [category_id, setCategory_id] = useState([]);
 
   useEffect(() => {
     if (product) {
@@ -24,6 +25,19 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
       formik.setFieldValue("stockControlDate", product.stockControlDate, true);
     }
   }, [product]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${API}/products/categories/product`);
+        setCategory_id(response.data);
+      } catch (error) {
+        console.error("Error al obtener las categorías:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const API = import.meta.env.VITE_API;
 
@@ -181,15 +195,11 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
                 )}
               >
                 <option value="">Seleccione una categoría</option>
-                <option value="Memorias Ram">Memorias Ram</option>
-                <option value="Procesadores">Procesadores</option>
-                <option value="Mothers">Mothers</option>
-                <option value="Placas de Video">Placas de Video</option>
-                <option value="Fuentes">Fuentes</option>
-                <option value="Periféricos">Periféricos</option>
-                <option value="Coolers">Coolers</option>
-                <option value="Gabinetes">Gabinete</option>
-                <option value="Monitores">Monitores</option>
+                {category_id.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
+                ))}
               </Form.Select>
               {formik.touched.category_id && formik.errors.category_id && (
                 <div className="mt-2 text-danger fw-bolder">
