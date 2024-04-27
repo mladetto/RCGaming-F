@@ -68,11 +68,11 @@ const TableProducts = () => {
               </tr>
             </thead>
             <tbody>
-                {products.map((element) => {
+                {products.map((product,index) => {
                   return (
                     <RowTableProducts
-                      product={element}
-                      key={element.id}
+                      product={product}
+                      key={index}
                       handleShow={handleShow}
                       getProducts={getProducts}
                     ></RowTableProducts>

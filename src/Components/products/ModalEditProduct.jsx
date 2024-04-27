@@ -99,10 +99,10 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
         if (result.isConfirmed) {
           try {
             const response = await axios.put(
-              `${API}/products/${product.id}`,
+              `${API}/products/update/${product._id}`,
               values
             );
-            if (response.status === 200) {
+            if (response.status === 201) {
               Swal.fire({
                 title: "Éxito",
                 text: "Se actualizó el producto correctamente",

@@ -41,7 +41,7 @@ const RowTableProducts = ({
   return (
     <>
       <tr>
-        <td>{product.id}</td>
+        <td>{product._id}</td>
         <td>{product.name}</td>
         <td>{product.category_id}</td>
         <td>{product.description}</td>
@@ -49,7 +49,7 @@ const RowTableProducts = ({
         <td>{product.stock}</td>
         <td>{product.imageUrl}</td>
         <td>{product.characteristic}</td>
-        <td>{product.outstanding}</td>
+        <td>{product.outstanding ?<p>Si</p>:<p>No</p>}</td>
         <td>{product.stockUpdateDate}</td>
         <td className="d-flex justify-content-around">
           <Button
