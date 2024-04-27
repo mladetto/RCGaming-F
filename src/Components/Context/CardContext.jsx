@@ -36,7 +36,7 @@ export const CartProvider = ({children}) =>{
         cart.forEach((elem)=>{
             total = total + (elem.quantity * elem.price)
         })
-        return total
+        return total.toFixed(2);
     }
 
 
