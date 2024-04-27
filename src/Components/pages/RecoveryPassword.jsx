@@ -25,7 +25,7 @@ export default function RecoveryPassword() {
     validateOnChange: true,
     onSubmit: async (values) => {
       try {
-        const res = await axios.post(`${API}/user/recovery_password`, values);
+        const res = await axios.post(`${API}/users/recovery_password`, values);
         if (res.status === 200) {
           formik.resetForm();
           Swal.fire({
@@ -35,6 +35,11 @@ export default function RecoveryPassword() {
           });
         }
       } catch (error) {
+        Swal.fire({
+          title: "Error",
+          text: "El correo electrónico no existe en la base de datos.",
+          icon: "error",
+        });
         console.error(error);
       }
     },

@@ -13,9 +13,11 @@ import Cart from "./Components/Cart/Cart";
 import Contact from "./Components/pages/Contact";
 import axios from "axios";
 import RecoveryPassword from "./Components/pages/RecoveryPassword";
+import ResetPassword from "./Components/pages/ResetPassword";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
+
   const SaveAuth = (auth) => {
     sessionStorage.setItem("auth", JSON.stringify(auth));
   };
@@ -104,6 +106,7 @@ function App() {
 
               <Route path="/Contact" element={<Contact />} />
               <Route path="/recovery_password" element={<RecoveryPassword />} />
+              <Route path="/reset_password/" element={<ResetPassword />} />
             </Routes>
           </BrowserRouter>
           <Footer />
