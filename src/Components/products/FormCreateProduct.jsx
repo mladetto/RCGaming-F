@@ -5,10 +5,13 @@ import Swal from "sweetalert2";
 import clsx from "clsx";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { useState, useEffect } from "react";
 
 const FormCreateProduct = () => {
   const navigate = useNavigate();
   const API = import.meta.env.VITE_API;
+
+  const [category_id, setCategory_id] = useState([]);
 
   const productSchema = Yup.object().shape({
     name: Yup.string()
@@ -32,20 +35,33 @@ const FormCreateProduct = () => {
     imageUrl: Yup.string()
       .url("La URL de la imagen no es válida")
       .required("La Url de la imagen es requerida"),
-    characteristic: Yup.array(),
-      // .of(Yup.string())
-      // .min(1, "Debe ingresar al menos una característica con mínimo de 4 caracteres")
-      // .max(10, "Puede ingresar hasta 10 características con máximo de 200 caracteres")
-      // .required("Las características son requeridas"),
+    characteristic: Yup.array()
+    .of(Yup.string())
+    .min(1, "Debe ingresar al menos una característica con mínimo de 4 caracteres")
+    .max(10, "Puede ingresar hasta 10 características con máximo de 200 caracteres")
+    .required("Las características son requeridas"),
     outstanding: Yup.boolean()
       .required("La indicación si el producto es destacado o no es requerida"),
     stockUpdateDate: Yup.date(),
   });
 
   const getCurrentDate = () => {
-    const currentDate = new Date().toISOString().split('T')[0];
+    const currentDate = new Date().toISOString().split("T")[0];
     return currentDate;
   };
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${API}/products/categories/product`); 
+        setCategory_id(response.data); 
+      } catch (error) {
+        console.error("Error al obtener las categorías:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const initialValues = {
     name: "",
@@ -92,7 +108,10 @@ const FormCreateProduct = () => {
               navigate("/Admin");
             }
           } catch (error) {
-            console.error("Se produjo un error al intentar crear un producto", error);
+            console.error(
+              "Se produjo un error al intentar crear un producto",
+              error
+            );
           }
         }
       });
@@ -156,15 +175,11 @@ const FormCreateProduct = () => {
             )}
           >
             <option value="">Seleccione una categoría</option>
-            <option value="Memorias Ram">Memorias Ram</option>
-            <option value="Procesadores">Procesadores</option>
-            <option value="Mothers">Mothers</option>
-            <option value="Placas de Video">Placas de Video</option>
-            <option value="Fuentes">Fuentes</option>
-            <option value="Periféricos">Periféricos</option>
-            <option value="Coolers">Coolers</option>
-            <option value="Gabinetes">Gabinete</option>
-            <option value="Monitores">Monitores</option>
+            {category_id.map((category) => (
+              <option key={category._id} value={category._id}>
+                {category.name}
+              </option>
+            ))}
           </Form.Select>
           {formik.touched.category_id && formik.errors.category_id && (
             <div className="mt-2 text-danger fw-bolder">
