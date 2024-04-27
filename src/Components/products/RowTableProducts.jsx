@@ -22,7 +22,7 @@ const RowTableProducts = ({
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`${API}/products/${product.id}`, {
+          await axios.delete(`${API}/products/delete/${product._id}`, {
             headers: { "content-type": "application/json" },
           });
           getProducts();
