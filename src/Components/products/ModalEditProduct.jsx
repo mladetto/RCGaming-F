@@ -8,71 +8,78 @@ import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const ModalEditProducts = ({
-  show,
-  handleClose,
-  product,
-  getProducts,
-}) => {
+const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
     if (product) {
-      formik.setFieldValue("title", product.title, true);
+      formik.setFieldValue("name", product.name, true);
+      formik.setFieldValue("category_id", product.category_id, true);
       formik.setFieldValue("description", product.description, true);
       formik.setFieldValue("price", product.price, true);
-      formik.setFieldValue("category", product.category, true);
-      formik.setFieldValue("add", product.add, true);
-      formik.setFieldValue("imgUrl", product.imgUrl, true);
       formik.setFieldValue("stock", product.stock, true);
-      formik.setFieldValue("stockControlDate", product.stockControlDate, true);
+      formik.setFieldValue("imageUrl", product.imageUrl, true);
+      formik.setFieldValue("characteristic", product.characteristic, true);
       formik.setFieldValue("outstanding", product.outstanding, true);
+      formik.setFieldValue("stockControlDate", product.stockControlDate, true);
     }
   }, [product]);
 
   const API = import.meta.env.VITE_API;
 
   const productSchema = Yup.object().shape({
-    title: Yup.string()
+    name: Yup.string()
       .min(4, "El título tiene que tener 4 caracteres como mínimo")
-      .max(40, "El título puede tener 30 caracteres como máximo")
+      .max(50, "El título puede tener 50 caracteres como máximo")
       .required("El título es requerido"),
+    category_id: Yup.string().required("La categoría es requerida"),
     description: Yup.string()
       .min(4, "La descripción tiene que tener 4 caracteres como mínimo")
-      .max(300, "La descripción puede tener 300 caracteres como máximo")
+      .max(500, "La descripción puede tener 500 caracteres como máximo")
       .required("La descripción es requerida"),
     price: Yup.number()
-      .min(10, "El valor mínimo d es de $100")
-      .max(10000000, "El valor máximo d es de $10000000")
+      .min(100, "El valor mínimo es de $100")
+      .max(100000000, "El valor máximo es de $100000000")
       .required("El precio es requerido"),
-    category: Yup.string().required("La categoría es requerida"),
-    add: Yup.number()
-      .min(1, "Se puede agregar como mínimo 1 producto al stock")
-      .max(1000, "Se puede agregar como máximo 1000 productos al stock")
-      .required("La cantidad que se desea cargar es requerida"),
-    imgUrl: Yup.string()
-      .required("La url de la imagen es requerida")
-      .url("La url de la imagen no es válida"),
     stock: Yup.number()
-      .min(0, "Puede no haber nada en el stock de productos")
-      .max(500000, "La cantidad en stock es de 500000")
+      .min(1, "La cantidad mínima en stock es de 1 unidad")
+      .max(200, "La cantidad máxima en stock es de 200")
       .required("La cantidad en stock que es requerida"),
-    stockControlDate: Yup.date().required(
-      "La fecha del último control del stock es requerida"
+    imageUrl: Yup.string()
+      .url("La URL de la imagen no es válida")
+      .required("La Url de la imagen es requerida"),
+    characteristic: Yup.array()
+      .of(Yup.string())
+      .min(
+        1,
+        "Debe ingresar al menos una característica con mínimo de 4 caracteres"
+      )
+      .max(
+        10,
+        "Puede ingresar hasta 10 características con máximo de 200 caracteres"
+      )
+      .required("Las características son requeridas"),
+    outstanding: Yup.boolean().required(
+      "La indicación si el producto es destacado o no es requerida"
     ),
-    outstanding: Yup.string().required("La indicación si es el producto es destacado es requerida"),
+    stockUpdateDate: Yup.date(),
   });
 
+  const getCurrentDate = () => {
+    const currentDate = new Date().toISOString().split("T")[0];
+    return currentDate;
+  };
+
   const initialValues = {
-    title: "",
+    name: "",
+    category_id: "",
     description: "",
     price: "",
-    category: "",
-    add: "",
-    imgUrl: "",
     stock: "",
-    stockControlDate: "",
-    outstanding: "",
+    imageUrl: "",
+    characteristic: [],
+    outstanding: undefined,
+    stockUpdateDate: getCurrentDate(),
   };
 
   const formik = useFormik({
@@ -81,9 +88,8 @@ const ModalEditProducts = ({
     validationOnBlur: true,
     validationOnChange: true,
     onSubmit: (values) => {
-      console.log("valor de Formik", values);
       Swal.fire({
-        title: "Estas seguro en editar este product?",
+        title: "Estas seguro en editar este producto?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -93,10 +99,10 @@ const ModalEditProducts = ({
         if (result.isConfirmed) {
           try {
             const response = await axios.put(
-              `${API}/collectionProducts/${product.id}`,
+              `${API}/products/update/${product._id}`,
               values
             );
-            if (response.status === 200) {
+            if (response.status === 201) {
               Swal.fire({
                 title: "Éxito",
                 text: "Se actualizó el producto correctamente",
@@ -129,43 +135,76 @@ const ModalEditProducts = ({
         className="text-light"
       >
         <Modal.Header closeButton>
-          <Modal.Title>product a Editar</Modal.Title>
+          <Modal.Title>Producto a editar</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={formik.handleSubmit}>
-            <Form.Group className="mb-3" controlId="title">
-              <Form.Label>title del product</Form.Label>
+            <Form.Group className="mb-3" controlId="name">
+              <Form.Label>Nombre del producto</Form.Label>
               <Form.Control
                 type="text"
                 minLength={4}
-                maxLength={40}
-                placeholder="Ingrese aquí el title del product"
-                name="title"
-                {...formik.getFieldProps("title")}
+                maxLength={50}
+                placeholder="Ingrese el nombre"
+                name="name"
+                {...formik.getFieldProps("name")}
+                className={clsx(
+                  "form-control",
+                  { "is-invalid": formik.touched.name && formik.errors.name },
+                  { "is-valid": formik.touched.name && !formik.errors.name }
+                )}
+              />
+              {formik.touched.name && formik.errors.name && (
+                <div className="mt-2 text-danger fw-bolder">
+                  <span role="alert">{formik.errors.name}</span>
+                </div>
+              )}
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="category_id">
+              <Form.Label>Categoría</Form.Label>
+              <Form.Select
+                aria-label="category_id"
+                name="category_id"
+                type="text"
+                {...formik.getFieldProps("category_id")}
                 className={clsx(
                   "form-control",
                   {
-                    "is-invalid": formik.touched.title && formik.errors.title,
+                    "is-invalid":
+                      formik.touched.category_id && formik.errors.category_id,
                   },
-                  { "is-valid": formik.touched.title && !formik.errors.title }
+                  {
+                    "is-valid":
+                      formik.touched.category_id && !formik.errors.category_id,
+                  }
                 )}
-              />
-              {formik.touched.title && formik.errors.title && (
+              >
+                <option value="">Seleccione una categoría</option>
+                <option value="Memorias Ram">Memorias Ram</option>
+                <option value="Procesadores">Procesadores</option>
+                <option value="Mothers">Mothers</option>
+                <option value="Placas de Video">Placas de Video</option>
+                <option value="Fuentes">Fuentes</option>
+                <option value="Periféricos">Periféricos</option>
+                <option value="Coolers">Coolers</option>
+                <option value="Gabinetes">Gabinete</option>
+                <option value="Monitores">Monitores</option>
+              </Form.Select>
+              {formik.touched.category_id && formik.errors.category_id && (
                 <div className="mt-2 text-danger fw-bolder">
-                  <span role="alert">{formik.errors.title}</span>
+                  <span role="alert">{formik.errors.category_id}</span>
                 </div>
               )}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="description">
-              <Form.Label>description</Form.Label>
+              <Form.Label>Descripción</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Ingrese la description del product"
-                as="textarea"
-                rows={2}
+                placeholder="Ingrese la descripción"
                 minLength={4}
-                maxLength={200}
+                maxLength={500}
                 name="description"
                 {...formik.getFieldProps("description")}
                 className={clsx(
@@ -188,10 +227,10 @@ const ModalEditProducts = ({
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="price">
-              <Form.Label>price</Form.Label>
+              <Form.Label>Precio</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="Ingrese el price del product"
+                type="number"
+                placeholder="Ingrese el precio"
                 name="price"
                 {...formik.getFieldProps("price")}
                 className={clsx(
@@ -211,78 +250,11 @@ const ModalEditProducts = ({
               )}
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="category">
-              <Form.Label>category</Form.Label>
-              <Form.Select
-                aria-label="category"
-                name="category"
-                type="text"
-                {...formik.getFieldProps("category")}
-                className={clsx(
-                  "form-control",
-                  {
-                    "is-invalid":
-                      formik.touched.category && formik.errors.category,
-                  },
-                  {
-                    "is-valid":
-                      formik.touched.category && !formik.errors.category,
-                  }
-                )}
-              >
-                <option value="">Seleccione una category</option>
-                <option value="placaVideo">PLACAS DE VIDEOS</option>
-                <option value="notebook">NOTEBOOK</option>
-                <option value="gabinetes">GABINETES</option>
-              </Form.Select>
-              {formik.touched.category && formik.errors.category && (
-                <div className="mt-2 text-danger fw-bolder">
-                  <span role="alert">{formik.errors.category}</span>
-                </div>
-              )}
-            </Form.Group>
-
-            <Form.Group
-              className="mb-3"
-              controlId="add"
-            >
-              <Form.Label>
-                Cantidad de products para agregar al stock
-              </Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Ingrese la cantidad de products al stock"
-                name="add"
-                {...formik.getFieldProps("add")}
-                className={clsx(
-                  "form-control",
-                  {
-                    "is-invalid":
-                      formik.touched.add &&
-                      formik.errors.add,
-                  },
-                  {
-                    "is-valid":
-                      formik.touched.add &&
-                      !formik.errors.add,
-                  }
-                )}
-              />
-              {formik.touched.add &&
-                formik.errors.add && (
-                  <div className="mt-2 text-danger fw-bolder">
-                    <span role="alert">
-                      {formik.errors.add}
-                    </span>
-                  </div>
-                )}
-            </Form.Group>
-
             <Form.Group className="mb-3" controlId="stock">
               <Form.Label>En stock</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="La cantidad de products disponible"
+                type="number"
+                placeholder="Ingrese la cantidad de productos en el stock"
                 name="stock"
                 {...formik.getFieldProps("stock")}
                 className={clsx(
@@ -302,69 +274,81 @@ const ModalEditProducts = ({
               )}
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="imgUrl">
-              <Form.Label>Imagen del product</Form.Label>
-              <div className="d-flex align-items-center">
-                {/* <Form.Control
-              className="me-2"
-              type="file"
-              name="imagenFile"
-              onChange={(event) =>
-                formik.setFieldValue("imagenFile", event.currentTarget.files[0])
-              }
-            /> */}
-                <Form.Control
-                  type="text"
-                  placeholder="URL de la imagen"
-                  name="imgUrl"
-                  onChange={formik.handleChange}
-                  value={formik.values.imgUrl}
-                />
-              </div>
-              {formik.touched.imagenFile && formik.errors.imagenFile && (
-                <div className="mt-2 text-danger fw-bolder">
-                  <span role="alert">{formik.errors.imagenFile}</span>
-                </div>
-              )}
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="stockControlDate">
-              <Form.Label>Fecha de último control de stock</Form.Label>
+            <Form.Group className="mb-3" controlId="imageUrl">
+              <Form.Label>Url de la imagen del producto</Form.Label>
               <Form.Control
-                type="date"
-                placeholder="Ingrese la fecha del último control de stock"
-                name="stockControlDate"
-                {...formik.getFieldProps("stockControlDate")}
+                type="text"
+                placeholder="Ingrese la URL de la imagen"
+                name="imageUrl"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.imageUrl}
+                {...formik.getFieldProps("imageUrl")}
                 className={clsx(
                   "form-control",
                   {
                     "is-invalid":
-                      formik.touched.stockControlDate &&
-                      formik.errors.stockControlDate,
+                      formik.touched.imageUrl && formik.errors.imageUrl,
                   },
                   {
                     "is-valid":
-                      formik.touched.stockControlDate &&
-                      !formik.errors.stockControlDate,
+                      formik.touched.imageUrl && !formik.errors.imageUrl,
                   }
                 )}
               />
-              {formik.touched.stockControlDate &&
-                formik.errors.stockControlDate && (
+              {formik.touched.imageUrl && formik.errors.imageUrl && (
+                <div className="mt-2 text-danger fw-bolder">
+                  <span role="alert">{formik.errors.imageUrl}</span>
+                </div>
+              )}
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="characteristic">
+              <Form.Label>Características</Form.Label>
+              <Form.Control
+                as="textarea"
+                placeholder="Ingrese las características (una por línea)"
+                rows={4}
+                name="characteristic"
+                {...formik.getFieldProps("characteristic")}
+                value={
+                  formik.values.characteristic &&
+                  formik.values.characteristic.join("\n")
+                }
+                className={clsx(
+                  "form-control",
+                  {
+                    "is-invalid":
+                      formik.touched.characteristic &&
+                      formik.errors.characteristic,
+                  },
+                  {
+                    "is-valid":
+                      formik.touched.characteristic &&
+                      !formik.errors.characteristic,
+                  }
+                )}
+                onChange={(e) => {
+                  formik.setFieldValue(
+                    "characteristic",
+                    e.target.value.split("\n")
+                  );
+                }}
+              />
+              {formik.touched.characteristic &&
+                formik.errors.characteristic && (
                   <div className="mt-2 text-danger fw-bolder">
-                    <span role="alert">
-                      {formik.errors.stockControlDate}
-                    </span>
+                    <span role="alert">{formik.errors.characteristic}</span>
                   </div>
                 )}
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="stockControlDate">
-              <Form.Label>Indique si el product es outstanding</Form.Label>
+            <Form.Group className="mb-3" controlId="outstanding">
+              <Form.Label>Indique si el producto es destacado</Form.Label>
               <Form.Select
                 aria-label="outstanding"
                 name="outstanding"
-                type="text"
+                type="boolean"
                 {...formik.getFieldProps("outstanding")}
                 className={clsx(
                   "form-control",
@@ -378,15 +362,25 @@ const ModalEditProducts = ({
                   }
                 )}
               >
-                <option value="">Es outstanding?</option>
-                <option value="SI">SI</option>
-                <option value="NO">NO</option>
+                <option value="">Es destacado</option>
+                <option value="true">SI</option>
+                <option value="false">NO</option>
               </Form.Select>
               {formik.touched.outstanding && formik.errors.outstanding && (
                 <div className="mt-2 text-danger fw-bolder">
                   <span role="alert">{formik.errors.outstanding}</span>
                 </div>
               )}
+            </Form.Group>
+
+            <Form.Group controlId="stockUpdateDate">
+              <Form.Label>Fecha del último control de stock</Form.Label>
+              <Form.Control
+                type="date"
+                name="stockUpdateDate"
+                value={formik.values.stockUpdateDate}
+                onChange={formik.handleChange}
+              />
             </Form.Group>
 
             <Button variant="primary" type="submit" className="mx-2">
