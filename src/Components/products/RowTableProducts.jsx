@@ -41,14 +41,11 @@ const RowTableProducts = ({
   return (
     <>
       <tr>
-        <td>{product._id}</td>
         <td>{product.name}</td>
-        <td>{product.category_id}</td>
-        <td>{product.description}</td>
+        <td>{product.category_id.name}</td>
         <td>{product.price}</td>
         <td>{product.stock}</td>
-        <td>{product.imageUrl}</td>
-        <td>{product.characteristic}</td>
+        <td><img src={product.imageUrl} alt={product.name} width={80} /></td>
         <td>{product.outstanding ?<p>Si</p>:<p>No</p>}</td>
         <td>{product.stockUpdateDate}</td>
         <td className="d-flex justify-content-around">

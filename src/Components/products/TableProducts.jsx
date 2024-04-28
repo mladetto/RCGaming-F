@@ -38,6 +38,7 @@ const TableProducts = () => {
     };
   }, []);
 
+
   return (
     <>
       <ModalEditProducts
@@ -54,14 +55,12 @@ const TableProducts = () => {
           <Table striped bordered hover size="sm">
             <thead>
               <tr>
-                <th>Id</th>
+                
                 <th>Nombre</th>
                 <th>Categoría</th>
-                <th>Descripción</th>
                 <th>Precio</th>
                 <th>Stock</th>
                 <th>Url de la Imagen</th>
-                <th>Características</th>
                 <th>Destacado</th>
                 <th>último control de stock</th>
                 <th>Acciones</th>
