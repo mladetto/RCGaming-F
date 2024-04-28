@@ -38,7 +38,7 @@ const Categories = () => {
         <Row className="g-4">
           {categories.map((elem) => (
             <Col lg={3} xs={{ offset: 1 }} key={elem._id}>
-              <Link to={`./Category/${elem._id}`}>
+              <Link to={`/Category/${elem._id}`}>
                 <Card style={{ width: "18rem" }}>
                   <Card.Img variant="top" src={elem.image} />
                   <Card.Body>
@@ -55,4 +55,3 @@ const Categories = () => {
 };
 
 export default Categories;
-
