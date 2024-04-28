@@ -71,12 +71,7 @@ function App() {
                   )
                 }
               />
-              <Route
-                path="/Order"
-                element={
-                    <Order />
-                }
-              />
+              <Route path="/Order" element={<Order />} />
 
               <Route
                 path="/createProduct"
@@ -89,7 +84,10 @@ function App() {
                 }
               />
 
-              <Route path="/products/:id" element={<Product currentUser={currentUser}  />} />
+              <Route
+                path="/products/:id"
+                element={<Product currentUser={currentUser} />}
+              />
               <Route
                 path="/products/:id"
                 element={
@@ -104,7 +102,7 @@ function App() {
                 path="/cart"
                 element={
                   currentUser !== undefined && currentUser.role === "user" ? (
-                    <Cart/>
+                    <Cart />
                   ) : (
                     <Navigate to="/" />
                   )
@@ -115,8 +113,8 @@ function App() {
               <Route path="/recovery_password" element={<RecoveryPassword />} />
               <Route path="/reset_password/" element={<ResetPassword />} />
             </Routes>
+            <Footer />
           </BrowserRouter>
-          <Footer />
         </CartProvider>
       </userContext.Provider>
     </>
