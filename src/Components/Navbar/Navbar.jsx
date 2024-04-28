@@ -1,18 +1,34 @@
 import { NavLink } from "react-router-dom";
 import "../Navbar/Navbar.css";
 import Login from "../sections/Login";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import UserContext from "../Context/UserContext";
+import axios from "axios";
 
 const Navbar = () => {
   const { currentUser, setCurrentUser, RemoveAuth } = useContext(UserContext);
   const [isShow, setIsShow] = useState(false);
+  const [categories, setCategories] = useState([]);
   const handleShow = () => setIsShow(true);
   const handleClose = () => setIsShow(false);
+  const API = import.meta.env.VITE_API;
   const Logout = () => {
     RemoveAuth();
     setCurrentUser(undefined);
   };
+
+  useEffect(() => {
+    getCategories();
+}, []);
+
+async function getCategories() {
+    try {
+        const resp = await axios.get(`${API}/products/categories/product`);
+        setCategories(resp.data);
+    } catch (error) {
+        throw new Error("Error al obtener las categorias" + error.message);
+    }
+}
 
   return (
     <>
@@ -50,51 +66,14 @@ const Navbar = () => {
                   Componentes
                 </NavLink>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                    <NavLink className="dropdown-item" to="/procesadores">
-                      Procesadores
+                  {categories.map((elem)=>(
+                    <li>
+                      <NavLink className="dropdown-item" to={`./Category/${elem._id}`}>
+                     {elem.name}
                     </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/mothers">
-                      Mothers
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/placas-de-video">
-                      Placas de video
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/almacenamiento">
-                      Almacenamiento
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/gabinetes">
-                      Gabinetes
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/fuentes">
-                      Fuentes
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/memoria-ram">
-                      Memoria Ram
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/coolers">
-                      Coolers
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/monitores">
-                      Monitores
-                    </NavLink>
-                  </li>
+                    </li>
+                  ))}
+                  
                 </ul>
               </li>
 

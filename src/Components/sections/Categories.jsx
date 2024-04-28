@@ -2,12 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
-
+import { Link, useNavigate } from "react-router-dom";
 
 const Categories = () => {
-    const [categories, setCategories] = useState([])
-
-
+    const [categories, setCategories] = useState([]);
+    const [products, setProducts] = useState([]);
+    const navigate = useNavigate();
     const API = import.meta.env.VITE_API;
 
     useEffect(() => {
@@ -23,6 +23,7 @@ const Categories = () => {
         }
     }
 
+     
 
     return (
         <div>
@@ -34,18 +35,22 @@ const Categories = () => {
                 <Row className="g-4">
                     {categories.map((elem) => (
                         <Col lg={3} xs={{ offset: 1 }} key={elem._id}>
-                            <Card style={{ width: '18rem' }}>
+                            
+                            <Link to={`./Category/${elem._id}`}>
+                            <Card style={{ width: '18rem' }} onClick={() => toCategory(elem)}>
                                 <Card.Img variant="top" src={elem.image} />
                                 <Card.Body>
                                     <Card.Title>{elem.name}</Card.Title>
                                 </Card.Body>
                             </Card>
+                            </Link>
                         </Col>
                     ))}
                 </Row>
             </div>
+            
         </div>
     )
 }
 
-export default Categories
+export default Categories;

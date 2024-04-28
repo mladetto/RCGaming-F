@@ -12,6 +12,7 @@ import { CartProvider } from "./Components/Context/CardContext";
 import Cart from "./Components/Cart/Cart";
 import Contact from "./Components/pages/Contact";
 import axios from "axios";
+import Category from "./Components/sections/Category";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -101,7 +102,22 @@ function App() {
                 }
               />
 
+
+            <Route path="/categories/:id" element={<Category />} />
+              <Route
+                path="/categories/:id"
+                element={
+                  currentUser !== undefined && currentUser.role === "admin" ? (
+                    <Category />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
+              />
+
+
               <Route path="/Contact" element={<Contact />} />
+              <Route path="/Category/:id" element={<Category />} />
             </Routes>
           </BrowserRouter>
           <Footer />
