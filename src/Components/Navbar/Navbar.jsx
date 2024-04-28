@@ -111,7 +111,7 @@ const Navbar = () => {
 
               <li className="nav-item" id="">
                 {currentUser !== undefined && currentUser.role === "admin" && (
-                  <NavLink to="/Admin" className="nav-link  text-light">
+                  <NavLink to="/option_admin" className="nav-link  text-light">
                     Administración
                   </NavLink>
                 )}

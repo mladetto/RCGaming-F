@@ -16,6 +16,7 @@ import ErrorPage from "./Components/pages/ErrorPage";
 import RecoveryPassword from "./Components/pages/RecoveryPassword";
 import ResetPassword from "./Components/pages/ResetPassword";
 import Order from "./Components/pages/Order";
+import OptionAdmin from "./Components/pages/OptionAdmin/OptionAdmin";
 
 
 function App() {
@@ -73,7 +74,26 @@ function App() {
                   )
                 }
               />
-              <Route path="/Order" element={<Order />} />
+              <Route
+                path="/option_admin"
+                element={
+                  currentUser !== undefined && currentUser.role === "admin" ? (
+                    <OptionAdmin />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
+              />
+              <Route
+                path="/Order"
+                element={
+                  currentUser !== undefined && currentUser.role === "admin" ? (
+                    <Order />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
+              />
 
               <Route
                 path="/createProduct"
