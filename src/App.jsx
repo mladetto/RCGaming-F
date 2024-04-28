@@ -12,9 +12,11 @@ import { CartProvider } from "./Components/Context/CardContext";
 import Cart from "./Components/Cart/Cart";
 import Contact from "./Components/pages/Contact";
 import axios from "axios";
+import ErrorPage from "./Components/pages/ErrorPage";
 import RecoveryPassword from "./Components/pages/RecoveryPassword";
 import ResetPassword from "./Components/pages/ResetPassword";
 import Order from "./Components/pages/Order";
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -110,6 +112,7 @@ function App() {
               />
 
               <Route path="/Contact" element={<Contact />} />
+              <Route path="/*" element={<ErrorPage/>}/>
               <Route path="/recovery_password" element={<RecoveryPassword />} />
               <Route path="/reset_password/" element={<ResetPassword />} />
             </Routes>
