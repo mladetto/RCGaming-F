@@ -7,9 +7,9 @@ import * as Yup from "yup";
 import axios from "axios";
 import Swal from "sweetalert2";
 import UserContext from "../Context/UserContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 const Login = ({ isShow, handleClose }) => {
   const { setCurrentUser, SaveAuth } = useContext(UserContext);
   const navigate = useNavigate();
@@ -59,7 +59,10 @@ const Login = ({ isShow, handleClose }) => {
       }
     },
   });
-
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   return (
     <>
       <Modal show={isShow} onHide={handleClose}>
@@ -82,16 +85,28 @@ const Login = ({ isShow, handleClose }) => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="Password">
               <Form.Label>Contraseña</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Ingrese su contraseña"
-                name="password"
-                {...Formik.getFieldProps("password")}
-                className={clsx("Form-control", {
-                  "is-invalid":
-                    Formik.touched.password && Formik.errors.password,
-                })}
-              />
+              <div className="input-group">
+                <Form.Control
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Ingrese su contraseña"
+                  name="password"
+                  minLength={8}
+                  maxLength={16}
+                  required
+                  {...Formik.getFieldProps("password")}
+                  className={clsx("Form-control", {
+                    "is-invalid":
+                      Formik.touched.password && Formik.errors.password,
+                  })}
+                />
+                <button
+                  className="btn btn-outline-secondary"
+                  type="button"
+                  onClick={toggleShowPassword}
+                >
+                  {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                </button>
+              </div>
             </Form.Group>
             <div>
               <Button type="submit" variant="primary" className="mx-2">
