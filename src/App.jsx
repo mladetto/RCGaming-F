@@ -13,9 +13,14 @@ import Cart from "./Components/Cart/Cart";
 import Contact from "./Components/pages/Contact";
 import axios from "axios";
 import ErrorPage from "./Components/pages/ErrorPage";
+import RecoveryPassword from "./Components/pages/RecoveryPassword";
+import ResetPassword from "./Components/pages/ResetPassword";
+import Order from "./Components/pages/Order";
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
+
   const SaveAuth = (auth) => {
     sessionStorage.setItem("auth", JSON.stringify(auth));
   };
@@ -68,6 +73,7 @@ function App() {
                   )
                 }
               />
+              <Route path="/Order" element={<Order />} />
 
               <Route
                 path="/createProduct"
@@ -80,7 +86,10 @@ function App() {
                 }
               />
 
-              <Route path="/products/:id" element={<Product />} />
+              <Route
+                path="/products/:id"
+                element={<Product currentUser={currentUser} />}
+              />
               <Route
                 path="/products/:id"
                 element={
@@ -104,9 +113,11 @@ function App() {
 
               <Route path="/Contact" element={<Contact />} />
               <Route path="/*" element={<ErrorPage/>}/>
+              <Route path="/recovery_password" element={<RecoveryPassword />} />
+              <Route path="/reset_password/" element={<ResetPassword />} />
             </Routes>
+            <Footer />
           </BrowserRouter>
-          <Footer />
         </CartProvider>
       </userContext.Provider>
     </>

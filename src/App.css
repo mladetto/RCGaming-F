@@ -9,12 +9,53 @@
 }
 
 .swiper-card{
-  height: 300px !important;
+  min-height: 380px !important;
   margin-top: 20px;
   margin-bottom: 50px;
 }
 
+.swiper-card a{
+  text-decoration: none;
+}
+
+.swiper-card a:hover h5{
+  color: #B535A8;
+}
+
 .swiper-card img{
   width: 100%;
+  min-height: 280px;
+  object-fit: cover;
+  border-bottom: 1px solid #B535A8;
+  padding: 5px;
+}
+
+.swiper-card h5{
+  font-size: 18px;
+  margin-top: 10px;
+  padding: 0px 10px;
+  color: #3B074E;
+}
+
+.swiper-button-prev, .swiper-button-next{
+  color: #3B074E !important;
+}
+
+.card-img{
+  padding: 5px;
+  object-fit: cover;
+  height: 250px;
+}
+
+.card a{
+  text-decoration: none;
+}
+
+.card .card-title{
+  color: #3B074E;
+}
+
+.card a:hover .card-title{
+  color: #B535A8;
 }
 

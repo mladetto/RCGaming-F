@@ -3,6 +3,7 @@ import "../Navbar/Navbar.css";
 import Login from "../sections/Login";
 import { useState, useContext } from "react";
 import UserContext from "../Context/UserContext";
+import Register from "../sections/Register";
 
 const Navbar = () => {
   const { currentUser, setCurrentUser, RemoveAuth } = useContext(UserContext);
@@ -13,13 +14,23 @@ const Navbar = () => {
     RemoveAuth();
     setCurrentUser(undefined);
   };
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+  const handleShowModal = () => setShowModal(true);
 
   return (
     <>
       <Login isShow={isShow} handleClose={handleClose} />
+      <Register
+        show={showModal}
+        handleClose={handleCloseModal}
+        className="container modal-lg"
+      />
       <nav className="navBarPage navbar navbar-expand-lg navbar-light">
         <div className="container-fluid">
-          <h4 className="titlePage text-light">RCGames</h4>
+          <h4 className="titlePage text-light py-3">RCGames</h4>
           <button
             className="navbar-toggler"
             type="button"
@@ -119,7 +130,7 @@ const Navbar = () => {
               <li id="btnLogueo" className="nav-item">
                 {currentUser === undefined && (
                   <button
-                    className="btn btn-light text-dark"
+                    className="btn btn-light text-dark me-2"
                     onClick={handleShow}
                   >
                     Iniciar Sesión
@@ -128,6 +139,17 @@ const Navbar = () => {
                 {currentUser !== undefined && (
                   <button className="btn btn-light text-dark" onClick={Logout}>
                     Cerrar Sesión
+                  </button>
+                )}
+              </li>
+              <li>
+                {currentUser === undefined && (
+                  <button
+                    type="button"
+                    className="btn btn-success text-light"
+                    onClick={handleShowModal}
+                  >
+                    Registrarme
                   </button>
                 )}
               </li>
