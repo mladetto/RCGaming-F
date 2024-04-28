@@ -1,14 +1,6 @@
 import "../Footer/Footer.css";
-import Register from "../sections/Register";
-import { useState } from "react";
 
 const Footer = () => {
-  const [showModal, setShowModal] = useState(false);
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-  const handleShowModal = () => setShowModal(true);
-
   return (
     <>
       <div className="footer site-footer">
@@ -73,20 +65,7 @@ const Footer = () => {
                   target="_blank"
                   noValidate=""
                 >
-                  <div className="d-flex">
-                    <button
-                      type="button"
-                      className="btn btn-success text-light mt-2"
-                      onClick={handleShowModal}
-                    >
-                      Registrarme
-                    </button>
-                    <Register
-                      show={showModal}
-                      handleClose={handleCloseModal}
-                      className="container modal-lg"
-                    />
-                  </div>
+                  <div className="d-flex"></div>
                   <span className="form-text text-sm text-white opacity-50">
                     Suscribite para recibir ofertas, promociones y novedades de
                     nuestra tienda!
