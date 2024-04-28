@@ -30,25 +30,26 @@ const News = () => {
 
     return (
         <Container>
-            <h2>outstandings</h2>
+            <h2 className='pt-5 pb-4'>Destacados</h2>
+            <hr />
             <Swiper
                 modules={[Navigation]}
                 slidesPerView={1}
-                spaceBetween={10}
+                spaceBetween={60}
                 loop={true}
                 navigation
                 breakpoints={{
                     640: {
                         slidesPerView: 2,
-                        spaceBetween: 20,
+                        spaceBetween: 60,
                     },
                     768: {
-                        slidesPerView: 4,
-                        spaceBetween: 40,
+                        slidesPerView: 3,
+                        spaceBetween: 60,
                     },
                     1024: {
                         slidesPerView: 4,
-                        spaceBetween: 50,
+                        spaceBetween: 60,
                     },
                 }}
                 className='swiper-news'

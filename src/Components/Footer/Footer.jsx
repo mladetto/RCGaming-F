@@ -1,14 +1,10 @@
 import "../Footer/Footer.css";
-import Register from "../sections/Register";
-import { useState } from "react";
-
+import qr from "../../assets/qr.png";
+import { Link } from "react-router-dom";
+import { FaFacebookSquare } from "react-icons/fa";
+import { FaTwitterSquare } from "react-icons/fa";
+import { FaSquareWhatsapp } from "react-icons/fa6";
 const Footer = () => {
-  const [showModal, setShowModal] = useState(false);
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-  const handleShowModal = () => setShowModal(true);
-
   return (
     <>
       <div className="footer site-footer">
@@ -19,11 +15,27 @@ const Footer = () => {
         <hr className="text-light" />
         <div className="container">
           <div className="row">
+            <div className="col-lg-4 col-md-6 mb-5 text-center">
+              <section>
+                <h4 className="titlePage text-light py-3">RCGames</h4>
+              </section>
+            </div>
             <div className="col-lg-4 col-md-6 mb-5">
               <section>
                 <h3 className="widget-title text-center">
                   <i className="bx bx-support"></i> ¡Contactanos!
                 </h3>
+                <div className="text-center mb-3">
+                  <Link to="/">
+                    <FaFacebookSquare className="icons mx-3 face" />
+                  </Link>
+                  <Link to="/">
+                    <FaTwitterSquare className="icons mx-3 twitter" />
+                  </Link>
+                  <Link to="/">
+                    <FaSquareWhatsapp className="icons mx-3 wp" />
+                  </Link>
+                </div>
                 <p className="text-white text-center">
                   Gral Paz 570 - S.M de Tucuman
                 </p>
@@ -42,56 +54,32 @@ const Footer = () => {
                   </li>
                 </ul>
                 <p className="text-center">
-                  <a href="#">Contacto@rcgaming.com.ar</a>
+                  <a href="#">rcgaming.24@outlook.com</a>
                 </p>
+                <div className="text-center">
+                  <img src={qr} alt="codigo qr" className="w-50" />
+                </div>
               </section>
             </div>
             <div className="col-lg-4 col-md-6 mb-5">
               <section>
                 <h3 className="widget-title text-center">Acerca de nosotros</h3>
                 <div className="mb-2 text-center">
-                  <a href="" className="btn link-footer border rounded-3 p-2">
+                  <Link
+                    to={"/"}
+                    className="btn link-footer border rounded-3 p-2 text-light"
+                  >
                     Acerca de nosotros
-                  </a>
+                  </Link>
                 </div>
                 <div className="text-center">
-                  <a href="" className="btn link-footer border rounded-3 p-2">
+                  <Link
+                    to={"/Contact"}
+                    className="btn link-footer border rounded-3 p-2 text-light"
+                  >
                     Formulario de contacto
-                  </a>
+                  </Link>
                 </div>
-              </section>
-            </div>
-            <div className="col-lg-4 col-md-6 mb-5">
-              <section>
-                <h3 className="widget-title text-center">
-                  <i className="bx bxs-news"></i> Newlester
-                </h3>
-                <form
-                  className="subscribe-form"
-                  action="#"
-                  method="post"
-                  target="_blank"
-                  noValidate=""
-                >
-                  <div className="d-flex">
-                    <button
-                      type="button"
-                      className="btn btn-success text-light mt-2"
-                      onClick={handleShowModal}
-                    >
-                      Registrarme
-                    </button>
-                    <Register
-                      show={showModal}
-                      handleClose={handleCloseModal}
-                      className="container modal-lg"
-                    />
-                  </div>
-                  <span className="form-text text-sm text-white opacity-50">
-                    Suscribite para recibir ofertas, promociones y novedades de
-                    nuestra tienda!
-                  </span>
-                </form>
               </section>
             </div>
 
