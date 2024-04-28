@@ -15,6 +15,7 @@ import axios from "axios";
 import RecoveryPassword from "./Components/pages/RecoveryPassword";
 import ResetPassword from "./Components/pages/ResetPassword";
 import Order from "./Components/pages/Order";
+import OptionAdmin from "./Components/pages/OptionAdmin/OptionAdmin";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -71,7 +72,26 @@ function App() {
                   )
                 }
               />
-              <Route path="/Order" element={<Order />} />
+              <Route
+                path="/option_admin"
+                element={
+                  currentUser !== undefined && currentUser.role === "admin" ? (
+                    <OptionAdmin />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
+              />
+              <Route
+                path="/Order"
+                element={
+                  currentUser !== undefined && currentUser.role === "admin" ? (
+                    <Order />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
+              />
 
               <Route
                 path="/createProduct"
