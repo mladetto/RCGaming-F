@@ -1,6 +1,6 @@
 .img{
-    border-radius: 25px;
-    height: 250px;
+    height: 150px;
+    
 }
 
 .container{
@@ -8,4 +8,4 @@ justify-content: space-between;
 }
 .overflow-x-hidden {
     overflow-x: hidden;
-  }
+}
