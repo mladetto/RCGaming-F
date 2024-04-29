@@ -1,33 +1,25 @@
-import { Button, Container } from "react-bootstrap";
+import { Container, Button} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import TableProducts from "../products/TableProducts";
 
 const Admin = () => {
-
   const navigate = useNavigate();
 
   return (
     <Container>
-      <div>
+      <div className="text-center">
         <h1>Administrador</h1>
       </div>
-      <div className="container">
+      <div className="container d-flex justify-content-center align-items-center">
         <Button
           variant="success"
+          size="lg"
+          className="mx-5 my-3 px-2"
           onClick={() => {
-            navigate("/createProduct")
+            navigate("/manage_product")
           }}
-        >Crear un producto
+        >Administrar los productos
         </Button>
-        {/* <Button
-          variant="danger"
-          onClick={() => {
-            navigate("");
-          }}
-        >Administrar usuarios
-        </Button> */}
       </div>
-      <TableProducts />
     </Container>
   );
 };

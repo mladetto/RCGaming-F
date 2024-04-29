@@ -15,6 +15,7 @@ import axios from "axios";
 import RecoveryPassword from "./Components/pages/RecoveryPassword";
 import ResetPassword from "./Components/pages/ResetPassword";
 import Order from "./Components/pages/Order";
+import ManageProduct from "./Components/products/ManageProduct";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -114,6 +115,7 @@ function App() {
               <Route path="/Contact" element={<Contact />} />
               <Route path="/recovery_password" element={<RecoveryPassword />} />
               <Route path="/reset_password/" element={<ResetPassword />} />
+              <Route path="/manage_product" element={<ManageProduct />} />
             </Routes>
           </BrowserRouter>
           <Footer />

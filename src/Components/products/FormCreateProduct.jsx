@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
@@ -10,7 +11,6 @@ import { useState, useEffect } from "react";
 const FormCreateProduct = () => {
   const navigate = useNavigate();
   const API = import.meta.env.VITE_API;
-
   const [category_id, setCategory_id] = useState([]);
 
   const productSchema = Yup.object().shape({
@@ -18,8 +18,7 @@ const FormCreateProduct = () => {
       .min(4, "El título tiene que tener 4 caracteres como mínimo")
       .max(50, "El título puede tener 50 caracteres como máximo")
       .required("El título es requerido"),
-    category_id: Yup.string()
-      .required("La categoría es requerida"),
+    category_id: Yup.string().required("La categoría es requerida"),
     description: Yup.string()
       .min(4, "La descripción tiene que tener 4 caracteres como mínimo")
       .max(500, "La descripción puede tener 500 caracteres como máximo")
@@ -36,12 +35,19 @@ const FormCreateProduct = () => {
       .url("La URL de la imagen no es válida")
       .required("La Url de la imagen es requerida"),
     characteristic: Yup.array()
-    .of(Yup.string())
-    .min(1, "Debe ingresar al menos una característica con mínimo de 4 caracteres")
-    .max(10, "Puede ingresar hasta 10 características con máximo de 200 caracteres")
-    .required("Las características son requeridas"),
-    outstanding: Yup.boolean()
-      .required("La indicación si el producto es destacado o no es requerida"),
+      .of(Yup.string())
+      .min(
+        1,
+        "Debe ingresar al menos una característica con mínimo de 4 caracteres"
+      )
+      .max(
+        10,
+        "Puede ingresar hasta 10 características con máximo de 200 caracteres"
+      )
+      .required("Las características son requeridas"),
+    outstanding: Yup.boolean().required(
+      "La indicación si el producto es destacado o no es requerida"
+    ),
     stockUpdateDate: Yup.date(),
   });
 
@@ -53,8 +59,8 @@ const FormCreateProduct = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${API}/products/categories/product`); 
-        setCategory_id(response.data); 
+        const response = await axios.get(`${API}/products/categories/product`);
+        setCategory_id(response.data);
       } catch (error) {
         console.error("Error al obtener las categorías:", error);
       }
@@ -95,7 +101,6 @@ const FormCreateProduct = () => {
             const response = await axios.post(`${API}/products`, values, {
               headers: {
                 "content-type": "application/json",
-                // "Authorization": `Bearer ${currentUser}`
               },
             });
             if (response.status === 201) {
@@ -112,6 +117,7 @@ const FormCreateProduct = () => {
               "Se produjo un error al intentar crear un producto",
               error
             );
+            console.log("EL ERROR ES", error);
           }
         }
       });
@@ -120,18 +126,20 @@ const FormCreateProduct = () => {
 
   return (
     <div className="mx-5">
-      <Button
-        variant="primary"
-        onClick={() => {
-          navigate(-1);
-        }}
-      >
-        Atrás
-      </Button>
+      <div className="text-center justify-content-center my-3">
+        <Button
+          variant="primary"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          Atrás
+        </Button>
+      </div>
       <div className="text-center">
         <h2>Agregar un producto</h2>
       </div>
-
+      <div className="border border-primary rounded p-3 my-3">
       <Form onSubmit={formik.handleSubmit}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Nombre del producto</Form.Label>
@@ -175,9 +183,9 @@ const FormCreateProduct = () => {
             )}
           >
             <option value="">Seleccione una categoría</option>
-            {category_id.map((category) => (
-              <option key={category._id} value={category._id}>
-                {category.name}
+            {category_id.map((category_id) => (
+              <option key={category_id._id} value={category_id._id}>
+                {category_id.name}
               </option>
             ))}
           </Form.Select>
@@ -369,10 +377,11 @@ const FormCreateProduct = () => {
           />
         </Form.Group>
 
-        <Button className="my2 d-flex" variant="primary" type="submit">
+        <Button className="my-2 d-flex" variant="primary" type="submit">
           GUARDAR
         </Button>
       </Form>
+      </div>
     </div>
   );
 };

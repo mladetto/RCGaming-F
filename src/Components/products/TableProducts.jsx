@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Table } from "react-bootstrap";
 import RowTableProducts from "./RowTableProducts";
 import { useEffect, useState } from "react";
@@ -38,7 +39,6 @@ const TableProducts = () => {
     };
   }, []);
 
-
   return (
     <>
       <ModalEditProducts
@@ -55,15 +55,14 @@ const TableProducts = () => {
           <Table striped bordered hover size="sm">
             <thead>
               <tr>
-                
-                <th>Nombre</th>
-                <th>Categoría</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Url de la Imagen</th>
-                <th>Destacado</th>
-                <th>último control de stock</th>
-                <th>Acciones</th>
+                <th className="text-center align-content-center">Nombre</th>
+                <th className="text-center align-content-center">Categoría</th>
+                <th className="text-center align-content-center">Precio</th>
+                <th className="text-center align-content-center">Stock</th>
+                <th className="text-center align-content-center">Url de la Imagen</th>
+                <th className="text-center align-content-center">Destacado</th>
+                <th className="text-center align-content-center">último control de stock</th>
+                <th className="text-center align-content-center">Acciones</th>
               </tr>
             </thead>
             <tbody>

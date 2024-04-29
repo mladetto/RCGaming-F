@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
   const navigate = useNavigate();
-  const [category_id, setCategory_id] = useState([]);
+  const [category_id, setcategory_id] = useState([]);
 
   useEffect(() => {
     if (product) {
@@ -30,7 +30,7 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(`${API}/products/categories/product`);
-        setCategory_id(response.data);
+        setcategory_id(response.data);
       } catch (error) {
         console.error("Error al obtener las categorías:", error);
       }
