@@ -1,17 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import Card from 'react-bootstrap/Card';
+import Card from "react-bootstrap/Card";
+
 import { Link } from "react-router-dom";
 
-
 const Categories = () => {
+
     const [categories, setCategories] = useState([])
     const [selectC, setSelectC] = useState([])
     const [filterC, setFilterC] = useState("")
 
 
-    const API = import.meta.env.VITE_API;
+
+  const API = import.meta.env.VITE_API;
 
     useEffect(() => {
         getCategories();
@@ -82,3 +84,4 @@ const Categories = () => {
 }
 
 export default Categories
+

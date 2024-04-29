@@ -12,10 +12,21 @@ import { CartProvider } from "./Components/Context/CardContext";
 import Cart from "./Components/Cart/Cart";
 import Contact from "./Components/pages/Contact";
 import axios from "axios";
+
+
+import Category from "./Components/sections/Category";
+
+
+import ErrorPage from "./Components/pages/ErrorPage";
 import RecoveryPassword from "./Components/pages/RecoveryPassword";
 import ResetPassword from "./Components/pages/ResetPassword";
 import Order from "./Components/pages/Order";
+
 import ScrollToTop from "./Components/Scroll/ScrollToTop";
+
+import OptionAdmin from "./Components/pages/OptionAdmin/OptionAdmin";
+
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -73,7 +84,26 @@ function App() {
                   )
                 }
               />
-              <Route path="/Order" element={<Order />} />
+              <Route
+                path="/option_admin"
+                element={
+                  currentUser !== undefined && currentUser.role === "admin" ? (
+                    <OptionAdmin />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
+              />
+              <Route
+                path="/Order"
+                element={
+                  currentUser !== undefined && currentUser.role === "admin" ? (
+                    <Order />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
+              />
 
               <Route
                 path="/createProduct"
@@ -101,7 +131,25 @@ function App() {
                 }
               />
 
+
+            <Route path="/categories/:id" element={<Category />} />
+              <Route
+                path="/categories/:id"
+                element={
+                  currentUser !== undefined && currentUser.role === "admin" ? (
+                    <Category />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
+              />
+
+
               <Route path="/Contact" element={<Contact />} />
+
+              <Route path="/Category/:id" element={<Category />} />
+
+              <Route path="/*" element={<ErrorPage/>}/>
               <Route path="/recovery_password" element={<RecoveryPassword />} />
               <Route path="/reset_password/" element={<ResetPassword />} />
             </Routes>
