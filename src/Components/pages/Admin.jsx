@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import TableProducts from "../products/TableProducts";
 
@@ -7,7 +7,7 @@ const Admin = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <Container>
       <div>
         <h1>Administrador</h1>
       </div>
@@ -28,7 +28,7 @@ const Admin = () => {
         </Button> */}
       </div>
       <TableProducts />
-    </div>
+    </Container>
   );
 };
 

@@ -1,0 +1,59 @@
+  .navBarPage{
+  background-color: #3b074e; 
+  -webkit-text-stroke-width: 0.2px;
+  -webkit-text-stroke-color: rgb(102, 0, 128);
+  }
+  
+  .titlePage{
+  font-family: "Goblin One", serif;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  cursor: pointer;
+  }
+
+  .marqueetext{
+    font-family: "Goblin One", serif;
+    background-color: #b535a8;
+    color: #ffffff;
+    
+
+  }
+  
+  .title-home{
+    font-family: "Goblin One", serif;
+  font-size: 4rem;
+  margin-top: 6rem;
+  margin-right: 0.5rem;
+  
+    text-shadow:  4px 3px rgba(0, 0, 0, 0.5); /* Sombra: desplazamiento en x, desplazamiento en y, desenfoque, color */
+  }
+ 
+ 
+  /*NavBar-Animation*/
+
+    .bxs-cart{
+    font-size: 2rem;
+    margin-top: 1rem;
+    color: #ffffff;
+    }
+   
+    .navbar-nav .nav-link {
+      color: #b535a8;
+      padding: 0.5rem 0rem;
+      border-color: transparent;
+      margin-left: 1.5rem;
+      transition: none;
+    }
+    
+    .navbar .navbar-toggler:focus {
+      box-shadow: none;
+    }
+    
+    .navbar-nav .nav-link.active,
+    .border-green {
+      border-bottom: 3px solid #b535a8;
+    }
+    
+    .navbar-nav .nav-link:hover {
+      border-bottom: 3px solid #b535a8;
+    }

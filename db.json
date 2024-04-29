@@ -1,40 +1,37 @@
 {
-  "collectionProducts": [
+  "products": [
     {
-      "title": "ASDASD",
-      "description": "RODRISDASDASD",
-      "price": "22",
-      "category": "notebook",
-      "add": "23",
-      "imgUrl": "https://media.istockphoto.com/id/1389603578/es/foto/pantalla-en-blanco-de-la-computadora-port%C3%A1til-en-la-mesa-de-madera-con-fondo-interior-de.jpg?s=2048x2048&w=is&k=20&c=3NqVGhcpsIySdzv-RTTQ-2py90Uhx6ejXDeK961ejdY=",
-      "stock": "52",
-      "stockControlDate": "2024-12-12",
-      "outstanding": "NO",
-      "id": "642d"
+      "name": "placa de video",
+      "category_id": "Procesadores",
+      "description": "dweasdadwdawdasasdawsad",
+      "price": 115,
+      "stock": 12,
+      "imageUrl": "https://media.istockphoto.com/id/1210738055/es/foto/clase-de-formaci%C3%B3n-en-educaci%C3%B3n-inform%C3%A1tica.jpg?s=1024x1024&w=is&k=20&c=XUjCfHdnYftuWvVNxyVQRS7u6b3ATZDb0j3qR1VWD7M=",
+      "characteristic": [
+        "asdasd",
+        "asdasdasdwd",
+        ""
+      ],
+      "outstanding": "true",
+      "stockUpdateDate": "2024-04-25",
+      "category_Id": "Procesadores",
+      "id": "c4c1"
     },
     {
-      "title": "notebook samsung",
-      "description": "sadwdawd",
-      "price": "52000",
-      "category": "notebook",
-      "add": "12",
-      "imgUrl": "https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      "stock": "12",
-      "stockControlDate": "2024-04-21",
-      "outstanding": "SI",
-      "id": "1400"
-    },
-    {
-      "id": "e11f",
-      "title": "ASDWAD",
-      "description": "ASDAD",
-      "price": "2523",
-      "category": "placaVideo",
-      "add": "55",
-      "imgUrl": "https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      "stock": "20",
-      "stockControlDate": "2024-04-17",
-      "outstanding": "SI"
+      "name": "aasdawd",
+      "category_id": "Memorias Ram",
+      "description": "rfdgdrgdfg",
+      "price": 250,
+      "stock": 50,
+      "imageUrl": "https://media.istockphoto.com/id/1210738055/es/foto/clase-de-formaci%C3%B3n-en-educaci%C3%B3n-inform%C3%A1tica.jpg?s=1024x1024&w=is&k=20&c=XUjCfHdnYftuWvVNxyVQRS7u6b3ATZDb0j3qR1VWD7M=",
+      "characteristic": [
+        "asdasdasd",
+        "asdadwd",
+        ""
+      ],
+      "outstanding": "true",
+      "stockUpdateDate": "2024-04-25",
+      "id": "c3a2"
     }
   ]
 }
