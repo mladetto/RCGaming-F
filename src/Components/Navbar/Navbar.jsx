@@ -50,9 +50,9 @@ const Navbar = () => {
               </li>
 
               <li className="nav-item" id="">
-                  <a href="/Aboutus" className="nav-link  text-light">
+                  <NavLink to="/Aboutus" className="nav-link  text-light">
                     Acerca de Nosotros
-                  </a>
+                  </NavLink>
               </li>
   
             </ul>

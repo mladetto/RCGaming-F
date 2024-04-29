@@ -3,9 +3,22 @@
     
 }
 
-.container{
-justify-content: space-between;
-}
+
 .overflow-x-hidden {
     overflow-x: hidden;
+}
+.member{
+    padding: 10px 0;
+    font-weight: 500;
+  }
+.member:hover{
+    transform: scale(1.1);
+    transition: .3s;
+  }
+.title{
+    color: rgb(102, 0, 128);;
+}
+.title-container{
+    background-color: beige;
+   
 }
