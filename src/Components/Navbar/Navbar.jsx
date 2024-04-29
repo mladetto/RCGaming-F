@@ -9,7 +9,7 @@ import axios from "axios";
 import Register from "../sections/Register";
 import { CartContext } from "../Context/CardContext";
 
-const Navbar = () => {
+  const Navbar = () => {
   const { currentUser, setCurrentUser, RemoveAuth } = useContext(UserContext);
   const { clearCart, totalQuantity } = useContext(CartContext)
   const [isShow, setIsShow] = useState(false);
@@ -110,6 +110,13 @@ const Navbar = () => {
                   </NavLink>
                 )}
               </li>
+
+              <li className="nav-item" id="">
+                  <NavLink to="/Aboutus" className="nav-link  text-light">
+                    Acerca de Nosotros
+                  </NavLink>
+              </li>
+  
             </ul>
 
             <ul className="navbar-nav">

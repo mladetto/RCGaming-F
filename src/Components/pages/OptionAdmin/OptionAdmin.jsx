@@ -10,7 +10,7 @@ const OptionAdmin = () => {
       <nav>
         <ul className="list-unstyled d-flex flex-column flex-md-row justify-content-evenly">
           <li>
-            <NavLink to={""} className={"text-decoration-none"}>
+            <NavLink to={"/UserList"} className={"text-decoration-none"}>
               <div className="text-center">
                 <FaUsers className="icon" />
                 <p className="text">Usuarios</p>
