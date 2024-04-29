@@ -6,52 +6,82 @@ import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 
 const Categories = () => {
-  const [categories, setCategories] = useState([]);
+
+    const [categories, setCategories] = useState([])
+    const [selectC, setSelectC] = useState([])
+    const [filterC, setFilterC] = useState("")
+
+
 
   const API = import.meta.env.VITE_API;
 
-  useEffect(() => {
-    getCategories();
-  }, []);
+    useEffect(() => {
+        getCategories();
+    }, [filterC]);
 
-  async function getCategories() {
-    try {
-      const resp = await axios.get(`${API}/products/categories/product`);
-      setCategories(resp.data);
-    } catch (error) {
-      throw new Error("Error al obtener las categorias" + error.message);
+    useEffect(() => {
+        getAllCategories();
+    }, []);
+
+    async function getCategories() {
+        try {
+            let URL = `${API}/products/categories/product`;
+
+            if(filterC !== ""){
+                URL = `${API}/products/categories/product?filterC=${filterC}`
+            }
+
+            const resp = await axios.get(URL);
+            setCategories(resp.data);
+        } catch (error) {
+            throw new Error("Error al obtener las categorias" + error.message);
+        }
     }
-  }
 
-  return (
-    <div>
-      <h2 className="pt-5 pb-4">Categorias</h2>
-      <hr />
-      <div className="bg-light d-flex justify-content-between py-3 px-5">
-        <p className="fs-5">Filtros</p>
-        <select name="" id="" className="form-control w-25">
-          <option value="">Seleccione una categoria</option>
-        </select>
-      </div>
-      <hr />
-      <div className="mb-5">
-        <Row className="g-4">
-          {categories.map((elem) => (
-            <Col lg={3} xs={{ offset: 1 }} key={elem._id}>
-              <Link to={`/Category/${elem._id}`}>
-                <Card style={{ width: "18rem" }}>
-                  <Card.Img variant="top" src={elem.image} />
-                  <Card.Body>
-                    <Card.Title>{elem.name}</Card.Title>
-                  </Card.Body>
-                </Card>
-              </Link>
-            </Col>
-          ))}
-        </Row>
-      </div>
-    </div>
-  );
-};
+    async function getAllCategories(){
+        try{
+            const resp = await axios.get(`${API}/products/categories/product`);
+            setSelectC(resp.data)
+        }catch(error){
+            throw new Error("Error al obtener las categorias" + error.message);
+        }
+    }
 
-export default Categories;
+    return (
+        <div>
+            <h2 className="pt-5 pb-4 title">Categorias</h2>
+            <hr />
+            <div className="bg-light d-flex justify-content-between py-3 px-5">
+                <p className="fs-5">Filtros</p>
+                <select name="" id="" className="form-control w-25" onChange={(e)=>{
+                    setFilterC(e.currentTarget.value)
+                }}>
+                    <option value="">Seleccione una categoria</option>
+                    {selectC.map((elem)=>(
+                        <option value={elem._id}>{elem.name}</option>
+                    ))}
+                </select>
+            </div>
+            <hr />
+            <div className="mb-5">
+                <Row className="g-4">
+                    {categories.map((elem) => (
+                        <Col lg={3} xs={{ offset: 1 }} key={elem._id}>
+                            <Card className="card shadow" style={{ width: '18rem' }}>
+                                <Link to='/'>
+                                    <Card.Img className="card-img" variant="top" src={elem.image} />
+                                    <Card.Body className="">
+                                        <Card.Title>{elem.name}</Card.Title>
+                                    </Card.Body>
+                                </Link>
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+            </div>
+        </div>
+    )
+}
+
+export default Categories
+

@@ -21,6 +21,9 @@ import ErrorPage from "./Components/pages/ErrorPage";
 import RecoveryPassword from "./Components/pages/RecoveryPassword";
 import ResetPassword from "./Components/pages/ResetPassword";
 import Order from "./Components/pages/Order";
+
+import ScrollToTop from "./Components/Scroll/ScrollToTop";
+
 import OptionAdmin from "./Components/pages/OptionAdmin/OptionAdmin";
 
 
@@ -67,6 +70,7 @@ function App() {
       >
         <CartProvider>
           <BrowserRouter>
+          <ScrollToTop />
             <Header />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -115,16 +119,6 @@ function App() {
               <Route
                 path="/products/:id"
                 element={<Product currentUser={currentUser} />}
-              />
-              <Route
-                path="/products/:id"
-                element={
-                  currentUser !== undefined && currentUser.role === "admin" ? (
-                    <Product />
-                  ) : (
-                    <Navigate to="/" />
-                  )
-                }
               />
               <Route
                 path="/cart"
