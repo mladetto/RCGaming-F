@@ -30,8 +30,9 @@ const Order = () => {
 
     return (
         <>
-            <Container>
-                <h1>Ordenes</h1>
+            <Container className="py-5">
+                <h1 className="title">Ordenes</h1>
+                <hr />
                 <div>
                     <Table>
                         <thead>
@@ -48,10 +49,10 @@ const Order = () => {
                                 <tr key={index}>
                                     <td>{elem.user_id.name}</td>
                                     <td>{elem.user_id.email}</td>
-                                    <td>{elem.totalPrice}</td>
+                                    <td>${elem.totalPrice}</td>
                                     <td>{elem.date}</td>
                                     <td>
-                                        <Button onClick={() => handleShowModal(elem)}>Ver</Button>
+                                        <Button className="btn btn-count" variant="purple" onClick={() => handleShowModal(elem)}>Ver</Button>
                                     </td>
                                 </tr>
                             ))}
@@ -59,21 +60,22 @@ const Order = () => {
                     </Table>
                 </div>
             </Container>
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
+            <Modal show={showModal} size="lg" onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Detalles de la orden</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {selectedOrder && (
                         <div>
-                            <p>Cliente: {selectedOrder.user_id.name} ({selectedOrder.user_id.email})</p>
-                            <p>Total: {selectedOrder.totalPrice}</p>
-                            <p>Fecha: {selectedOrder.date}</p>
-                            <h5>Elementos:</h5>
+                            <p><strong>Cliente: </strong>{selectedOrder.user_id.name}</p>
+                            <p><strong>Correo: </strong>{selectedOrder.user_id.email}</p>
+                            <p><strong>Total: </strong>${selectedOrder.totalPrice}</p>
+                            <p><strong>Fecha: </strong>{selectedOrder.date}</p>
+                            <h5><strong>Elementos:</strong></h5>
                             <ul>
                                 {selectedOrder.items.map((item, index) => (
                                     <li key={index}>
-                                        {item.name} - Cantidad: {item.quantity} - Precio: {item.price}
+                                        {item.name} - Cantidad: {item.quantity} - Precio: ${item.price}
                                     </li>
                                 ))}
                             </ul>

@@ -30,7 +30,7 @@ const News = () => {
 
     return (
         <Container>
-            <h2 className='pt-5 pb-4'>Destacados</h2>
+            <h2 className='pt-5 pb-4 title'>Destacados</h2>
             <hr />
             <Swiper
                 modules={[Navigation]}

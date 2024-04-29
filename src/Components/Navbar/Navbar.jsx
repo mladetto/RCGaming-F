@@ -4,15 +4,18 @@ import Login from "../sections/Login";
 import { useState, useContext } from "react";
 import UserContext from "../Context/UserContext";
 import Register from "../sections/Register";
+import { CartContext } from "../Context/CardContext";
 
 const Navbar = () => {
   const { currentUser, setCurrentUser, RemoveAuth } = useContext(UserContext);
+  const { clearCart, totalQuantity } = useContext(CartContext)
   const [isShow, setIsShow] = useState(false);
   const handleShow = () => setIsShow(true);
   const handleClose = () => setIsShow(false);
   const Logout = () => {
     RemoveAuth();
     setCurrentUser(undefined);
+    clearCart();
   };
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => {
@@ -157,8 +160,11 @@ const Navbar = () => {
 
             <ul id="carrito" className="nav-item">
               {currentUser !== undefined && currentUser.role !== "admin" && (
-                <NavLink to="/cart" className="nav-link text-light p-0 me-4">
+                <NavLink to="/cart" className="nav-link text-light p-0 me-4 d-flex">
                   <i className="bx bxs-cart bx-tada-hover"></i>
+                  <div class='icon-quantity' style={{ display: totalQuantity() > 0 ? 'block' : 'none' }}>
+                    {totalQuantity()}
+                  </div>
                 </NavLink>
               )}
             </ul>
