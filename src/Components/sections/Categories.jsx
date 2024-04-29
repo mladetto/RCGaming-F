@@ -68,7 +68,7 @@ const Categories = () => {
                     {categories.map((elem) => (
                         <Col lg={3} xs={{ offset: 1 }} key={elem._id}>
                             <Card className="card shadow" style={{ width: '18rem' }}>
-                                <Link to='/'>
+                                <Link to={`./Category/${elem._id}`}>
                                     <Card.Img className="card-img" variant="top" src={elem.image} />
                                     <Card.Body className="">
                                         <Card.Title>{elem.name}</Card.Title>
