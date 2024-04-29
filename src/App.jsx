@@ -13,6 +13,7 @@ import Cart from './Components/Cart/Cart';
 import Contact from './Components/pages/Contact';
 import AboutUs from './Components/pages/AboutUs';
 import axios from "axios";
+import UserList from "./Components/pages/UserList";
 
 
 import Category from "./Components/sections/Category";
@@ -111,6 +112,17 @@ function App() {
                 element={
                   currentUser !== undefined && currentUser.role === "admin" ? (
                     <FormCreateProduct />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
+              />
+
+<Route
+                path="/UserList"
+                element={
+                  currentUser !== undefined && currentUser.role === "admin" ? (
+                    <UserList/>
                   ) : (
                     <Navigate to="/" />
                   )
