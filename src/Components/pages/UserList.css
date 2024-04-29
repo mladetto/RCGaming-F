@@ -61,16 +61,15 @@
   }
 
   .action-button {
-    margin-right: 5px; /* Agrega un margen entre los botones */
-    padding: 5px 10px; /* Ajusta el espaciado dentro del botón */
-    /*background-color: #007bff; /* Cambia el color de fondo del botón */
-    color: #fff; /* Cambia el color del texto del botón */
-    border: none; /* Elimina el borde del botón */
-    border-radius: 4px; /* Agrega bordes redondeados al botón */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    margin-right: 5px;
+    padding: 5px 10px; 
+    color: #fff; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
   }
   
   .action-button:hover {
-    background-color: #0056b3; /* Cambia el color de fondo del botón al pasar el cursor sobre él */
+    background-color: #0056b3;
   }
   
