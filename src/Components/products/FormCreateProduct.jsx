@@ -4,62 +4,75 @@ import * as Yup from "yup";
 import Swal from "sweetalert2";
 import clsx from "clsx";
 import { Button, Form } from "react-bootstrap";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const FormCreateProduct = () => {
   const navigate = useNavigate();
   const API = import.meta.env.VITE_API;
 
+  const [category_id, setCategory_id] = useState([]);
+
   const productSchema = Yup.object().shape({
-    title: Yup.string()
-      .min(4, "El title del product tiene que tener 4 caracteres como mínimo")
-      .max(40, "El title del product puede tener 30 caracteres como máximo")
-      .required("El title del product es requerido"),
+    name: Yup.string()
+      .min(4, "El título tiene que tener 4 caracteres como mínimo")
+      .max(50, "El título puede tener 50 caracteres como máximo")
+      .required("El título es requerido"),
+    category_id: Yup.string()
+      .required("La categoría es requerida"),
     description: Yup.string()
-      .min(4,"La description del product tiene que tener 4 caracteres como mínimo")
-      .max(300,"La description del product puede tener 300 caracteres como máximo")
-      .required("La description del product es requerida"),
+      .min(4, "La descripción tiene que tener 4 caracteres como mínimo")
+      .max(500, "La descripción puede tener 500 caracteres como máximo")
+      .required("La descripción es requerida"),
     price: Yup.number()
-      .min(10, "El valor mínimo de un product es de $100")
-      .max(10000000, "El valor máximo de un product es de $10000000")
-      .required("El price del product es requerido"),
-    category: Yup.string().required("La category es requerida"),
-    add: Yup.number()
-      .min(1, "Se puede agregar como mínimo 1 product al stock")
-      .max(1000, "Se puede agregar como máximo 1000 products al stock")
-      .required("La cantidad de product que se desea cargar es requerida"),
-    // imagenFile: Yup.required("La imagen del product es requerida"),
-    // .mixed()
-    // .test(
-    //   "file-or-url",
-    //   "Debe cargar un archivo o   ingresar una URL",
-    //   // function (value) {
-    //   //   return value || this.parent.imgUrl;
-    //   // }
-    // ),
-    imgUrl: Yup.string()
-      .required("La imagen es requerida")
-      .url("La URL de la imagen no es válida"),
+      .min(100, "El valor mínimo es de $100")
+      .max(100000000, "El valor máximo es de $100000000")
+      .required("El precio es requerido"),
     stock: Yup.number()
-      .min(0, "Puede no haber nada en el stock de products")
-      .max(500000, "La cantidad de product en stock es de 500000")
-      .required("La cantidad de product en stock que es requerida"),
-    stockControlDate: Yup.date().required(
-      "La fecha del último control del stock es requerida"
-    ),
-    outstanding: Yup.string().required("La category es requerida"),
+      .min(1, "La cantidad mínima en stock es de 1 unidad")
+      .max(200, "La cantidad máxima en stock es de 200")
+      .required("La cantidad en stock que es requerida"),
+    imageUrl: Yup.string()
+      .url("La URL de la imagen no es válida")
+      .required("La Url de la imagen es requerida"),
+    characteristic: Yup.array()
+    .of(Yup.string())
+    .min(1, "Debe ingresar al menos una característica con mínimo de 4 caracteres")
+    .max(10, "Puede ingresar hasta 10 características con máximo de 200 caracteres")
+    .required("Las características son requeridas"),
+    outstanding: Yup.boolean()
+      .required("La indicación si el producto es destacado o no es requerida"),
+    stockUpdateDate: Yup.date(),
   });
 
+  const getCurrentDate = () => {
+    const currentDate = new Date().toISOString().split("T")[0];
+    return currentDate;
+  };
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${API}/products/categories/product`); 
+        setCategory_id(response.data); 
+      } catch (error) {
+        console.error("Error al obtener las categorías:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   const initialValues = {
-    title: "",
+    name: "",
+    category_id: "",
     description: "",
     price: "",
-    category: "",
-    add: "",
-    // imagenFile: "",
-    imgUrl: "",
     stock: "",
-    stockControlDate: "",
-    outstanding: "",
+    imageUrl: "",
+    characteristic: [],
+    outstanding: undefined,
+    stockUpdateDate: getCurrentDate(),
   };
 
   const formik = useFormik({
@@ -79,13 +92,11 @@ const FormCreateProduct = () => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
-            const response = await fetch(`${API}/collectionProducts`, {
-              method: "POST",
+            const response = await axios.post(`${API}/products`, values, {
               headers: {
                 "content-type": "application/json",
                 // "Authorization": `Bearer ${currentUser}`
               },
-              body: JSON.stringify(values),
             });
             if (response.status === 201) {
               formik.resetForm();
@@ -97,7 +108,10 @@ const FormCreateProduct = () => {
               navigate("/Admin");
             }
           } catch (error) {
-            console.error("Tenes un error de tipo", error);
+            console.error(
+              "Se produjo un error al intentar crear un producto",
+              error
+            );
           }
         }
       });
@@ -119,24 +133,57 @@ const FormCreateProduct = () => {
       </div>
 
       <Form onSubmit={formik.handleSubmit}>
-        <Form.Group className="mb-3" controlId="title">
+        <Form.Group className="mb-3" controlId="name">
           <Form.Label>Nombre del producto</Form.Label>
           <Form.Control
             type="text"
             minLength={4}
-            maxLength={40}
+            maxLength={50}
             placeholder="Ingrese el nombre"
-            name="title"
-            {...formik.getFieldProps("title")}
+            name="name"
+            {...formik.getFieldProps("name")}
             className={clsx(
               "form-control",
-              { "is-invalid": formik.touched.title && formik.errors.title },
-              { "is-valid": formik.touched.title && !formik.errors.title }
+              { "is-invalid": formik.touched.name && formik.errors.name },
+              { "is-valid": formik.touched.name && !formik.errors.name }
             )}
           />
-          {formik.touched.title && formik.errors.title && (
+          {formik.touched.name && formik.errors.name && (
             <div className="mt-2 text-danger fw-bolder">
-              <span role="alert">{formik.errors.title}</span>
+              <span role="alert">{formik.errors.name}</span>
+            </div>
+          )}
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="category_id">
+          <Form.Label>Categoría</Form.Label>
+          <Form.Select
+            aria-label="category_id"
+            name="category_id"
+            type="text"
+            {...formik.getFieldProps("category_id")}
+            className={clsx(
+              "form-control",
+              {
+                "is-invalid":
+                  formik.touched.category_id && formik.errors.category_id,
+              },
+              {
+                "is-valid":
+                  formik.touched.category_id && !formik.errors.category_id,
+              }
+            )}
+          >
+            <option value="">Seleccione una categoría</option>
+            {category_id.map((category) => (
+              <option key={category._id} value={category._id}>
+                {category.name}
+              </option>
+            ))}
+          </Form.Select>
+          {formik.touched.category_id && formik.errors.category_id && (
+            <div className="mt-2 text-danger fw-bolder">
+              <span role="alert">{formik.errors.category_id}</span>
             </div>
           )}
         </Form.Group>
@@ -146,10 +193,8 @@ const FormCreateProduct = () => {
           <Form.Control
             type="text"
             placeholder="Ingrese la descripción"
-            as="textarea"
-            rows={2}
             minLength={4}
-            maxLength={200}
+            maxLength={500}
             name="description"
             {...formik.getFieldProps("description")}
             className={clsx(
@@ -174,8 +219,8 @@ const FormCreateProduct = () => {
         <Form.Group className="mb-3" controlId="price">
           <Form.Label>Precio</Form.Label>
           <Form.Control
-            type="text"
-            placeholder="Ingrese su precio"
+            type="number"
+            placeholder="Ingrese el precio"
             name="price"
             {...formik.getFieldProps("price")}
             className={clsx(
@@ -195,73 +240,11 @@ const FormCreateProduct = () => {
           )}
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="category">
-          <Form.Label>Categoría</Form.Label>
-          <Form.Select
-            aria-label="category"
-            name="category"
-            type="text"
-            {...formik.getFieldProps("category")}
-            className={clsx(
-              "form-control",
-              {
-                "is-invalid":
-                  formik.touched.category && formik.errors.category,
-              },
-              {
-                "is-valid":
-                  formik.touched.category && !formik.errors.category,
-              }
-            )}
-          >
-            <option value="">Seleccione una categoría</option>
-            <option value="placaVideo">PLACAS DE VIDEOS</option>
-            <option value="notebook">NOTEBOOK</option>
-            <option value="gabinetes">GABINETES</option>
-          </Form.Select>
-          {formik.touched.category && formik.errors.category && (
-            <div className="mt-2 text-danger fw-bolder">
-              <span role="alert">{formik.errors.category}</span>
-            </div>
-          )}
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="add">
-          <Form.Label>Cantidad de productos para agregar al stock</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese la cantidad"
-            name="add"
-            {...formik.getFieldProps("add")}
-            className={clsx(
-              "form-control",
-              {
-                "is-invalid":
-                  formik.touched.add &&
-                  formik.errors.add,
-              },
-              {
-                "is-valid":
-                  formik.touched.add &&
-                  !formik.errors.add,
-              }
-            )}
-          />
-          {formik.touched.add &&
-            formik.errors.add && (
-              <div className="mt-2 text-danger fw-bolder">
-                <span role="alert">
-                  {formik.errors.add}
-                </span>
-              </div>
-            )}
-        </Form.Group>
-
         <Form.Group className="mb-3" controlId="stock">
           <Form.Label>En stock</Form.Label>
           <Form.Control
-            type="text"
-            placeholder="La cantidad de productos disponible"
+            type="number"
+            placeholder="Ingrese la cantidad de productos en el stock"
             name="stock"
             {...formik.getFieldProps("stock")}
             className={clsx(
@@ -281,69 +264,77 @@ const FormCreateProduct = () => {
           )}
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="imgUrl">
-          <Form.Label>Imagen del producto</Form.Label>
-          <div className="d-flex align-items-center">
-            {/* <Form.Control
-              className="me-2"
-              type="file"
-              name="imagenFile"
-              onChange={(event) =>
-                formik.setFieldValue("imagenFile", event.currentTarget.files[0])
+        <Form.Group className="mb-3" controlId="imageUrl">
+          <Form.Label>Url de la imagen del producto</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Ingrese la URL de la imagen"
+            name="imageUrl"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.imageUrl}
+            {...formik.getFieldProps("imageUrl")}
+            className={clsx(
+              "form-control",
+              {
+                "is-invalid": formik.touched.imageUrl && formik.errors.imageUrl,
+              },
+              {
+                "is-valid": formik.touched.imageUrl && !formik.errors.imageUrl,
               }
-            /> */}
-            <Form.Control
-              type="text"
-              placeholder="Ingrese la URL de la imagen"
-              name="imgUrl"
-              onChange={formik.handleChange}
-              value={formik.values.imgUrl}
-            />
-          </div>
-          {formik.touched.imagenFile && formik.errors.imagenFile && (
+            )}
+          />
+          {formik.touched.imageUrl && formik.errors.imageUrl && (
             <div className="mt-2 text-danger fw-bolder">
-              <span role="alert">{formik.errors.imagenFile}</span>
+              <span role="alert">{formik.errors.imageUrl}</span>
             </div>
           )}
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="stockControlDate">
-          <Form.Label>Fecha del último control de stock</Form.Label>
+        <Form.Group className="mb-3" controlId="characteristic">
+          <Form.Label>Características</Form.Label>
           <Form.Control
-            type="date"
-            placeholder="Ingrese la fecha del último control de stock"
-            name="stockControlDate"
-            {...formik.getFieldProps("stockControlDate")}
+            as="textarea"
+            placeholder="Ingrese las características (una por línea)"
+            rows={4}
+            name="characteristic"
+            {...formik.getFieldProps("characteristic")}
+            value={
+              formik.values.characteristic &&
+              formik.values.characteristic.join("\n")
+            }
             className={clsx(
               "form-control",
               {
                 "is-invalid":
-                  formik.touched.stockControlDate &&
-                  formik.errors.stockControlDate,
+                  formik.touched.characteristic && formik.errors.characteristic,
               },
               {
                 "is-valid":
-                  formik.touched.stockControlDate &&
-                  !formik.errors.stockControlDate,
+                  formik.touched.characteristic &&
+                  !formik.errors.characteristic,
               }
             )}
+            onChange={(e) => {
+              formik.setFieldValue(
+                "characteristic",
+                e.target.value.split("\n")
+              );
+            }}
           />
-          {formik.touched.stockControlDate &&
-            formik.errors.stockControlDate && (
-              <div className="mt-2 text-danger fw-bolder">
-                <span role="alert">
-                  {formik.errors.stockControlDate}
-                </span>
-              </div>
-            )}
+          {formik.touched.characteristic && formik.errors.characteristic && (
+            <div className="mt-2 text-danger fw-bolder">
+              <span role="alert">{formik.errors.characteristic}</span>
+            </div>
+          )}
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="stockControlDate">
+        <Form.Group className="mb-3" controlId="outstanding">
           <Form.Label>Indique si el producto es destacado</Form.Label>
           <Form.Select
             aria-label="outstanding"
             name="outstanding"
-            type="text"
+            type="boolean"
             {...formik.getFieldProps("outstanding")}
             className={clsx(
               "form-control",
@@ -358,8 +349,8 @@ const FormCreateProduct = () => {
             )}
           >
             <option value="">Es destacado</option>
-            <option value="SI">SI</option>
-            <option value="NO">NO</option>
+            <option value="true">SI</option>
+            <option value="false">NO</option>
           </Form.Select>
           {formik.touched.outstanding && formik.errors.outstanding && (
             <div className="mt-2 text-danger fw-bolder">
@@ -368,7 +359,17 @@ const FormCreateProduct = () => {
           )}
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Form.Group controlId="stockUpdateDate">
+          <Form.Label>Fecha del último control de stock</Form.Label>
+          <Form.Control
+            type="date"
+            name="stockUpdateDate"
+            value={formik.values.stockUpdateDate}
+            onChange={formik.handleChange}
+          />
+        </Form.Group>
+
+        <Button className="my2 d-flex" variant="primary" type="submit">
           GUARDAR
         </Button>
       </Form>

@@ -4,12 +4,15 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import Count from "../CountProduct/Count";
 import { CartContext } from "../Context/CardContext";
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 
-const Product = () => {
+const Product = (currentUser) => {
     const [productsId, setProductsId] = useState([])
     const [quantityAdded, setQuantityAdded] = useState(0)
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const { addItem } = useContext(CartContext)
 
@@ -32,58 +35,77 @@ const Product = () => {
 
 
     const handledOnAdd = (quantity) => {
-        setQuantityAdded(quantity)
+        if (currentUser && currentUser.currentUser && currentUser.currentUser.role === "user") {
+            setQuantityAdded(quantity)
+            const item = {
+                _id: productsId._id,
+                name: productsId.name,
+                price: productsId.price,
+                imageUrl: productsId.imageUrl,
+            }
 
-        const item = {
-            _id: productsId._id,
-            name: productsId.name,
-            price: productsId.price,
-            imageUrl: productsId.imageUrl,
+            addItem(item, quantity)
+        } else {
+            Swal.fire({
+                title: 'No estás logueado',
+                text: 'Por favor, inicia sesión para continuar',
+                icon: 'warning',
+                confirmButtonText: 'Iniciar',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/');
+                }
+            });
         }
-
-        addItem(item, quantity)
     }
 
+    console.log(currentUser);
+
     return (
-        <Container>
-            <Row className="border border-danger">
-                <Col lg={6} className="border border-success">
-                    <img src={productsId.imageUrl} alt="" />
-                </Col>
-                <Col lg={6} className="border border-success">
-                    <div key={productsId._id}>
-                        <h3>{productsId.name}</h3>
-                        <p>{productsId.description}</p>
-                        <p>Precio: ${productsId.price}</p>
-                        <p>Stock: {productsId.stock}</p>
+        <div>
+            <Container>
+                <Row className="py-5">
+                    <Col lg={6}>
+                        <img src={productsId.imageUrl} alt={productsId.name} className="w-100" />
+                    </Col>
+                    <Col lg={6}>
+                        <div key={productsId._id}>
+                            <h3 className="mb-3 title">{productsId.name}</h3>
+                            <hr />
+                            <p>{productsId.description}</p>
+                            <p><strong className="fs-5">Precio: </strong><span className="fs-3 price">${productsId.price}</span></p>
+                            <div>
+                                {
+                                    productsId.stock > 0 ? (
+                                        <p className="stock fs-5">Stock disponible</p>
+                                    ) : (
+                                        <p className="stock fs-5">No hay stock</p>
+                                    )
+                                }
+                            </div>
+                        </div>
                         <div>
                             {
-                                productsId.stock > 0 ?(
-                                    <p>Stock disponible</p>
-                                ):(
-                                    <p>No hay stock</p>
+                                quantityAdded > 0 ? (
+                                    <Link to='/cart' className="finishB fs-4">Terminar Compra</Link>
+                                ) : (
+                                    <Count initial={1} stock={productsId.stock} onAdd={handledOnAdd} />
                                 )
                             }
                         </div>
-                    </div>
-                    <div>
-                        {
-                            quantityAdded > 0 ? (
-                                <Link to='/cart'>Terminar Compra</Link>
-                            ) : (
-                                <Count initial={1} stock={productsId.stock} onAdd={handledOnAdd} />
-                            )
-                        }
-                    </div>
-                </Col>
-            </Row>
-            <div>
-                <h3>Características</h3>
-                {productsId.characteristic && productsId.characteristic.map((elem, index) => (
-                    <p key={index}>{elem}</p>
-                ))}
-            </div>
-        </Container>
+                    </Col>
+                </Row>
+                <div className="mb-5">
+                    <h3 className="title">Características</h3>
+                    <hr />
+                    {productsId.characteristic && productsId.characteristic.map((elem, index) => (
+                        <p key={index}> - {elem}</p>
+                    ))}
+                </div>
+            </Container>
+        </div>
     )
 }
 
