@@ -3,14 +3,15 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Home from "./Components/pages/Home";
 import Admin from "./Components/pages/Admin";
 import FormCreateProduct from "./Components/products/FormCreateProduct";
-import Product from "./Components/sections/Product";
-import Header from "./Components/Header/Header";
-import Footer from "./Components/Footer/Footer";
-import userContext from "./Components/Context/UserContext";
-import { useState, useEffect } from "react";
-import { CartProvider } from "./Components/Context/CardContext";
-import Cart from "./Components/Cart/Cart";
-import Contact from "./Components/pages/Contact";
+import Product from './Components/sections/Product'
+import Header from './Components/Header/Header'
+import Footer from './Components/Footer/Footer'
+import userContext from "./Components/Context/UserContext"
+import { useState, useEffect } from 'react'
+import { CartProvider } from './Components/Context/CardContext';
+import Cart from './Components/Cart/Cart';
+import Contact from './Components/pages/Contact';
+import AboutUs from './Components/pages/AboutUs';
 import axios from "axios";
 
 
@@ -146,7 +147,7 @@ function App() {
 
 
               <Route path="/Contact" element={<Contact />} />
-
+              <Route path='/Aboutus' element={<AboutUs/>} />
               <Route path="/Category/:id" element={<Category />} />
 
               <Route path="/*" element={<ErrorPage/>}/>
