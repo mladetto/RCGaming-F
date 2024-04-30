@@ -3,6 +3,7 @@ import { Col, Row, Button, Form } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Category = () => {
   const [products, setProducts] = useState([]);
@@ -121,14 +122,11 @@ const Category = () => {
                   <Card.Text style={{ fontWeight: "bold" }}>
                     Precio: ${product.price}
                   </Card.Text>
-                  <Button
-                    variant="primary"
-                    href={`/products/${product._id}`}
-                    className="mx-auto d-block"
-                    style={{ backgroundColor: "purple" }}
-                  >
+                  <Link to={`/products/${product._id}`} className="mx-auto d-block" style={{ backgroundColor: "purple", textDecoration: 'none' }}>
+                    <Button variant="primary" style={{ backgroundColor: "purple" }}>
                     VER MÁS
-                  </Button>
+                    </Button>
+                  </Link>
                 </Card.Body>
               </Card>
             </Col>
