@@ -9,10 +9,20 @@ const UserList = () => {
   const API = import.meta.env.VITE_API;
 
   const fetchUsers = async () => {
+    Swal.fire({
+      title: "Cargando Usuarios!",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      willOpen: () => {
+        Swal.showLoading();
+      },
+    });
     try {
       const response = await axios.get(`${API}/users/getUsers`); 
       console.log(response);
       setUsers(response.data);
+      Swal.close();
     } catch (error) {
       console.error('Error fetching users:', error);
     }

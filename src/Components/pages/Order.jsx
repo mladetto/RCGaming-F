@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Container, Modal } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
+import Swal from "sweetalert2";
 
 
 const Order = () => {
@@ -15,9 +16,19 @@ const Order = () => {
     }, []);
 
     async function getOrder() {
+        Swal.fire({
+            title: "Cargando Ordenes!",
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            willOpen: () => {
+              Swal.showLoading();
+            },
+          });
         try {
             const resp = await axios.get(`${API}/order`);
             setOrder(resp.data);
+            Swal.close();
         } catch (error) {
             throw new Error("Error al obtener todas las ordenes" + error.message);
         }

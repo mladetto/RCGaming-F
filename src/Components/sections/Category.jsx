@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 const Category = () => {
   const [products, setProducts] = useState([]);
@@ -30,14 +31,22 @@ const Category = () => {
     sortProducts();
   }, [sortBy]);
 
-  console.log("productos->>",products);
-
+ 
   async function getProductsByCategory(categoryId) {
+    Swal.fire({
+      title: "Cargando Productos!",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      willOpen: () => {
+        Swal.showLoading();
+      },
+    });
     try {
       const resp = await axios.get(`${API}/products/category/${categoryId}`);
       setProducts(resp.data);
-      console.log("en get product by categor");
-    } catch (error) {
+      Swal.close();
+          } catch (error) {
       console.error(
         "Error al obtener los productos de la categoria" + error.message
       );
@@ -55,7 +64,7 @@ const Category = () => {
   }
 
   return (
-    <div style={{ marginBottom: "20px" }}>
+    <div style={{ marginBottom: "20px" }} className="container">
       <h2
         style={{ marginTop: "20px", marginBottom: "20px", textAlign: "center" }}
       >
