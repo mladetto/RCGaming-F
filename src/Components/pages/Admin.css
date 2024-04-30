@@ -1,0 +1,12 @@
+.title-admin {
+    color: hsl(288, 100%, 25%);
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 1000;
+    line-height: 1.2;
+  }
+
+.botón {
+    text-align: center;
+    width: 100%;
+}

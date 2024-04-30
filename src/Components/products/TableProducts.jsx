@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import { Table } from "react-bootstrap";
 import RowTableProducts from "./RowTableProducts";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ModalEditProducts from "./ModalEditProduct";
+import "./TableProducts.css";
 
 const TableProducts = () => {
   const API = import.meta.env.VITE_API;
@@ -51,19 +53,18 @@ const TableProducts = () => {
         <div className="text-center">
           <h2>Tabla de productos</h2>
         </div>
-        <div className="table-responsive">
-          <Table striped bordered hover size="sm">
+        <div className="table-responsive table-container">
+          <Table bordered hover size="sm" striped="columns">
             <thead>
               <tr>
-                
-                <th>Nombre</th>
-                <th>Categoría</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Url de la Imagen</th>
-                <th>Destacado</th>
-                <th>último control de stock</th>
-                <th>Acciones</th>
+                <th className="text-center align-content-center">Nombre</th>
+                <th className="text-center align-content-center">Categoría</th>
+                <th className="text-center align-content-center">Precio</th>
+                <th className="text-center align-content-center">Stock</th>
+                <th className="text-center align-content-center">Imagen</th>
+                <th className="text-center align-content-center">Destacado</th>
+                <th className="text-center align-content-center">Último control de stock</th>
+                <th className="text-center align-content-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
