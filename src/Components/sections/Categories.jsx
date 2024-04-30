@@ -58,7 +58,7 @@ const Categories = () => {
                 }}>
                     <option value="">Seleccione una categoria</option>
                     {selectC.map((elem)=>(
-                        <option value={elem._id}>{elem.name}</option>
+                        <option value={elem._id} key={elem._id}>{elem.name}</option>
                     ))}
                 </select>
             </div>

@@ -6,6 +6,7 @@ import { Container } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 
 
@@ -20,9 +21,20 @@ const News = () => {
     }, []);
 
     async function getProductsNews() {
+        Swal.fire({
+            title: "Cargando Productos!",
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            willOpen: () => {
+              Swal.showLoading();
+            },
+        });
+
         try {
             const resp = await axios.get(`${API}/products/news/product`);
             setNews(resp.data);
+            Swal.close();
         } catch (error) {
             throw new Error("Error al obtener los productos destacados" + error.message);
         }

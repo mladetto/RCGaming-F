@@ -25,9 +25,19 @@ const Product = (currentUser) => {
 
 
     async function getProductById() {
+        Swal.fire({
+            title: "Cargando Producto!",
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            willOpen: () => {
+              Swal.showLoading();
+            },
+          });
         try {
             const resp = await axios.get(`${API}/products/${id}`);
             setProductsId(resp.data);
+            Swal.close();       
         } catch (error) {
             throw new Error("Error al obtener el producto por Id" + error.message);
         }
@@ -60,8 +70,6 @@ const Product = (currentUser) => {
             });
         }
     }
-
-    console.log(currentUser);
 
     return (
         <div>

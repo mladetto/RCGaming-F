@@ -1,10 +1,12 @@
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import "../pages/Contact.css";
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Contact = () => {
+  const navigate = useNavigate();
   
 
   return (
@@ -37,7 +39,7 @@ const Contact = () => {
             <Form.Control as="textarea" rows={3} required minLength={10} maxLength={200} />
           </Form.Group>
           <div className='container p-2 '>
-            <Button type="submit" id='btn'>
+            <Button type="submit" id='btn' onClick={()=> {navigate("/*")}}>
               Enviar
             </Button>
           </div>

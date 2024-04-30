@@ -19,10 +19,10 @@ const Count = ({stock, initial, onAdd}) =>{
     }
 
     return(
-        <div class="container , container-count">
-            <div class="container-controler">
+        <div className="container , container-count">
+            <div className="container-controler">
                 <Button className="btn-count" variant="purple" onClick={decrement}>-</Button>
-                <h4 class="Number">{quantity}</h4>
+                <h4 className="Number">{quantity}</h4>
                 <Button className="btn-count" variant="purple" onClick={increment}>+</Button>
             </div>
             <div>
