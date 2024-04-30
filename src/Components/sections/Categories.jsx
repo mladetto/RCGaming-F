@@ -53,7 +53,7 @@ const Categories = () => {
             <hr />
             <div className="bg-light d-flex justify-content-between py-3 px-5">
                 <p className="fs-5">Filtros</p>
-                <select name="" id="" className="form-control w-25" onChange={(e)=>{
+                <select name="" id="" className="form-control w-50" onChange={(e)=>{
                     setFilterC(e.currentTarget.value)
                 }}>
                     <option value="">Seleccione una categoria</option>
@@ -64,9 +64,9 @@ const Categories = () => {
             </div>
             <hr />
             <div className="mb-5">
-                <Row className="g-4">
+                <Row className="g-4 ">
                     {categories.map((elem) => (
-                        <Col lg={3} xs={{ offset: 1 }} key={elem._id}>
+                        <Col lg={3}  key={elem._id} className="d-flex justify-content-center">
                             <Card className="card shadow" style={{ width: '18rem' }}>
                                 <Link to={`./Category/${elem._id}`}>
                                     <Card.Img className="card-img" variant="top" src={elem.image} />

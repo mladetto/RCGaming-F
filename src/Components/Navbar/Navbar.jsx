@@ -67,7 +67,7 @@ import { CartContext } from "../Context/CardContext";
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink to="/" className="nav-link text-light">
-                  Home
+                  Inicio
                 </NavLink>
               </li>
               <li className="nav-item dropdown">
@@ -119,11 +119,11 @@ import { CartContext } from "../Context/CardContext";
   
             </ul>
 
-            <ul className="navbar-nav">
+            <ul className="navbar-nav px-3">
               <li id="btnLogueo" className="nav-item">
                 {currentUser === undefined && (
                   <button
-                    className="btn btn-light text-dark me-2"
+                    className="btn btn-light text-dark me-2 mb-2 mb-md-0"
                     onClick={handleShow}
                   >
                     Iniciar Sesión

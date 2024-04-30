@@ -61,7 +61,7 @@ const Cart = () => {
             <h2 className="title">Carrito</h2>
             <hr />
             {cart.map((elem, index) => <div key={index} className="container d-flex justify-content-center">
-                <div className="d-flex border mb-4 w-50 p-2 shadow">
+                <div className="d-flex border mb-4  p-4 shadow flex-wrap">
                     <img src={elem.imageUrl} alt="" width={120} />
                     <div className="px-3">
                         <p><strong>Nombre: </strong>{elem.name}</p>
@@ -72,8 +72,8 @@ const Cart = () => {
             </div>)}
             <div className="text-center">
                 <h4>Total: ${total()}</h4>
-                <div className="w-50 mx-auto d-flex justify-content-around mt-4">
-                    <Button onClick={() => clearCart()}className='btn-count fs-5' variant="purple">Limpiar Carrito</Button>
+                <div className="w-50 mx-auto d-flex justify-content-around mt-4 flex-wrap">
+                    <Button onClick={() => clearCart()}className='btn-count fs-5 mb-2 mb-md-0' variant="purple">Limpiar Carrito</Button>
                     <Button onClick={() => createOrder()} className='btn-count btn-checkout fs-5' variant="purple">Finalizar Compra</Button>
                 </div>
             </div>
