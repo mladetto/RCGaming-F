@@ -66,7 +66,7 @@ const Footer = () => {
                 <h3 className="widget-title text-center">Acerca de nosotros</h3>
                 <div className="mb-2 text-center">
                   <Link
-                    to={"/"}
+                    to={"/Aboutus"}
                     className="btn link-footer border rounded-3 p-2 text-light"
                   >
                     Acerca de nosotros
