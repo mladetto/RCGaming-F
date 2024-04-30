@@ -15,12 +15,15 @@ const Footer = () => {
         <hr className="text-light" />
         <div className="container">
           <div className="row">
-            <div className="col-lg-4 col-md-6 mb-5 text-center">
+            <div className="col-lg-4 col-md-6 mb-3 mb-md-0 text-center">
               <section>
                 <h4 className="titlePage text-light py-3">RCGames</h4>
+                <div className="text-center">
+                  <img src={qr} alt="codigo qr" className="w-50" />
+                </div>
               </section>
             </div>
-            <div className="col-lg-4 col-md-6 mb-5">
+            <div className="col-lg-4 col-md-6 mb-3 mb-md-0">
               <section>
                 <h3 className="widget-title text-center">
                   <i className="bx bx-support"></i> ¡Contactanos!
@@ -55,13 +58,10 @@ const Footer = () => {
                 </ul>
                 <p className="text-center">
                   <a href="#">rcgaming.24@outlook.com</a>
-                </p>
-                <div className="text-center">
-                  <img src={qr} alt="codigo qr" className="w-50" />
-                </div>
+                </p>-
               </section>
             </div>
-            <div className="col-lg-4 col-md-6 mb-5">
+            <div className="col-lg-4 col-md-6 mb-3 mb-md-0">
               <section>
                 <h3 className="widget-title text-center">Acerca de nosotros</h3>
                 <div className="mb-2 text-center">
@@ -82,19 +82,16 @@ const Footer = () => {
                 </div>
               </section>
             </div>
-
             <div className="col-lg-3 col-md-6"></div>
           </div>
-          <hr className="mt-2 margin-bottom-2x" />
+          <hr className="mt-2 mt-md-0 margin-bottom-2x" />
           <div className="row">
             <div className="col-md-7 padding-bottom-1x"></div>
             <div className="col-md-5 padding-bottom-1x">
               <div className="margin-top-1x hidden-md-up"></div>
             </div>
-
             <div className="footer-copyright text-center">
-              &copy; RCGames
-              <br /> All rights reserved <br /> Powered by Grupo 4 - RollingCode
+              &copy; RCGames All rights reserved Powered by Grupo 4 - RollingCode
             </div>
           </div>
         </div>
