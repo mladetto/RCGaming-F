@@ -29,6 +29,8 @@ const Category = () => {
     sortProducts();
   }, [sortBy]);
 
+  console.log("productos->>",products);
+
   async function getProductsByCategory(categoryId) {
     try {
       const resp = await axios.get(`${API}/products/category/${categoryId}`);

@@ -1,35 +1,11 @@
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import "../pages/Contact.css";
-import ReCAPTCHA from 'react-google-recaptcha';
-import { useRef } from 'react';
-import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+
 
 
 const Contact = () => {
-  const captcha = useRef(null);
-  const navigate = useNavigate();
-
-  const onChange = () => {
-    if (captcha.current.getValue()) {
-      Swal.fire({
-        title: 'Usuario verificado',
-        text: 'El captcha fue verificado',
-        icon: 'success',
-        confirmButtonText: 'Aceptar'
-      }).then(() => {
-        navigate('/*')
-      });
-    } else {
-      Swal.fire({
-        title: 'Error',
-        text: 'Verifique el captcha',
-        icon: 'error',
-        confirmButtonText: 'Entendido',
-      });
-    }
-  };
+  
 
   return (
     <>
@@ -61,12 +37,7 @@ const Contact = () => {
             <Form.Control as="textarea" rows={3} required minLength={10} maxLength={200} />
           </Form.Group>
           <div className='container p-2 '>
-            <ReCAPTCHA
-              ref={captcha}
-              sitekey='6LeUcMspAAAAAFmW63NFshCbyUWoccR2uUMNDtE9'
-              onChange={onChange}
-            />
-            <Button type="submit" id='btn' className='mt-3'>
+            <Button type="submit" id='btn'>
               Enviar
             </Button>
           </div>
