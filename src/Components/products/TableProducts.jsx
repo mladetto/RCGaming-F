@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ModalEditProducts from "./ModalEditProduct";
 import "./TableProducts.css";
+import Swal from "sweetalert2";
+
 
 const TableProducts = () => {
   const API = import.meta.env.VITE_API;
@@ -25,9 +27,19 @@ const TableProducts = () => {
   };
 
   const getProducts = async () => {
+    Swal.fire({
+      title: "Cargando Productos!",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      willOpen: () => {
+        Swal.showLoading();
+      },
+    });
     try {
       const response = await axios.get(`${API}/products`);
       setProducts(response.data);
+      Swal.close();
     } catch (error) {
       console.log("el error para traer los products es", error);
     }

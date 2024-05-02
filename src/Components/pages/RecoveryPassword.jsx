@@ -24,15 +24,26 @@ export default function RecoveryPassword() {
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (values) => {
+      Swal.fire({
+        title: "Cargando Usuarios!",
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        willOpen: () => {
+          Swal.showLoading();
+        },
+      });
       try {
         const res = await axios.post(`${API}/users/recovery_password`, values);
         if (res.status === 200) {
           formik.resetForm();
+          Swal.close();
           Swal.fire({
             title: "Exito!",
             text: "Se envio un email a tu correo para cambiar la contraseña.",
             icon: "success",
           });
+          
         }
       } catch (error) {
         Swal.fire({

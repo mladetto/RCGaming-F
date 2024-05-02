@@ -29,13 +29,13 @@ const Footer = () => {
                   <i className="bx bx-support"></i> ¡Contactanos!
                 </h3>
                 <div className="text-center mb-3">
-                  <Link to="/">
+                  <Link to="/*">
                     <FaFacebookSquare className="icons mx-3 face" />
                   </Link>
-                  <Link to="/">
+                  <Link to="/*">
                     <FaTwitterSquare className="icons mx-3 twitter" />
                   </Link>
-                  <Link to="/">
+                  <Link to="/*">
                     <FaSquareWhatsapp className="icons mx-3 wp" />
                   </Link>
                 </div>
@@ -57,7 +57,7 @@ const Footer = () => {
                   </li>
                 </ul>
                 <p className="text-center">
-                  <a href="#">rcgaming.24@outlook.com</a>
+                  <Link to="/*">rcgaming.24@outlook.com</Link>
                 </p>-
               </section>
             </div>

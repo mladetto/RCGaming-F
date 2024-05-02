@@ -34,6 +34,15 @@ const Login = ({ isShow, handleClose }) => {
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (values) => {
+      Swal.fire({
+        title: "Iniciando sesión...!",
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        willOpen: () => {
+          Swal.showLoading();
+        },
+      });
       try {
         const response = await axios.post(`${API}/users/login`, values);
         console.log(response.data);
@@ -41,20 +50,24 @@ const Login = ({ isShow, handleClose }) => {
           SaveAuth(response.data);
           setCurrentUser(response.data);
           Formik.resetForm();
+          Swal.close();
           handleClose();
         } else {
-          Swal.fire({
+             Swal.fire({
             icon: "error",
             title: "Error",
             text: "Email y/o usuario incorrecto",
           });
+          
         }
+        
       } catch (error) {
         Swal.fire({
           icon: "error",
           title: "Error",
           text: "Email y/o usuario incorrecto***",
         });
+        
         console.error(error);
       }
     },
