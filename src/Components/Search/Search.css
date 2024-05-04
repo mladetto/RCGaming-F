@@ -1,0 +1,33 @@
+.search-container {
+  background-color: #3b074e;
+}
+
+.search-form {
+  position: relative;
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  z-index: 999;
+}
+
+.search-results li {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.search-results li:hover {
+  background-color: #f0f0f0;
+}

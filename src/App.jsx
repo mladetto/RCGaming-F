@@ -3,21 +3,19 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Home from "./Components/pages/Home";
 import Admin from "./Components/pages/Admin";
 import FormCreateProduct from "./Components/products/FormCreateProduct";
-import Product from './Components/sections/Product'
-import Header from './Components/Header/Header'
-import Footer from './Components/Footer/Footer'
-import userContext from "./Components/Context/UserContext"
-import { useState, useEffect } from 'react'
-import { CartProvider } from './Components/Context/CardContext';
-import Cart from './Components/Cart/Cart';
-import Contact from './Components/pages/Contact';
-import AboutUs from './Components/pages/AboutUs';
+import Product from "./Components/sections/Product";
+import Header from "./Components/Header/Header";
+import Footer from "./Components/Footer/Footer";
+import userContext from "./Components/Context/UserContext";
+import { useState, useEffect } from "react";
+import { CartProvider } from "./Components/Context/CardContext";
+import Cart from "./Components/Cart/Cart";
+import Contact from "./Components/pages/Contact";
+import AboutUs from "./Components/pages/AboutUs";
 import axios from "axios";
 import UserList from "./Components/pages/UserList";
 
-
 import Category from "./Components/sections/Category";
-
 
 import ErrorPage from "./Components/pages/ErrorPage";
 import RecoveryPassword from "./Components/pages/RecoveryPassword";
@@ -27,8 +25,6 @@ import Order from "./Components/pages/Order";
 import ScrollToTop from "./Components/Scroll/ScrollToTop";
 
 import OptionAdmin from "./Components/pages/OptionAdmin/OptionAdmin";
-
-
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -72,7 +68,7 @@ function App() {
       >
         <CartProvider>
           <BrowserRouter>
-          <ScrollToTop />
+            <ScrollToTop />
             <Header />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -82,7 +78,7 @@ function App() {
                   currentUser !== undefined && currentUser.role === "admin" ? (
                     <Admin />
                   ) : (
-                    <Navigate to="/" />
+                    <Navigate to="/" replace={true} />
                   )
                 }
               />
@@ -92,7 +88,7 @@ function App() {
                   currentUser !== undefined && currentUser.role === "admin" ? (
                     <OptionAdmin />
                   ) : (
-                    <Navigate to="/" />
+                    <Navigate to="/" replace={true} />
                   )
                 }
               />
@@ -102,7 +98,7 @@ function App() {
                   currentUser !== undefined && currentUser.role === "admin" ? (
                     <Order />
                   ) : (
-                    <Navigate to="/" />
+                    <Navigate to="/" replace={true} />
                   )
                 }
               />
@@ -113,18 +109,18 @@ function App() {
                   currentUser !== undefined && currentUser.role === "admin" ? (
                     <FormCreateProduct />
                   ) : (
-                    <Navigate to="/" />
+                    <Navigate to="/" replace={true} />
                   )
                 }
               />
 
-<Route
+              <Route
                 path="/UserList"
                 element={
                   currentUser !== undefined && currentUser.role === "admin" ? (
-                    <UserList/>
+                    <UserList />
                   ) : (
-                    <Navigate to="/" />
+                    <Navigate to="/" replace={true} />
                   )
                 }
               />
@@ -139,30 +135,28 @@ function App() {
                   currentUser !== undefined && currentUser.role === "user" ? (
                     <Cart />
                   ) : (
-                    <Navigate to="/" />
+                    <Navigate to="/" replace={true} />
                   )
                 }
               />
 
-
-            <Route path="/categories/:id" element={<Category />} />
+              <Route path="/categories/:id" element={<Category />} />
               <Route
                 path="/categories/:id"
                 element={
                   currentUser !== undefined && currentUser.role === "admin" ? (
                     <Category />
                   ) : (
-                    <Navigate to="/" />
+                    <Navigate to="/" replace={true} />
                   )
                 }
               />
 
-
               <Route path="/Contact" element={<Contact />} />
-              <Route path='/Aboutus' element={<AboutUs/>} />
+              <Route path="/Aboutus" element={<AboutUs />} />
               <Route path="/Category/:id" element={<Category />} />
 
-              <Route path="/*" element={<ErrorPage/>}/>
+              <Route path="/*" element={<ErrorPage />} />
               <Route path="/recovery_password" element={<RecoveryPassword />} />
               <Route path="/reset_password/" element={<ResetPassword />} />
             </Routes>
