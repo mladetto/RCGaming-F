@@ -41,15 +41,16 @@ const RowTableProducts = ({
   return (
     <>
       <tr>
-        <td>{product.name}</td>
-        <td>{product.category_id.name}</td>
-        <td>{product.price}</td>
-        <td>{product.stock}</td>
-        <td><img src={product.imageUrl} alt={product.name} width={80} /></td>
-        <td>{product.outstanding ?<p>Si</p>:<p>No</p>}</td>
-        <td>{product.stockUpdateDate}</td>
-        <td className="d-flex justify-content-around">
+        <td className="text-center align-content-center">{product.name}</td>
+        <td className="text-center align-content-center">{product.category_id.name}</td>
+        <td className="text-center align-content-center">{product.price}</td>
+        <td className="text-center align-content-center">{product.stock}</td>
+        <td className="text-center align-content-center"><img src={product.imageUrl} alt={product.name} width={80} /></td>
+        <td className="text-center align-content-center">{product.outstanding ?<p>Si</p>:<p>No</p>}</td>
+        <td className="text-center align-content-center">{product.stockUpdateDate}</td>
+        <td className="text-center align-middler">
           <Button
+            className="my-1"
             type="button"
             variant="success"
             onClick={() => {

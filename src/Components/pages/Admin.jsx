@@ -1,6 +1,7 @@
 import { Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import TableProducts from "../products/TableProducts";
+import "./Admin.css";
 
 const Admin = () => {
 
@@ -8,25 +9,21 @@ const Admin = () => {
 
   return (
     <Container>
-      <div>
-        <h1>Administrador</h1>
+      <div className="title-admin" >
+        <h1>Administración de productos</h1>
       </div>
-      <div className="container">
+      <hr />
+      <div className="container botón">
         <Button
+          style={{ width: "100%" }}
           variant="success"
           onClick={() => {
             navigate("/createProduct")
           }}
-        >Crear un producto
+        >Agregar
         </Button>
-        {/* <Button
-          variant="danger"
-          onClick={() => {
-            navigate("");
-          }}
-        >Administrar usuarios
-        </Button> */}
       </div>
+      <hr />
       <TableProducts />
     </Container>
   );

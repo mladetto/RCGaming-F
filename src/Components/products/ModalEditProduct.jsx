@@ -149,12 +149,12 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
         className="text-light"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Producto a editar</Modal.Title>
+          <Modal.Title><strong>Producto a editar</strong></Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={formik.handleSubmit}>
             <Form.Group className="mb-3" controlId="name">
-              <Form.Label>Nombre del producto</Form.Label>
+              <Form.Label><strong>Nombre</strong></Form.Label>
               <Form.Control
                 type="text"
                 minLength={4}
@@ -176,7 +176,7 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="category_id">
-              <Form.Label>Categoría</Form.Label>
+              <Form.Label><strong>Categoría</strong></Form.Label>
               <Form.Select
                 aria-label="category_id"
                 name="category_id"
@@ -209,7 +209,7 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="description">
-              <Form.Label>Descripción</Form.Label>
+              <Form.Label><strong>Descripción</strong></Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Ingrese la descripción"
@@ -237,7 +237,7 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="price">
-              <Form.Label>Precio</Form.Label>
+              <Form.Label><strong>Precio</strong></Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Ingrese el precio"
@@ -261,7 +261,7 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="stock">
-              <Form.Label>En stock</Form.Label>
+              <Form.Label><strong>Stock</strong></Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Ingrese la cantidad de productos en el stock"
@@ -285,7 +285,7 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="imageUrl">
-              <Form.Label>Url de la imagen del producto</Form.Label>
+              <Form.Label><strong>Url</strong></Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Ingrese la URL de la imagen"
@@ -314,7 +314,7 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="characteristic">
-              <Form.Label>Características</Form.Label>
+              <Form.Label><strong>Características</strong></Form.Label>
               <Form.Control
                 as="textarea"
                 placeholder="Ingrese las características (una por línea)"
@@ -354,7 +354,7 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="outstanding">
-              <Form.Label>Indique si el producto es destacado</Form.Label>
+              <Form.Label><strong>Indique si el producto es destacado</strong></Form.Label>
               <Form.Select
                 aria-label="outstanding"
                 name="outstanding"
@@ -384,7 +384,7 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
             </Form.Group>
 
             <Form.Group controlId="stockUpdateDate">
-              <Form.Label>Fecha del último control de stock</Form.Label>
+              <Form.Label><strong>Fecha del último control de stock</strong></Form.Label>
               <Form.Control
                 type="date"
                 name="stockUpdateDate"
@@ -393,7 +393,7 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="mx-2">
+            <Button variant="primary" type="submit" className="mx-2 my-2">
               GUARDAR
             </Button>
 
@@ -404,7 +404,7 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
                 closeEditModal();
               }}
             >
-              Cerrar
+              CANCELAR
             </Button>
           </Form>
         </Modal.Body>
