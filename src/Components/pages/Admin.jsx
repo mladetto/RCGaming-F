@@ -19,13 +19,6 @@ const Admin = () => {
           }}
         >Crear un producto
         </Button>
-        {/* <Button
-          variant="danger"
-          onClick={() => {
-            navigate("");
-          }}
-        >Administrar usuarios
-        </Button> */}
       </div>
       <TableProducts />
     </Container>
