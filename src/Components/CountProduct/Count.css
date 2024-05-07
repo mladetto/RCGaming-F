@@ -20,7 +20,15 @@
     color: #fff !important;
 }
 
-.btn-add{
+.btn-count:hover{
+    background-color: #3B074E !important;
+}
+
+.btn-custom{
     background-color: #B535A8 !important;
     color: #fff !important;
+}
+
+.btn-custom:hover{
+    background-color: #3B074E !important;
 }

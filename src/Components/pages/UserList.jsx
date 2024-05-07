@@ -20,7 +20,6 @@ const UserList = () => {
     });
     try {
       const response = await axios.get(`${API}/users/getUsers`); 
-      console.log(response);
       setUsers(response.data);
       Swal.close();
     } catch (error) {
@@ -71,8 +70,8 @@ const UserList = () => {
   return (
     <div className="user-list-container container">
       <h2>Listado de Usuarios</h2>
-      <div className="table-container">
-        <table>
+      <div className="table-container table-responsive">
+        <table className='table'>
           <thead>
             <tr>
               <th>Nombre</th>

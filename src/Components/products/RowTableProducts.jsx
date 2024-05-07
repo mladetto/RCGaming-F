@@ -32,14 +32,13 @@ const RowTableProducts = ({
             icon: "success"
           });
         } catch (error) {
-          console.log("error:", error.message);
+          console.error("error:", error.message);
         }
       }
     });
   };
 
   return (
-    <>
       <tr>
         <td className="text-center align-content-center">{product.name}</td>
         <td className="text-center align-content-center">{product.category_id.name}</td>
@@ -68,7 +67,6 @@ const RowTableProducts = ({
           </Button>
         </td>
       </tr>
-    </>
   );
 };
 

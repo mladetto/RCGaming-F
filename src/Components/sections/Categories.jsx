@@ -53,7 +53,7 @@ const Categories = () => {
             <hr />
             <div className="bg-light d-flex justify-content-between py-3 px-5">
                 <p className="fs-5">Filtros</p>
-                <select name="" id="" className="form-control w-50" onChange={(e)=>{
+                <select name="" id="" className="form-select w-50" onChange={(e)=>{
                     setFilterC(e.currentTarget.value)
                 }}>
                     <option value="">Seleccione una categoria</option>

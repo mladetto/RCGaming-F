@@ -41,7 +41,7 @@ const TableProducts = () => {
       setProducts(response.data);
       Swal.close();
     } catch (error) {
-      console.log("el error para traer los products es", error);
+      console.error("el error para traer los products es", error);
     }
   };
 
@@ -66,7 +66,7 @@ const TableProducts = () => {
           <h2>Tabla de productos</h2>
         </div>
         <div className="table-responsive table-container">
-          <Table bordered hover size="sm" striped="columns">
+          <Table bordered hover size="sm" striped="columns" responsive>
             <thead>
               <tr>
                 <th className="text-center align-content-center">Nombre</th>

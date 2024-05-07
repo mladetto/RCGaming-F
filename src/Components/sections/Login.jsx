@@ -45,7 +45,6 @@ const Login = ({ isShow, handleClose }) => {
       });
       try {
         const response = await axios.post(`${API}/users/login`, values);
-        console.log(response.data);
         if (response.status === 200) {
           SaveAuth(response.data);
           setCurrentUser(response.data);

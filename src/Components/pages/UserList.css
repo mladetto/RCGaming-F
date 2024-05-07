@@ -26,20 +26,6 @@
   }
   
   @media only screen and (max-width: 600px) {
-    th, td {
-      padding: 4px;
-    }
-  
-    table {
-      border-spacing: 0;
-      border-collapse: collapse;
-    }
-  
-    td {
-      display: block;
-      text-align: right;
-    }
-  
     td:before {
       content: attr(data-label);
       float: left;
@@ -57,7 +43,6 @@
     th:last-child, td:last-child {
       text-align: center;
     }
-   
   }
 
   .action-button {
