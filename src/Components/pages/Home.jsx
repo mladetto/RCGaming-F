@@ -12,8 +12,10 @@ const Home = () => {
             <Carousels />
             <Container>
                 <News />
-                <div className="d-flex justify-content-center mb-5">
-                    <img src="https://www.venex.com.ar/fil/banners/armadorpclargo.jpg" className="img-fluid" alt="banner" />
+                <div className="d-none d-md-block">
+                    <div className="d-flex justify-content-center mb-5">
+                        <img src="https://www.venex.com.ar/fil/banners/armadorpclargo.jpg" className="img-fluid" alt="banner" />
+                    </div>
                 </div>
                 <Categories />
             </Container>

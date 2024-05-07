@@ -55,7 +55,6 @@ const Cart = () => {
         }
     }
 
-    console.log("cart->>", cart);
     return (
         <Container className="py-5">
             <h2 className="title">Carrito</h2>

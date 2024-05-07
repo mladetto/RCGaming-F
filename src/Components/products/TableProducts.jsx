@@ -29,7 +29,7 @@ const TableProducts = () => {
       const response = await axios.get(`${API}/products`);
       setProducts(response.data);
     } catch (error) {
-      console.log("Error al obtener los productos:", error);
+      console.error("el error para traer los products es", error);
     }
   };
 
@@ -65,9 +65,8 @@ const TableProducts = () => {
         <div className="text-center">
           <h2>Tabla de productos</h2>
         </div>
-
-        <div className="table-responsive">
-          <Table bordered hover>
+        <div className="table-responsive table-container">
+          <Table bordered hover size="sm" striped="columns" responsive>
             <thead>
               <tr>
                 <th>Nombre</th>

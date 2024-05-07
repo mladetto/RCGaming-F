@@ -45,7 +45,7 @@ const Order = () => {
                 <h1 className="title">Ordenes</h1>
                 <hr />
                 <div>
-                    <Table>
+                    <Table responsive>
                         <thead>
                             <tr>
                                 <th>nombre</th>

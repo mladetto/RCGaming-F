@@ -25,7 +25,7 @@
 .swiper-card img{
   width: 100%;
   min-height: 280px;
-  object-fit: cover;
+  object-fit: contain;
   border-bottom: 1px solid #B535A8;
   padding: 5px;
 }
@@ -43,7 +43,7 @@
 
 .card-img{
   padding: 5px;
-  object-fit: cover;
+  object-fit: contain;
   height: 250px;
 }
 
@@ -80,5 +80,6 @@
 .finishB:hover{
   color: #3B074E;
 }
+
 
 
