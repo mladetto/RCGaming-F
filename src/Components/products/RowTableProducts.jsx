@@ -1,25 +1,22 @@
 import { Button } from "react-bootstrap";
 import Swal from "sweetalert2";
-/* eslint-disable react/prop-types */
 import axios from "axios";
 
-const RowTableProducts = ({
-  product,
-  handleShow,
-  getProducts,
-}) => {
+const RowTableProducts = ({ product, handleShow, getProducts }) => {
   const API = import.meta.env.VITE_API;
 
-  const deleteProduct = () => {
-    Swal.fire({
-      title: "Estas seguro de eliminar este producto?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Eliminar",
-      cancelButtonText: "NO, volver atrás",
-    }).then(async (result) => {
+  const deleteProduct = async () => {
+    try {
+      const result = await Swal.fire({
+        title: "¿Estás seguro de eliminar este producto?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Eliminar",
+        cancelButtonText: "Cancelar",
+      });
+
       if (result.isConfirmed) {
         try {
           await axios.delete(`${API}/products/delete/${product._id}`, {
@@ -34,8 +31,6 @@ const RowTableProducts = ({
         } catch (error) {
           console.error("error:", error.message);
         }
-      }
-    });
   };
 
   return (
@@ -53,15 +48,19 @@ const RowTableProducts = ({
             type="button"
             variant="success"
             onClick={() => {
-              handleShow(product)
+              handleShow(product);
             }}
+            style={{ width: "100%" }}
           >
             Editar
           </Button>
+        </div>
+        <div className="w-100">
           <Button
             type="button"
             variant="danger"
             onClick={deleteProduct}
+            style={{ width: "100%" }}
           >
             Eliminar
           </Button>
@@ -71,3 +70,5 @@ const RowTableProducts = ({
 };
 
 export default RowTableProducts;
+
+

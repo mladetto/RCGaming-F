@@ -1,5 +1,4 @@
-/* eslint-disable react/jsx-no-duplicate-props */
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import RowTableProducts from "./RowTableProducts";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -13,7 +12,6 @@ const TableProducts = () => {
 
   const [products, setProducts] = useState([]);
   const [editedProduct, setEditedProduct] = useState(undefined);
-
   const [show, setShow] = useState(false);
 
   const handleShow = (prod) => {
@@ -27,19 +25,9 @@ const TableProducts = () => {
   };
 
   const getProducts = async () => {
-    Swal.fire({
-      title: "Cargando Productos!",
-      allowEscapeKey: false,
-      allowOutsideClick: false,
-      showConfirmButton: false,
-      willOpen: () => {
-        Swal.showLoading();
-      },
-    });
     try {
       const response = await axios.get(`${API}/products`);
       setProducts(response.data);
-      Swal.close();
     } catch (error) {
       console.error("el error para traer los products es", error);
     }
@@ -47,11 +35,23 @@ const TableProducts = () => {
 
   useEffect(() => {
     getProducts();
-    return () => {
-      setProducts([]);
-    };
   }, []);
 
+  const deleteProduct = async (productId) => {
+    try {
+      await axios.delete(`${API}/products/delete/${productId}`, {
+        headers: { "content-type": "application/json" },
+      });
+      getProducts();
+      Swal.fire({
+        title: "Éxito",
+        text: "Se eliminó el producto exitosamente",
+        icon: "success",
+      });
+    } catch (error) {
+      console.log("Error al eliminar el producto:", error.message);
+    }
+  };
 
   return (
     <>
@@ -60,7 +60,7 @@ const TableProducts = () => {
         handleClose={handleClose}
         product={editedProduct}
         getProducts={getProducts}
-      ></ModalEditProducts>
+      />
       <div className="container-fluid">
         <div className="text-center">
           <h2>Tabla de productos</h2>
@@ -69,27 +69,25 @@ const TableProducts = () => {
           <Table bordered hover size="sm" striped="columns" responsive>
             <thead>
               <tr>
-                <th className="text-center align-content-center">Nombre</th>
-                <th className="text-center align-content-center">Categoría</th>
-                <th className="text-center align-content-center">Precio</th>
-                <th className="text-center align-content-center">Stock</th>
-                <th className="text-center align-content-center">Imagen</th>
-                <th className="text-center align-content-center">Destacado</th>
-                <th className="text-center align-content-center">Último control de stock</th>
-                <th className="text-center align-content-center">Acciones</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Url de la Imagen</th>
+                <th>Destacado</th>
+                <th>Último control de stock</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-                {products.map((product,index) => {
-                  return (
-                    <RowTableProducts
-                      product={product}
-                      key={index}
-                      handleShow={handleShow}
-                      getProducts={getProducts}
-                    ></RowTableProducts>
-                  )
-                })}
+              {products.map((product, index) => (
+                <RowTableProducts
+                  product={product}
+                  key={index}
+                  handleShow={handleShow}
+                  deleteProduct={() => deleteProduct(product._id)}
+                />
+              ))}
             </tbody>
           </Table>
         </div>

@@ -10,17 +10,17 @@ import UserContext from "../Context/UserContext";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+
+
+
 const Login = ({ isShow, handleClose }) => {
   const { setCurrentUser, SaveAuth } = useContext(UserContext);
   const navigate = useNavigate();
   const API = import.meta.env.VITE_API;
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().required("El email es requerido").min(8).max(125),
-    password: Yup.string()
-      .required("La contraseña es requerida")
-      .min(8)
-      .max(20),
+    email: Yup.string().min(8).max(125).required("El email es requerido"),
+    password: Yup.string().min(8).max(16).required("La contraseña es requerida"),
   });
 
   const initialValues = {
@@ -28,7 +28,7 @@ const Login = ({ isShow, handleClose }) => {
     password: "",
   };
 
-  const Formik = useFormik({
+  const formik = useFormik({
     initialValues,
     validationSchema: LoginSchema,
     validateOnBlur: true,
@@ -48,7 +48,7 @@ const Login = ({ isShow, handleClose }) => {
         if (response.status === 200) {
           SaveAuth(response.data);
           setCurrentUser(response.data);
-          Formik.resetForm();
+          formik.resetForm();
           Swal.close();
           handleClose();
         } else {
@@ -75,25 +75,40 @@ const Login = ({ isShow, handleClose }) => {
   const toggleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+  const handleModalClose = () => {
+    formik.resetForm();
+    handleClose();
+  };
+  
   return (
     <>
-      <Modal show={isShow} onHide={handleClose}>
+      <Modal show={isShow} onHide={handleModalClose}>
         <Modal.Header closeButton>
           <Modal.Title>Iniciar Sesión</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={Formik.handleSubmit}>
+          <Form onSubmit={formik.handleSubmit}>
             <Form.Group className="mb-3" controlId="Email">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Ingrese su email"
                 name="email"
-                {...Formik.getFieldProps("email")}
-                className={clsx("Form-control", {
-                  "is-invalid": Formik.touched.email && Formik.errors.email,
+                minLength={8}
+                maxLength={125}
+                required
+                {...formik.getFieldProps("email")}
+                className={clsx("form-control", {
+                  "is-invalid": formik.touched.email && formik.errors.email,
+                }, {
+                  "is-valid": formik.touched.email && !formik.errors.email,
                 })}
               />
+               {formik.touched.email && formik.errors.email && (
+                <div className="mt-2 text-danger fw-bolder">
+                  <span role="alert">{formik.errors.email}</span>
+                </div>
+              )}
             </Form.Group>
             <Form.Group className="mb-3" controlId="Password">
               <Form.Label>Contraseña</Form.Label>
@@ -105,14 +120,22 @@ const Login = ({ isShow, handleClose }) => {
                   minLength={8}
                   maxLength={16}
                   required
-                  {...Formik.getFieldProps("password")}
-                  className={clsx("Form-control", {
+                  {...formik.getFieldProps("password")}
+                  className={clsx("form-control", {
                     "is-invalid":
-                      Formik.touched.password && Formik.errors.password,
+                      formik.touched.password && formik.errors.password,
+                  }, {
+                    "is-valid":
+                      formik.touched.password && !formik.errors.password,
                   })}
                 />
+                 {formik.touched.password && formik.errors.password && (
+                <div className="container mt-2 text-danger fw-bolder">
+                  <span role="alert">{formik.errors.password}</span>
+                </div>
+              )}
                 <button
-                  className="btn btn-outline-secondary"
+                  className="btn btn-outline-secondary "
                   type="button"
                   onClick={toggleShowPassword}
                 >
@@ -121,10 +144,8 @@ const Login = ({ isShow, handleClose }) => {
               </div>
             </Form.Group>
             <div>
-              <Button type="submit" variant="primary" className="mx-2">
-                Ingresar
-              </Button>
-              <Button variant="danger" className="mx-2" onClick={handleClose}>
+              <Button type="submit" variant="primary" className="mx-2" > Ingresar </Button>
+              <Button variant="danger" className="mx-2" onClick={handleModalClose}>
                 Cerrar
               </Button>
             </div>
