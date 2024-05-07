@@ -9,9 +9,9 @@ import axios from "axios";
 import Register from "../sections/Register";
 import { CartContext } from "../Context/CardContext";
 
-  const Navbar = () => {
+const Navbar = () => {
   const { currentUser, setCurrentUser, RemoveAuth } = useContext(UserContext);
-  const { clearCart, totalQuantity } = useContext(CartContext)
+  const { clearCart, totalQuantity } = useContext(CartContext);
   const [isShow, setIsShow] = useState(false);
   const [categories, setCategories] = useState([]);
   const handleShow = () => setIsShow(true);
@@ -112,11 +112,10 @@ import { CartContext } from "../Context/CardContext";
               </li>
 
               <li className="nav-item" id="">
-                  <NavLink to="/Aboutus" className="nav-link  text-light">
-                    Acerca de Nosotros
-                  </NavLink>
+                <NavLink to="/Aboutus" className="nav-link  text-light">
+                  Acerca de Nosotros
+                </NavLink>
               </li>
-  
             </ul>
 
             <ul className="navbar-nav px-3">
@@ -150,9 +149,15 @@ import { CartContext } from "../Context/CardContext";
 
             <ul id="carrito" className="nav-item">
               {currentUser !== undefined && currentUser.role !== "admin" && (
-                <NavLink to="/cart" className="nav-link text-light p-0 me-4 d-flex">
+                <NavLink
+                  to="/cart"
+                  className="nav-link text-light p-0 me-4 d-flex"
+                >
                   <i className="bx bxs-cart bx-tada-hover"></i>
-                  <div class='icon-quantity' style={{ display: totalQuantity() > 0 ? 'block' : 'none' }}>
+                  <div
+                    className="icon-quantity"
+                    style={{ display: totalQuantity() > 0 ? "block" : "none" }}
+                  >
                     {totalQuantity()}
                   </div>
                 </NavLink>
@@ -166,4 +171,3 @@ import { CartContext } from "../Context/CardContext";
 };
 
 export default Navbar;
-

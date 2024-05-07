@@ -1,0 +1,12 @@
+.titleForm {
+  text-align: center;
+
+  }
+
+.form-border {
+  border: 2px solid rgb(102, 0, 128);
+  border-radius: 8px; 
+  padding: 20px; 
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
