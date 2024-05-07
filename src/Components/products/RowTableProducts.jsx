@@ -34,6 +34,7 @@ const RowTableProducts = ({ product, handleShow, getProducts }) => {
   };
 
   return (
+
     <tr className="d-flex flex-column align-items-center">
       <td>{product.name}</td>
       <td>{product.category_id.name}</td>
@@ -47,6 +48,7 @@ const RowTableProducts = ({ product, handleShow, getProducts }) => {
       <td className="d-flex flex-column align-items-center">
         <div className="mb-2 w-100">
           <Button
+            className="my-1"
             type="button"
             variant="success"
             onClick={() => {

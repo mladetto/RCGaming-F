@@ -3,7 +3,9 @@ import RowTableProducts from "./RowTableProducts";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ModalEditProducts from "./ModalEditProduct";
+import "./TableProducts.css";
 import Swal from "sweetalert2";
+
 
 const TableProducts = () => {
   const API = import.meta.env.VITE_API;
@@ -63,6 +65,7 @@ const TableProducts = () => {
         <div className="text-center">
           <h2>Tabla de productos</h2>
         </div>
+
         <div className="table-responsive">
           <Table bordered hover>
             <thead>
