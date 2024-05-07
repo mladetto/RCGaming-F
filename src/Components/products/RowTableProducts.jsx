@@ -18,35 +18,33 @@ const RowTableProducts = ({ product, handleShow, getProducts }) => {
       });
 
       if (result.isConfirmed) {
-        await axios.delete(`${API}/products/delete/${product._id}`, {
-          headers: { "content-type": "application/json" },
-        });
-        getProducts();
-        Swal.fire({
-          title: "Éxito",
-          text: "Se eliminó el producto exitosamente",
-          icon: "success",
-        });
-      }
-    } catch (error) {
-      console.log("Error al eliminar el producto:", error.message);
-    }
+        try {
+          await axios.delete(`${API}/products/delete/${product._id}`, {
+            headers: { "content-type": "application/json" },
+          });
+          getProducts();
+          Swal.fire({
+            title: "Éxito",
+            text: "Se eliminó el producto exitosamente",
+            icon: "success"
+          });
+        } catch (error) {
+          console.error("error:", error.message);
+        }
   };
 
   return (
-
-    <tr className="d-flex flex-column align-items-center">
-      <td>{product.name}</td>
-      <td>{product.category_id.name}</td>
-      <td>{product.price}</td>
-      <td>{product.stock}</td>
-      <td>
-        <img src={product.imageUrl} alt={product.name} width={80} />
-      </td>
-      <td>{product.outstanding ? "Si" : "No"}</td>
-      <td>{product.stockUpdateDate}</td>
-      <td className="d-flex flex-column align-items-center">
+      <tr>
+        <td className="text-center align-content-center">{product.name}</td>
+        <td className="text-center align-content-center">{product.category_id.name}</td>
+        <td className="text-center align-content-center">{product.price}</td>
+        <td className="text-center align-content-center">{product.stock}</td>
+        <td className="text-center align-content-center"><img src={product.imageUrl} alt={product.name} width={80} /></td>
+        <td className="text-center align-content-center">{product.outstanding ?<p>Si</p>:<p>No</p>}</td>
+        <td className="text-center align-content-center">{product.stockUpdateDate}</td>
+        <td className="text-center align-middler">
         <div className="mb-2 w-100">
+
           <Button
             className="my-1"
             type="button"
@@ -68,9 +66,8 @@ const RowTableProducts = ({ product, handleShow, getProducts }) => {
           >
             Eliminar
           </Button>
-        </div>
-      </td>
-    </tr>
+        </td>
+      </tr>
   );
 };
 

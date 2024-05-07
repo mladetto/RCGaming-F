@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Components/pages/Home";
 import Admin from "./Components/pages/Admin";
 import FormCreateProduct from "./Components/products/FormCreateProduct";
@@ -14,16 +14,12 @@ import Contact from "./Components/pages/Contact";
 import AboutUs from "./Components/pages/AboutUs";
 import axios from "axios";
 import UserList from "./Components/pages/UserList";
-
 import Category from "./Components/sections/Category";
-
 import ErrorPage from "./Components/pages/ErrorPage";
 import RecoveryPassword from "./Components/pages/RecoveryPassword";
 import ResetPassword from "./Components/pages/ResetPassword";
 import Order from "./Components/pages/Order";
-
 import ScrollToTop from "./Components/Scroll/ScrollToTop";
-
 import OptionAdmin from "./Components/pages/OptionAdmin/OptionAdmin";
 
 function App() {
@@ -78,7 +74,7 @@ function App() {
                   currentUser !== undefined && currentUser.role === "admin" ? (
                     <Admin />
                   ) : (
-                    <Navigate to="/" replace={true} />
+                    <Home />
                   )
                 }
               />
@@ -88,7 +84,7 @@ function App() {
                   currentUser !== undefined && currentUser.role === "admin" ? (
                     <OptionAdmin />
                   ) : (
-                    <Navigate to="/" replace={true} />
+                    <Home />
                   )
                 }
               />
@@ -98,7 +94,7 @@ function App() {
                   currentUser !== undefined && currentUser.role === "admin" ? (
                     <Order />
                   ) : (
-                    <Navigate to="/" replace={true} />
+                    <Home />
                   )
                 }
               />
@@ -109,7 +105,7 @@ function App() {
                   currentUser !== undefined && currentUser.role === "admin" ? (
                     <FormCreateProduct />
                   ) : (
-                    <Navigate to="/" replace={true} />
+                    <Home />
                   )
                 }
               />
@@ -120,7 +116,7 @@ function App() {
                   currentUser !== undefined && currentUser.role === "admin" ? (
                     <UserList />
                   ) : (
-                    <Navigate to="/" replace={true} />
+                    <Home />
                   )
                 }
               />
@@ -135,7 +131,7 @@ function App() {
                   currentUser !== undefined && currentUser.role === "user" ? (
                     <Cart />
                   ) : (
-                    <Navigate to="/" replace={true} />
+                    <Home />
                   )
                 }
               />
@@ -147,7 +143,7 @@ function App() {
                   currentUser !== undefined && currentUser.role === "admin" ? (
                     <Category />
                   ) : (
-                    <Navigate to="/" replace={true} />
+                    <Home />
                   )
                 }
               />

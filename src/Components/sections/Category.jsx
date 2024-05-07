@@ -115,7 +115,7 @@ const Category = () => {
                   variant="top"
                   src={product.imageUrl}
                   alt=" "
-                  style={{ objectFit: "cover", height: "200px", width: "100%" }}
+                  style={{ objectFit: "contain", height: "200px", width: "100%" }}
                 />
                 <Card.Body
                   style={{
@@ -131,8 +131,8 @@ const Category = () => {
                   <Card.Text style={{ fontWeight: "bold" }}>
                     Precio: ${product.price}
                   </Card.Text>
-                  <Link to={`/products/${product._id}`} className="mx-auto d-block" style={{ backgroundColor: "purple", textDecoration: 'none' }}>
-                    <Button variant="primary" style={{ backgroundColor: "purple" }}>
+                  <Link to={`/products/${product._id}`} className="mx-auto d-block" style={{textDecoration: 'none' }}>
+                    <Button className="btn-custom" variant="purple">
                     VER MÁS
                     </Button>
                   </Link>

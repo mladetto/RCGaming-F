@@ -88,7 +88,6 @@ const FormCreateProduct = () => {
     validationOnBlur: true,
     validationOnChange: true,
     onSubmit: (values) => {
-      console.log("los valores del formulario son:", values);
       Swal.fire({
         title: "Estas seguro de guardar este producto?",
         icon: "warning",
