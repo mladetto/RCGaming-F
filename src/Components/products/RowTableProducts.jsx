@@ -1,75 +1,79 @@
 import { Button } from "react-bootstrap";
 import Swal from "sweetalert2";
-/* eslint-disable react/prop-types */
 import axios from "axios";
 
-const RowTableProducts = ({
-  product,
-  handleShow,
-  getProducts,
-}) => {
+const RowTableProducts = ({ product, handleShow, getProducts }) => {
   const API = import.meta.env.VITE_API;
 
-  const deleteProduct = () => {
-    Swal.fire({
-      title: "Estas seguro de eliminar este producto?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Eliminar",
-      cancelButtonText: "NO, volver atrás",
-    }).then(async (result) => {
+  const deleteProduct = async () => {
+    try {
+      const result = await Swal.fire({
+        title: "¿Estás seguro de eliminar este producto?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Eliminar",
+        cancelButtonText: "Cancelar",
+      });
+
       if (result.isConfirmed) {
-        try {
-          await axios.delete(`${API}/products/delete/${product._id}`, {
-            headers: { "content-type": "application/json" },
-          });
-          getProducts();
-          Swal.fire({
-            title: "Éxito",
-            text: "Se eliminó el producto exitosamente",
-            icon: "success"
-          });
-        } catch (error) {
-          console.log("error:", error.message);
-        }
+        await axios.delete(`${API}/products/delete/${product._id}`, {
+          headers: { "content-type": "application/json" },
+        });
+        getProducts();
+        Swal.fire({
+          title: "Éxito",
+          text: "Se eliminó el producto exitosamente",
+          icon: "success",
+        });
       }
-    });
+    } catch (error) {
+      console.log("Error al eliminar el producto:", error.message);
+    }
   };
 
   return (
-    <>
-      <tr>
-        <td className="text-center align-content-center">{product.name}</td>
-        <td className="text-center align-content-center">{product.category_id.name}</td>
-        <td className="text-center align-content-center">{product.price}</td>
-        <td className="text-center align-content-center">{product.stock}</td>
-        <td className="text-center align-content-center"><img src={product.imageUrl} alt={product.name} width={80} /></td>
-        <td className="text-center align-content-center">{product.outstanding ?<p>Si</p>:<p>No</p>}</td>
-        <td className="text-center align-content-center">{product.stockUpdateDate}</td>
-        <td className="text-center align-middler">
+
+    <tr className="d-flex flex-column align-items-center">
+      <td>{product.name}</td>
+      <td>{product.category_id.name}</td>
+      <td>{product.price}</td>
+      <td>{product.stock}</td>
+      <td>
+        <img src={product.imageUrl} alt={product.name} width={80} />
+      </td>
+      <td>{product.outstanding ? "Si" : "No"}</td>
+      <td>{product.stockUpdateDate}</td>
+      <td className="d-flex flex-column align-items-center">
+        <div className="mb-2 w-100">
           <Button
             className="my-1"
             type="button"
             variant="success"
             onClick={() => {
-              handleShow(product)
+              handleShow(product);
             }}
+            style={{ width: "100%" }}
           >
             Editar
           </Button>
+        </div>
+        <div className="w-100">
           <Button
             type="button"
             variant="danger"
             onClick={deleteProduct}
+            style={{ width: "100%" }}
           >
             Eliminar
           </Button>
-        </td>
-      </tr>
-    </>
+        </div>
+      </td>
+    </tr>
   );
 };
 
 export default RowTableProducts;
+
+
