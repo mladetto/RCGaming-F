@@ -43,6 +43,8 @@ const RowTableProducts = ({ product, handleShow, getProducts }) => {
         <td className="text-center align-content-center">{product.outstanding ?<p>Si</p>:<p>No</p>}</td>
         <td className="text-center align-content-center">{product.stockUpdateDate}</td>
         <td className="text-center align-middler">
+        <div className="mb-2 w-100">
+
           <Button
             className="my-1"
             type="button"
