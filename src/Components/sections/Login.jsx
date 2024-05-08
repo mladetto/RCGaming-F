@@ -19,8 +19,14 @@ const Login = ({ isShow, handleClose }) => {
   const API = import.meta.env.VITE_API;
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().min(8).max(125).required("El email es requerido"),
-    password: Yup.string().min(8).max(16).required("La contraseña es requerida"),
+    email: Yup.string().matches(
+      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+      "Correo invalido"
+    ).min(8).max(125).required("El email es requerido"),
+    password: Yup.string().matches(
+      /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
+      "Contraseña invalida"
+    ).min(8).max(16).required("La contraseña es requerida"),
   });
 
   const initialValues = {
@@ -144,7 +150,7 @@ const Login = ({ isShow, handleClose }) => {
               </div>
             </Form.Group>
             <div>
-              <Button type="submit" variant="primary" className="mx-2" > Ingresar </Button>
+              <Button type="submit" variant="primary" className="mx-2"> Ingresar </Button>
               <Button variant="danger" className="mx-2" onClick={handleModalClose}>
                 Cerrar
               </Button>
