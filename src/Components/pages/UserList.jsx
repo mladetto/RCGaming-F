@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from "axios";
 import Swal from "sweetalert2";
 import "./UserList.css";
-
+import { useState, useEffect } from "react";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -19,32 +18,28 @@ const UserList = () => {
       },
     });
     try {
-      const response = await axios.get(`${API}/users/getUsers`); 
+      const response = await axios.get(`${API}/users/getUsers`);
       setUsers(response.data);
       Swal.close();
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error("Error al obtener los usuarios:", error);
     }
   };
-  
-  useEffect(() => {
 
+  useEffect(() => {
     fetchUsers();
   }, []);
-  
-  const toggleUserStatus = async(userId) => {
+
+  const toggleUserStatus = async (userId) => {
     try {
       await axios.put(`${API}/users/activate/${userId}`);
-       
+
       fetchUsers();
-     
     } catch (error) {
-      console.error('Error toggling user status:', error);
+      console.error("Error toggling user status:", error);
     }
   };
 
-  
-  
   const deleteUser = async (userId) => {
     Swal.fire({
       title: "Estas seguro de eliminar este usuario?",
@@ -57,11 +52,11 @@ const UserList = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`${API}/users/delete/${userId}`); 
-          const filteredUsers = users.filter(user => user._id !== userId);
+          await axios.delete(`${API}/users/delete/${userId}`);
+          const filteredUsers = users.filter((user) => user._id !== userId);
           setUsers(filteredUsers);
         } catch (error) {
-          console.error('Error deleting user:', error);
+          console.error("Error deleting user:", error);
         }
       }
     });
@@ -71,7 +66,7 @@ const UserList = () => {
     <div className="user-list-container container">
       <h2>Listado de Usuarios</h2>
       <div className="table-container table-responsive">
-        <table className='table'>
+        <table className="table">
           <thead>
             <tr>
               <th>Nombre</th>
@@ -85,12 +80,18 @@ const UserList = () => {
               <tr key={user._id}>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>{user.isActive ? 'Activo' : 'Inactivo'}</td>
+                <td>{user.isActive ? "Activo" : "Inactivo"}</td>
                 <td>
-                  <button className="action-button btn btn-success" onClick={() => toggleUserStatus(user._id)}>
-                    {user.isActive ? 'Deshabilitar' : 'Habilitar'}
+                  <button
+                    className="action-button btn btn-success"
+                    onClick={() => toggleUserStatus(user._id)}
+                  >
+                    {user.isActive ? "Deshabilitar" : "Habilitar"}
                   </button>
-                  <button className="action-button btn btn-danger" onClick={() => deleteUser(user._id)}>
+                  <button
+                    className="action-button btn btn-danger"
+                    onClick={() => deleteUser(user._id)}
+                  >
                     Eliminar
                   </button>
                 </td>
@@ -104,8 +105,3 @@ const UserList = () => {
 };
 
 export default UserList;
-
-  
-
-
-
