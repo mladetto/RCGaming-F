@@ -11,6 +11,12 @@ La función principal de eCommerce **RCGames** es facilitar la compra de insumos
 Ademas, el sitio web es responsive y está en constante desarrollo para mejorar la experiencia del usuario en diferentes dispositivos. 
 
 ## NPM y Enlaces 
+
+Para utilizar este proyecto, sigue estos pasos: 
+1.  **Clonar el Repositorio**: Clona este repositorio desde GitHub ejecutando el siguiente comando en tu terminal: ``` git clone <URL del repositorio> ``` 
+2.  **Instalar Dependencias**: Una vez clonado el repositorio, navega hasta el directorio del proyecto en tu terminal y ejecuta el siguiente comando para instalar todas las dependencias npm: ``` npm install ```
+3.  **Configurar el Archivo .env**: Antes de ejecutar el proyecto, asegúrate de configurar el archivo `.env` con las variables necesarias, como las credenciales de acceso a la base de datos u otras configuraciones específicas del proyecto.
+4.  
 Aquí están las dependencias npm utilizadas en el proyecto:
  -  `npm install bootstrap`: Instalación de la biblioteca Bootstrap 5. 
  -  `npm install bootstrap-icons`: Instalación de la biblioteca de iconos de Bootstrap.
