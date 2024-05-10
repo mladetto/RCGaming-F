@@ -33,7 +33,6 @@ const UserList = () => {
   const toggleUserStatus = async (userId) => {
     try {
       await axios.put(`${API}/users/activate/${userId}`);
-
       fetchUsers();
     } catch (error) {
       console.error("Error toggling user status:", error);
@@ -42,7 +41,7 @@ const UserList = () => {
 
   const deleteUser = async (userId) => {
     Swal.fire({
-      title: "Estas seguro de eliminar este usuario?",
+      title: "¿Estas seguro de eliminar este usuario?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -82,18 +81,22 @@ const UserList = () => {
                 <td>{user.email}</td>
                 <td>{user.isActive ? "Activo" : "Inactivo"}</td>
                 <td>
-                  <button
-                    className="action-button btn btn-success"
-                    onClick={() => toggleUserStatus(user._id)}
-                  >
-                    {user.isActive ? "Deshabilitar" : "Habilitar"}
-                  </button>
-                  <button
-                    className="action-button btn btn-danger"
-                    onClick={() => deleteUser(user._id)}
-                  >
-                    Eliminar
-                  </button>
+                  {user.role !== "admin" && ( 
+                    <>
+                      <button
+                        className="action-button btn btn-success"
+                        onClick={() => toggleUserStatus(user._id)}
+                      >
+                        {user.isActive ? "Deshabilitar" : "Habilitar"}
+                      </button>
+                      <button
+                        className="action-button btn btn-danger"
+                        onClick={() => deleteUser(user._id)}
+                      >
+                        Eliminar
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}
@@ -105,3 +108,4 @@ const UserList = () => {
 };
 
 export default UserList;
+
