@@ -81,22 +81,22 @@ const UserList = () => {
                 <td>{user.email}</td>
                 <td>{user.isActive ? "Activo" : "Inactivo"}</td>
                 <td>
-                  {user.role !== "admin" && ( 
-                    <>
-                      <button
-                        className="action-button btn btn-success"
-                        onClick={() => toggleUserStatus(user._id)}
-                      >
-                        {user.isActive ? "Deshabilitar" : "Habilitar"}
-                      </button>
-                      <button
-                        className="action-button btn btn-danger"
-                        onClick={() => deleteUser(user._id)}
-                      >
-                        Eliminar
-                      </button>
-                    </>
-                  )}
+                  <>
+                    <button
+                      className="action-button btn btn-success"
+                      onClick={() => toggleUserStatus(user._id)}
+                      disabled={user.role === "admin" ? true : false}
+                    >
+                      {user.isActive ? "Deshabilitar" : "Habilitar"}
+                    </button>
+                    <button
+                      className="action-button btn btn-danger"
+                      onClick={() => deleteUser(user._id)}
+                      disabled={user.role === "admin" ? true : false}
+                    >
+                      Eliminar
+                    </button>
+                  </>
                 </td>
               </tr>
             ))}
@@ -108,4 +108,3 @@ const UserList = () => {
 };
 
 export default UserList;
-
