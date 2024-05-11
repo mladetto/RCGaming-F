@@ -58,8 +58,8 @@ const Order = () => {
                         <tbody>
                             {order.map((elem, index) => (
                                 <tr key={index}>
-                                    <td>{elem.user_id.name}</td>
-                                    <td>{elem.user_id.email}</td>
+                                    <td>{elem.user_id && elem.user_id.name ? elem.user_id.name : 'N/A'}</td>
+                                    <td>{elem.user_id && elem.user_id.email ? elem.user_id.email : 'N/A'}</td>
                                     <td>${elem.totalPrice}</td>
                                     <td>{elem.date}</td>
                                     <td>
