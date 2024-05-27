@@ -19,7 +19,9 @@ const Login = ({ isShow, handleClose }) => {
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .matches(
+
         /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+
         "Correo inválido"
       )
       .min(8)
@@ -27,7 +29,10 @@ const Login = ({ isShow, handleClose }) => {
       .required("El email es requerido"),
     password: Yup.string()
       .matches(
+
         /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
+
+
         "Contraseña inválida"
       )
       .min(8)
@@ -117,11 +122,15 @@ const Login = ({ isShow, handleClose }) => {
                 maxLength={125}
                 required
                 {...formik.getFieldProps("email")}
-                className={clsx("form-control", {
-                  "is-invalid": formik.touched.email && formik.errors.email,
-                }, {
-                  "is-valid": formik.touched.email && !formik.errors.email,
-                })}
+                className={clsx(
+                  "form-control",
+                  {
+                    "is-invalid": formik.touched.email && formik.errors.email,
+                  },
+                  {
+                    "is-valid": formik.touched.email && !formik.errors.email,
+                  }
+                )}
               />
               {formik.touched.email && formik.errors.email && (
                 <div className="mt-2 text-danger fw-bolder">
@@ -140,13 +149,17 @@ const Login = ({ isShow, handleClose }) => {
                   maxLength={16}
                   required
                   {...formik.getFieldProps("password")}
-                  className={clsx("form-control", {
-                    "is-invalid":
-                      formik.touched.password && formik.errors.password,
-                  }, {
-                    "is-valid":
-                      formik.touched.password && !formik.errors.password,
-                  })}
+                  className={clsx(
+                    "form-control",
+                    {
+                      "is-invalid":
+                        formik.touched.password && formik.errors.password,
+                    },
+                    {
+                      "is-valid":
+                        formik.touched.password && !formik.errors.password,
+                    }
+                  )}
                 />
                 <button
                   className="btn btn-outline-secondary"
@@ -163,8 +176,15 @@ const Login = ({ isShow, handleClose }) => {
               )}
             </Form.Group>
             <div>
-              <Button type="submit" variant="primary" className="mx-2"> Ingresar </Button>
-              <Button variant="danger" className="mx-2" onClick={handleModalClose}>
+              <Button type="submit" variant="primary" className="mx-2">
+                {" "}
+                Ingresar{" "}
+              </Button>
+              <Button
+                variant="danger"
+                className="mx-2"
+                onClick={handleModalClose}
+              >
                 Cerrar
               </Button>
             </div>

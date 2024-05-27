@@ -85,6 +85,7 @@ const TableProducts = () => {
                   product={product}
                   key={index}
                   handleShow={handleShow}
+                  getProducts={getProducts}
                   deleteProduct={() => deleteProduct(product._id)}
                 />
               ))}
