@@ -12,19 +12,6 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
   const navigate = useNavigate();
   const [category_id, setCategory_id] = useState([]);
 
-  useEffect(() => {
-    if (product) {
-      formik.setFieldValue("name", product.name, true);
-      formik.setFieldValue("category_id", product.category_id, true);
-      formik.setFieldValue("description", product.description, true);
-      formik.setFieldValue("price", product.price, true);
-      formik.setFieldValue("stock", product.stock, true);
-      formik.setFieldValue("imageUrl", product.imageUrl, true);
-      formik.setFieldValue("characteristic", product.characteristic, true);
-      formik.setFieldValue("outstanding", product.outstanding, true);
-      formik.setFieldValue("stockControlDate", product.stockControlDate, true);
-    }
-  }, [product]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -38,6 +25,21 @@ const ModalEditProducts = ({ show, handleClose, product, getProducts }) => {
 
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    if (product) {
+      formik.setFieldValue("name", product.name, true);
+      formik.setFieldValue("category_id", product.category_id._id, true);
+      formik.setFieldValue("description", product.description, true);
+      formik.setFieldValue("price", product.price, true);
+      formik.setFieldValue("stock", product.stock, true);
+      formik.setFieldValue("imageUrl", product.imageUrl, true);
+      formik.setFieldValue("characteristic", product.characteristic, true);
+      formik.setFieldValue("outstanding", product.outstanding, true);
+      formik.setFieldValue("stockControlDate", product.stockControlDate, true);
+    }
+  }, [product]);
+
 
   const API = import.meta.env.VITE_API;
 
