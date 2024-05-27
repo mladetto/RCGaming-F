@@ -38,12 +38,20 @@ const RowTableProducts = ({ product, handleShow, getProducts }) => {
     <>
       <tr>
         <td className="text-center align-content-center">{product.name}</td>
-        <td className="text-center align-content-center">{product.category_id.name}</td>
+        <td className="text-center align-content-center">
+          {product.category_id.name}
+        </td>
         <td className="text-center align-content-center">{product.price}</td>
         <td className="text-center align-content-center">{product.stock}</td>
-        <td className="text-center align-content-center"><img src={product.imageUrl} alt={product.name} width={80} /></td>
-        <td className="text-center align-content-center">{product.outstanding ?<p>Si</p>:<p>No</p>}</td>
-        <td className="text-center align-content-center">{product.stockUpdateDate}</td>
+        <td className="text-center align-content-center">
+          <img src={product.imageUrl} alt={product.name} width={80} />
+        </td>
+        <td className="text-center align-content-center">
+          {product.outstanding ? <p>Si</p> : <p>No</p>}
+        </td>
+        <td className="text-center align-content-center">
+          {new Date(product.stockUpdateDate).toLocaleDateString()}
+        </td>
         <td className="text-center align-middler">
           <div className="mb-2 w-100">
             <Button
