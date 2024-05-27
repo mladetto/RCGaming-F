@@ -19,7 +19,9 @@ const Login = ({ isShow, handleClose }) => {
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .matches(
-        /^[a-z0-9!#$%&'*+/=?^_{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_{|}~-]+)@(?:[a-z0-9](?:[a-z0-9-][a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+
+        /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+
         "Correo inválido"
       )
       .min(8)
@@ -27,7 +29,10 @@ const Login = ({ isShow, handleClose }) => {
       .required("El email es requerido"),
     password: Yup.string()
       .matches(
-        /^(?=.\d)(?=.[\u0021-\u002b\u003c-\u0040])(?=.[A-Z])(?=.[a-z])\S{8,16}$/,
+
+        /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
+
+
         "Contraseña inválida"
       )
       .min(8)
