@@ -358,7 +358,7 @@ const FormCreateProduct = () => {
                 }
               )}
             >
-              <option value="">Es destacado</option>
+              <option value="">Seleccione una opcion...</option>
               <option value="true">SI</option>
               <option value="false">NO</option>
             </Form.Select>

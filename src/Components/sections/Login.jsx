@@ -11,22 +11,28 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-
-
 const Login = ({ isShow, handleClose }) => {
   const { setCurrentUser, SaveAuth } = useContext(UserContext);
   const navigate = useNavigate();
   const API = import.meta.env.VITE_API;
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().matches(
-      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
-      "Correo invalido"
-    ).min(8).max(125).required("El email es requerido"),
-    password: Yup.string().matches(
-      /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
-      "Contraseña invalida"
-    ).min(8).max(16).required("La contraseña es requerida"),
+    email: Yup.string()
+      .matches(
+        /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+        "Correo inválido"
+      )
+      .min(8)
+      .max(125)
+      .required("El email es requerido"),
+    password: Yup.string()
+      .matches(
+        /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
+        "Contraseña inválida"
+      )
+      .min(8)
+      .max(16)
+      .required("La contraseña es requerida"),
   });
 
   const initialValues = {
@@ -37,8 +43,8 @@ const Login = ({ isShow, handleClose }) => {
   const formik = useFormik({
     initialValues,
     validationSchema: LoginSchema,
-    validateOnBlur: true,
-    validateOnChange: true,
+    validateOnBlur: false,
+    validateOnChange: false,
     onSubmit: async (values) => {
       Swal.fire({
         title: "Iniciando sesión...!",
@@ -58,25 +64,32 @@ const Login = ({ isShow, handleClose }) => {
           Swal.close();
           handleClose();
         } else {
-             Swal.fire({
+          Swal.fire({
             icon: "error",
             title: "Error",
             text: "Email y/o usuario incorrecto",
           });
-          
         }
-        
       } catch (error) {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Email y/o usuario incorrecto***",
-        });
-        
+        const errorMessage = error.response?.data?.message;
+        if (errorMessage === "Usuario inactivo por Admin") {
+          Swal.fire({
+            icon: "error",
+            title: "Usuario Deshabilitado",
+            text: "Su cuenta está deshabilitada. Por favor, contacte con soporte.",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Email y/o usuario incorrecto",
+          });
+        }
         console.error(error);
       }
     },
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -85,7 +98,7 @@ const Login = ({ isShow, handleClose }) => {
     formik.resetForm();
     handleClose();
   };
-  
+
   return (
     <>
       <Modal show={isShow} onHide={handleModalClose}>
@@ -110,7 +123,7 @@ const Login = ({ isShow, handleClose }) => {
                   "is-valid": formik.touched.email && !formik.errors.email,
                 })}
               />
-               {formik.touched.email && formik.errors.email && (
+              {formik.touched.email && formik.errors.email && (
                 <div className="mt-2 text-danger fw-bolder">
                   <span role="alert">{formik.errors.email}</span>
                 </div>
@@ -135,13 +148,13 @@ const Login = ({ isShow, handleClose }) => {
                       formik.touched.password && !formik.errors.password,
                   })}
                 />
-                 {formik.touched.password && formik.errors.password && (
-                <div className="container mt-2 text-danger fw-bolder">
-                  <span role="alert">{formik.errors.password}</span>
-                </div>
-              )}
+                {formik.touched.password && formik.errors.password && (
+                  <div className="container mt-2 text-danger fw-bolder">
+                    <span role="alert">{formik.errors.password}</span>
+                  </div>
+                )}
                 <button
-                  className="btn btn-outline-secondary "
+                  className="btn btn-outline-secondary"
                   type="button"
                   onClick={toggleShowPassword}
                 >
