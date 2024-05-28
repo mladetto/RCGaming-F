@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+
 export default function ResetPassword() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,6 +48,15 @@ export default function ResetPassword() {
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (values) => {
+      Swal.fire({
+        title: "Actualizando contraseña...",
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        willOpen: () => {
+          Swal.showLoading();
+        },
+      });
       try {
         const response = await axios.patch(`${API}/users/reset_password`, {
           values,
@@ -55,6 +65,7 @@ export default function ResetPassword() {
         });
         if (response.status === 200) {
           formik.resetForm();
+          Swal.close();
           Swal.fire({
             title: "Exito!",
             text: "Se cambio la contraseña correctamente.",

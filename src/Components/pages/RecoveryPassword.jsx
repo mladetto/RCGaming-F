@@ -25,7 +25,7 @@ export default function RecoveryPassword() {
     validateOnChange: true,
     onSubmit: async (values) => {
       Swal.fire({
-        title: "Cargando Usuarios!",
+        title: "Procesando solicitud...",
         allowEscapeKey: false,
         allowOutsideClick: false,
         showConfirmButton: false,
@@ -43,7 +43,6 @@ export default function RecoveryPassword() {
             text: "Se envio un email a tu correo para cambiar la contraseña.",
             icon: "success",
           });
-          
         }
       } catch (error) {
         Swal.fire({
